@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0201
+Stato: CHIUSO
+Aperto il: 17/06/2025 16:05
+Impianto: IMP-04 - Depuratore di Castelrovo
+Apparecchiatura: CAS-RTU-01 - matricola RTU12-24-0054
+Codice allarme: A-104
+Priorità: MEDIA
+Segnalato da: Nicola De Luca
+Assegnato a: Epsilon Telecontrollo S.r.l.
+Contratto: CTR-2024-022
+------------------------------------------------------------
+DESCRIZIONE
+depuratore castelrovo fuori linea da 40 minuti sul telecontrollo, A-104. impianto in marcia regolare da verifica telefonica
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 17/06/2025 19:05 (Luigi Manca)
+SIM principale bloccata dall'operatore, commutazione sulla seconda SIM non avvenuta per un parametro errato. corretto da remoto e verificato il fallback
+Ricambi utilizzati: nessuno
+Ore di lavoro: 1
+Funzionalità ripristinata: 17/06/2025 21:05
+Chiuso il: 18/06/2025 09:00

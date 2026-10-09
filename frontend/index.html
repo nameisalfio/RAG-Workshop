@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Torrevalle Acque documents</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <h1>Ask the documents</h1>
+        <p class="lede">
+          Contracts, manuals, policies and minutes of Torrevalle Acque. Every answer lists the passages it
+          was written from.
+        </p>
+        <p id="status" class="status" role="status">Connecting to the backend.</p>
+      </header>
+
+      <main>
+        <form id="ask-form" class="ask" novalidate>
+          <label for="question">Your question</label>
+          <textarea id="question" name="question" rows="3" required></textarea>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
+          <div class="ask-actions">
+            <button id="submit" type="submit" class="button">Ask</button>
+            <span id="progress" class="progress" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+
+        <section id="examples" class="examples" aria-labelledby="examples-title">
+          <h2 id="examples-title">Questions to start from</h2>
+          <ul>
+            <li>
+              <button type="button" class="example">
+                Con quanto preavviso possiamo recedere dal contratto CTR-2024-017 con Beta Idroservizi?
+              </button>
+            </li>
+            <li>
+              <button type="button" class="example">Cosa significa l'allarme E-4012 sulla pompa P7?</button>
+            </li>
+            <li>
+              <button type="button" class="example">Chi è il legale rappresentante di Beta Idroservizi?</button>
+            </li>
+          </ul>
+        </section>
+
+        <section id="result" class="result" aria-labelledby="result-title" hidden>
+          <h2 id="result-title">Answer</h2>
+          <p id="asked" class="asked"></p>
+          <div id="answer" class="answer"></div>
+          <p id="answered-by" class="meta"></p>
+
+          <h2 id="sources-title">Passages given to the model</h2>
+          <p class="meta">Ordered by similarity with the question. Open one to read it.</p>
+          <ol id="sources" class="sources" aria-labelledby="sources-title"></ol>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

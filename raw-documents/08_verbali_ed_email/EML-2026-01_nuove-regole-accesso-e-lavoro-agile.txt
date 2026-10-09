@@ -1,0 +1,15 @@
+Da: Andrea Vitale <andrea.vitale@torrevalleacque.example>
+A: Tutto il personale <personale@torrevalleacque.example>
+Cc: Chiara Benedetti <chiara.benedetti@torrevalleacque.example>
+Inviato: 08/01/2026 10:00
+Oggetto: Promemoria: nuove regole su lavoro agile e accessi informatici
+
+Buongiorno,
+
+dal 1° gennaio è in vigore la versione 2.0 della policy sul lavoro agile: le giornate consentite passano da 2 a 3 alla settimana e vanno pianificate entro il giovedì della settimana precedente.
+
+Ricordo che per lavorare da remoto servono il computer aziendale e la VPN, e che l'autenticazione a più fattori è obbligatoria per posta elettronica, VPN e telecontrollo. La password deve avere almeno 14 caratteri e non scade più ogni 90 giorni.
+
+Per problemi di accesso scrivete a helpdesk@torrevalleacque.example.
+
+Andrea Vitale - Sistemi Informativi

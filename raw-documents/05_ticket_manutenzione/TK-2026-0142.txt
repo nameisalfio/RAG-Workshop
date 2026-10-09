@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0142
+Stato: CHIUSO
+Aperto il: 30/06/2026 10:10
+Impianto: IMP-02 - Stazione di sollevamento fognario di Pontenero
+Apparecchiatura: PON-QE-01 - matricola QE80-20-0091
+Codice allarme: Q-04
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Delta Quadri e Automazione S.r.l.
+Contratto: CTR-2025-014
+------------------------------------------------------------
+DESCRIZIONE
+differenziale generale scattato, Q-04, tutte le pompe ferme. riarmo non riuscito
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 30/06/2026 23:10 (Omar Ricci)
+isolamento basso sul cavo della pompa 3, giunzione nel pozzetto allagata. rifatta la giunzione e riarmato. tecnico sul posto dopo 13 ore
+Ricambi utilizzati: nessuno
+Ore di lavoro: 3
+Funzionalità ripristinata: 01/07/2026 03:10
+Chiuso il: 02/07/2026 09:00

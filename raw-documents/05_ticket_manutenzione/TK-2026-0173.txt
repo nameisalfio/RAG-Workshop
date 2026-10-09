@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0173
+Stato: CHIUSO
+Aperto il: 18/08/2026 15:05
+Impianto: IMP-06 - Stazione di sollevamento di Borgolago
+Apparecchiatura: BOR-VR-01 - matricola VR150-24-0318
+Codice allarme: non presente
+Priorità: MEDIA
+Segnalato da: Ivan Costa
+Assegnato a: Zeta Manutenzioni Industriali S.r.l.
+Contratto: CTR-2023-015
+------------------------------------------------------------
+DESCRIZIONE
+colpo d'ariete forte all'arresto della pompa 2, la valvola di ritegno non chiude bene
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 19/08/2026 02:05 (Mirko Zanon)
+rivestimento della palla usurato oltre 2 mm, sostituita la palla. verificata anche la sede di tenuta
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 19/08/2026 21:05
+Chiuso il: 20/08/2026 09:00

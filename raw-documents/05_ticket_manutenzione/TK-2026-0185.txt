@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0185
+Stato: CHIUSO
+Aperto il: 15/09/2026 08:40
+Impianto: IMP-08 - Stazione di rilancio acquedotto di Rivasecca
+Apparecchiatura: RIV-P5-02 - matricola P5-18-00191
+Codice allarme: E-2110
+Priorità: ALTA
+Segnalato da: Sara Neri
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+pressione di mandata bassa su P5 n.2, E-2110
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 15/09/2026 16:40 (Paolo Venturi)
+rottura sulla condotta a valle, segnalata al reparto reti. pompa regolare
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 15/09/2026 18:40
+Chiuso il: 16/09/2026 09:00

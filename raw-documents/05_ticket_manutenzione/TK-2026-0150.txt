@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0150
+Stato: CHIUSO
+Aperto il: 08/07/2026 05:20
+Impianto: IMP-09 - Campo pozzi di Montefosco
+Apparecchiatura: MON-P1-01 - matricola P1-17-00512
+Codice allarme: E-2001
+Priorità: MEDIA
+Segnalato da: Matteo Longo
+Assegnato a: Alfa Fluidodinamica S.r.l.
+Contratto: CTR-2024-011
+------------------------------------------------------------
+DESCRIZIONE
+pozzo 1 montefosco E-2001 ripetuto, riparte da solo dopo 10 minuti e si riferma
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 09/07/2026 02:20 (Simone Arduini)
+sonda di livello del pozzo guasta e valvola di ritegno integrata che trafila. sostituite entrambe
+Ricambi utilizzati: RIC-P1-0061 (1), RIC-P1-0044 (1)
+Ore di lavoro: 2
+Funzionalità ripristinata: 09/07/2026 05:20
+Chiuso il: 10/07/2026 09:00

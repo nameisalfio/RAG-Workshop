@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0031
+Stato: CHIUSO
+Aperto il: 14/01/2025 07:42
+Impianto: IMP-04 - Depuratore di Castelrovo
+Apparecchiatura: CAS-P7-02 - matricola P7-22-00418
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+allarme E-4012 su pompa ricircolo fanghi n.2 dalle 7.30 circa. pompa ancora in marcia, nessun blocco. messa in servizio la n.1, la 2 resta in stand-by in attesa del fornitore
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 14/01/2025 13:12 (Riccardo Gallo)
+sollevata la pompa, olio camera tenute lattiginoso (acqua presente). sostituita tenuta meccanica inferiore, cambio olio 1,8 l. prova isolamento ok 180 MOhm. rimessa in servizio
+Ricambi utilizzati: RIC-P7-0031 (1)
+Ore di lavoro: 3,5
+Funzionalità ripristinata: 15/01/2025 13:42
+Chiuso il: 16/01/2025 09:00

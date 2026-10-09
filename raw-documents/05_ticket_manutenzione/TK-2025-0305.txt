@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0305
+Stato: CHIUSO
+Aperto il: 22/09/2025 18:20
+Impianto: IMP-06 - Stazione di sollevamento di Borgolago
+Apparecchiatura: BOR-P7-01 - matricola P7-20-00301
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Ivan Costa
+Assegnato a: Zeta Manutenzioni Industriali S.r.l.
+Contratto: CTR-2023-015
+------------------------------------------------------------
+DESCRIZIONE
+E-4012 sulla P7 di magra a borgolago. chiamato il manutentore del contratto borgolago, qui le pompe NON sono seguite da Beta
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 23/09/2025 04:20 (Mirko Zanon)
+tenuta inferiore sostituita, olio cambiato. ricambio originale prelevato dal magazzino centrale
+Ricambi utilizzati: RIC-P7-0031 (1)
+Ore di lavoro: 4
+Funzionalità ripristinata: 24/09/2025 10:20
+Chiuso il: 25/09/2025 09:00

@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0362
+Stato: CHIUSO
+Aperto il: 18/11/2025 11:50
+Impianto: IMP-09 - Campo pozzi di Montefosco
+Apparecchiatura: MON-P2-02 - matricola P2-21-00345
+Codice allarme: E-3010
+Priorità: MEDIA
+Segnalato da: Matteo Longo
+Assegnato a: Alfa Fluidodinamica S.r.l.
+Contratto: CTR-2024-011
+------------------------------------------------------------
+DESCRIZIONE
+pozzo 4 montefosco in blocco E-3010 due volte in una settimana
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 19/11/2025 10:50 (Fabio Marchi)
+camicia di raffreddamento incrostata, velocita dell'acqua insufficiente. pulizia e riduzione degli avviamenti a 10 l'ora
+Ricambi utilizzati: nessuno
+Ore di lavoro: 4
+Funzionalità ripristinata: 20/11/2025 10:50
+Chiuso il: 21/11/2025 09:00

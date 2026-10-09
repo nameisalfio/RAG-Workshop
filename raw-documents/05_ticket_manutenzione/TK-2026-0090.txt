@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0090
+Stato: CHIUSO
+Aperto il: 21/04/2026 11:15
+Impianto: IMP-08 - Stazione di rilancio acquedotto di Rivasecca
+Apparecchiatura: RIV-RTU-01 - matricola RTU12-24-0058
+Codice allarme: A-112
+Priorità: BASSA
+Segnalato da: Nicola De Luca
+Assegnato a: Epsilon Telecontrollo S.r.l.
+Contratto: CTR-2024-022
+------------------------------------------------------------
+DESCRIZIONE
+avviso A-112 batteria scarica su RTU rivasecca, 11,0 V
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 21/04/2026 14:45 (Alessio Fois)
+batteria tampone sostituita, aveva 4 anni. autonomia verificata
+Ricambi utilizzati: nessuno
+Ore di lavoro: 0,5
+Funzionalità ripristinata: 22/04/2026 07:15
+Chiuso il: 23/04/2026 09:00

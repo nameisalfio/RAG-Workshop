@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0374
+Stato: CHIUSO
+Aperto il: 02/12/2025 15:15
+Impianto: IMP-06 - Stazione di sollevamento di Borgolago
+Apparecchiatura: BOR-LS-01 - matricola LS40-24-1250
+Codice allarme: L-01
+Priorità: MEDIA
+Segnalato da: Ivan Costa
+Assegnato a: Iota Strumentazione S.r.l.
+Contratto: CTR-2025-011
+------------------------------------------------------------
+DESCRIZIONE
+sonda livello vasca di arrivo a 3,5 mA, allarme L-01. pompe in manuale
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 04/12/2025 07:15 (Sergio Bruni)
+cavo ventilato tranciato nel pozzetto. sostituita la sonda LS-40 e ripristinato il funzionamento automatico
+Ricambi utilizzati: nessuno
+Ore di lavoro: 1
+Funzionalità ripristinata: 04/12/2025 09:15
+Chiuso il: 05/12/2025 09:00

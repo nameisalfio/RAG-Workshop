@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0047
+Stato: CHIUSO
+Aperto il: 24/02/2026 10:30
+Impianto: IMP-01 - Impianto di potabilizzazione di Fontechiara
+Apparecchiatura: FON-FM-01 - matricola FM300-24-0903
+Codice allarme: E-401
+Priorità: MEDIA
+Segnalato da: Luca Bassi
+Assegnato a: Iota Strumentazione S.r.l.
+Contratto: CTR-2025-011
+------------------------------------------------------------
+DESCRIZIONE
+misuratore uscita impianto segna zero con E-401 tubo vuoto ma la condotta e' in pressione
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 25/02/2026 16:30 (Flavio Neri)
+elettrodo di rilevamento del tubo vuoto incrostato. pulizia degli elettrodi e verifica dello zero. misura allineata al totalizzatore di centrale
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 25/02/2026 19:30
+Chiuso il: 26/02/2026 09:00

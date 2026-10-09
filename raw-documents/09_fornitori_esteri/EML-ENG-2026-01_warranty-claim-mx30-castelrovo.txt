@@ -1,0 +1,28 @@
+From: Matthias Brandt <m.brandt@kessler-antriebe.example>
+To: Dario Ferrante <dario.ferrante@torrevalleacque.example>
+Cc: Marta Colombini <marta.colombini@torrevalleacque.example>
+Sent: 12/02/2026 14:20
+Subject: RE: Warranty claim - MX-30 mixer at Castelrovo, alarm M-11
+
+Dear Mr Ferrante,
+
+we accept your claim under the warranty of Framework Agreement FA-2025-03. The mixer was delivered on 14 May 2025, so it is well within the 36-month warranty.
+
+We will ship a replacement mechanical seal kit and one litre of gear oil within 10 business days. The return reference is RMA-26-0048. Please keep the mixer stopped if the leakage sensor resistance drops below 30 kOhm.
+
+Best regards, Matthias Brandt - Kessler Antriebe GmbH
+
+-----Original Message-----
+From: Dario Ferrante <dario.ferrante@torrevalleacque.example>
+To: Matthias Brandt <m.brandt@kessler-antriebe.example>
+Cc: Marta Colombini <marta.colombini@torrevalleacque.example>
+Sent: 10/02/2026 09:05
+Subject: Warranty claim - MX-30 mixer at Castelrovo, alarm M-11
+
+Dear Mr Brandt,
+
+the MX-30 mixer tag CAS-MX-02 at our Castelrovo treatment plant has been showing alarm M-11, leakage in oil chamber, since 6 February. The mixer has run about 5,900 hours since installation.
+
+Your manual says the seal must be replaced within 14 days. We ask you to treat this as a warranty claim.
+
+Kind regards, Dario Ferrante - Torrevalle Acque S.p.A.

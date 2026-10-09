@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0020
+Stato: CHIUSO
+Aperto il: 28/01/2026 07:05
+Impianto: IMP-10 - Centrale idrica di Torrevalle Centro
+Apparecchiatura: TOR-P5-01 - matricola P5-20-00255
+Codice allarme: E-1040
+Priorità: ALTA
+Segnalato da: Luca Bassi
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+P5 n.1 rete bassa ferma per E-1040 (su queste e' la termica PTC). locale pompe molto caldo
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 28/01/2026 17:05 (Paolo Venturi)
+copriventola ostruito dalla polvere e ventilatore del locale fermo. pulito e ripristinata la ventilazione
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 28/01/2026 20:05
+Chiuso il: 29/01/2026 09:00

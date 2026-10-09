@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0119
+Stato: CHIUSO
+Aperto il: 11/04/2025 06:50
+Impianto: IMP-02 - Stazione di sollevamento fognario di Pontenero
+Apparecchiatura: PON-P8-02 - matricola P8-20-00103
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+E-4012 su pompa 2. da manuale puo restare in marcia max 48 ore, la teniamo come seconda in sequenza
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 11/04/2025 13:50 (Riccardo Gallo)
+acqua in camera olio. sostituita tenuta inferiore e 3,5 l di olio. trovato filo di nylon avvolto sull'albero, probabile causa
+Ricambi utilizzati: RIC-P8-0031 (1)
+Ore di lavoro: 4
+Funzionalità ripristinata: 12/04/2025 13:50
+Chiuso il: 13/04/2025 09:00

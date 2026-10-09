@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0166
+Stato: CHIUSO
+Aperto il: 04/08/2026 09:45
+Impianto: IMP-01 - Impianto di potabilizzazione di Fontechiara
+Apparecchiatura: FON-P7-02 - matricola P7-23-00455
+Codice allarme: E-2101
+Priorità: MEDIA
+Segnalato da: Luca Bassi
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+E-2101 su controlavaggio 2, portata bassa
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 04/08/2026 14:45 (Enrico Sala)
+filamenti nella girante, liberata. ciclo di rotazione inversa non disponibile su questo quadro
+Ricambi utilizzati: nessuno
+Ore di lavoro: 1,5
+Funzionalità ripristinata: 04/08/2026 16:45
+Chiuso il: 05/08/2026 09:00

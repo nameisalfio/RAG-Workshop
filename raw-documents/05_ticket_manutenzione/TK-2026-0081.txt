@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0081
+Stato: CHIUSO
+Aperto il: 02/04/2026 09:00
+Impianto: IMP-01 - Impianto di potabilizzazione di Fontechiara
+Apparecchiatura: FON-P5-02 - matricola P5-19-00232
+Codice allarme: E-4012
+Priorità: MEDIA
+Segnalato da: Luca Bassi
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+E-4012 su P5 rilancio linea 2, vibrazione 4,9 mm/s
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 02/04/2026 18:00 (Marco Lodi)
+bulloni di fondazione allentati e giunto fuori tolleranza (0,09 mm). riallineato. vibrazione dopo l'intervento 1,9 mm/s
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2,5
+Funzionalità ripristinata: 03/04/2026 15:00
+Chiuso il: 04/04/2026 09:00

@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0117
+Stato: CHIUSO
+Aperto il: 19/05/2026 06:35
+Impianto: IMP-07 - Depuratore di Pratolungo
+Apparecchiatura: PRA-P7-01 - matricola P7-23-00461
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Ivan Costa
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+E-4012 su P7 ricircolo fanghi pratolungo
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 19/05/2026 12:05 (Enrico Sala)
+acqua in camera olio, tenuta inferiore sostituita. cambio olio 1,8 l
+Ricambi utilizzati: RIC-P7-0031 (1)
+Ore di lavoro: 3,5
+Funzionalità ripristinata: 20/05/2026 07:35
+Chiuso il: 21/05/2026 09:00

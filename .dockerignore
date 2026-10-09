@@ -1,0 +1,6 @@
+# The Python image needs the package and its metadata, nothing else.
+# Secrets (.env), documents and artifacts never enter the image: they are mounted at run time.
+*
+!pyproject.toml
+!src
+**/__pycache__

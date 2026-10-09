@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0012
+Stato: CHIUSO
+Aperto il: 20/01/2026 09:10
+Impianto: IMP-06 - Stazione di sollevamento di Borgolago
+Apparecchiatura: BOR-P8-01 - matricola P8-19-00088
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Ivan Costa
+Assegnato a: Zeta Manutenzioni Industriali S.r.l.
+Contratto: CTR-2023-015
+------------------------------------------------------------
+DESCRIZIONE
+E-4012 pompa 1 borgolago
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 20/01/2026 20:10 (Carlo Bettin)
+sostituita la tenuta inferiore. seconda infiltrazione su questa pompa in 14 mesi, proposta la revisione generale in officina
+Ricambi utilizzati: RIC-P8-0031 (1)
+Ore di lavoro: 4,5
+Funzionalità ripristinata: 22/01/2026 06:10
+Chiuso il: 23/01/2026 09:00

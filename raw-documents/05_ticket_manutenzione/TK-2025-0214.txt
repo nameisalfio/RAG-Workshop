@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0214
+Stato: CHIUSO
+Aperto il: 24/06/2025 13:25
+Impianto: IMP-10 - Centrale idrica di Torrevalle Centro
+Apparecchiatura: TOR-P5-02 - matricola P5-20-00256
+Codice allarme: E-2011
+Priorità: MEDIA
+Segnalato da: Luca Bassi
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+E-2011 su P5 n.2 rete bassa. qui il 2011 e' cavitazione, non marcia a secco. vuotometro in aspirazione molto basso
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 24/06/2025 22:25 (Marco Lodi)
+filtro di aspirazione intasato da foglie dopo il temporale. pulito, pressione in aspirazione regolare
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 25/06/2025 01:25
+Chiuso il: 26/06/2025 09:00

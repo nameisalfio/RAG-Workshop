@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0158
+Stato: CHIUSO
+Aperto il: 22/07/2026 12:30
+Impianto: IMP-07 - Depuratore di Pratolungo
+Apparecchiatura: PRA-P9-01 - matricola P9-22-00044
+Codice allarme: E-3007
+Priorità: ALTA
+Segnalato da: Ivan Costa
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+P9 n.1 in blocco E-3007, avvolgimenti a 158 gradi, vasca bassa
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 22/07/2026 18:30 (Riccardo Gallo)
+soglia di arresto troppo bassa, motore scoperto durante il funzionamento. rialzata la soglia a 85 cm. avviamenti orari entro il limite
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 22/07/2026 21:30
+Chiuso il: 23/07/2026 09:00

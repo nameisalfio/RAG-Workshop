@@ -1,0 +1,15 @@
+Da: Roberta Gallo <roberta.gallo@betaidroservizi.example>
+A: Dario Ferrante <dario.ferrante@torrevalleacque.example>
+Cc: Giorgio Moretti <giorgio.moretti@torrevalleacque.example>; Luca Bassi <luca.bassi@torrevalleacque.example>; Ivan Costa <ivan.costa@torrevalleacque.example>
+Inviato: 20/03/2026 12:21
+Oggetto: Bollettino tecnico BT-12 - soglia vibrazioni elettropompe P7
+
+Gentile ing. Ferrante,
+
+in allegato il bollettino tecnico BT-12 del 16 marzo 2026. Per le elettropompe P7 con matricola anteriore al 2024 la soglia di allarme delle vibrazioni, allarme E-4021, scende da 7,1 a 6,3 mm/s; la soglia di arresto scende da 11,0 a 10,0 mm/s.
+
+La modifica riguarda solo le P7 costruite fino al 2023. Per le P7 costruite dal 2024 e per i modelli P8 e P9 restano validi i valori del manuale.
+
+La modifica del parametro sul modulo di controllo richiede circa 15 minuti per pompa e può essere eseguita dai nostri tecnici durante la prossima visita programmata, senza costi.
+
+Cordiali saluti, Roberta Gallo - Beta Idroservizi S.r.l.

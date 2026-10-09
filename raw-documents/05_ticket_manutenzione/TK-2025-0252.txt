@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0252
+Stato: CHIUSO
+Aperto il: 29/07/2025 05:55
+Impianto: IMP-05 - Campo pozzi di Valdombra
+Apparecchiatura: VAL-P2-02 - matricola P2-20-00311
+Codice allarme: E-2001
+Priorità: ALTA
+Segnalato da: Matteo Longo
+Assegnato a: Alfa Fluidodinamica S.r.l.
+Contratto: CTR-2024-011
+------------------------------------------------------------
+DESCRIZIONE
+pozzo 2 fermo per E-2001, quarto arresto, non riparte piu da solo. livello dinamico basso per la siccita
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 30/07/2025 03:55 (Simone Arduini)
+livello dinamico sceso a 4 m sopra la pompa. abbassata la pompa di 12 m aggiungendo due tubi di colonna. ripristino manuale ok
+Ricambi utilizzati: nessuno
+Ore di lavoro: 3
+Funzionalità ripristinata: 30/07/2025 07:55
+Chiuso il: 31/07/2025 09:00

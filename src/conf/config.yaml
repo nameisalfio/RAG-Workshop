@@ -1,0 +1,108 @@
+defaults:
+  - base_config
+  - _self_
+
+seed: 42
+
+# Relative paths start at the project root, whatever the launch directory.
+paths:
+  # Folder with the documents to ingest; it must exist and must not be empty.
+  raw_documents_dir: raw-documents
+  # Folder for every artifact produced by the pipeline (parsed text, chunks, index).
+  artifacts_dir: data/artifacts
+  # Parsed documents, one JSON file per raw document.
+  parsed_dir: ${paths.artifacts_dir}/parsed
+  # Vector indexes, one sub-folder each (vectors and chunks).
+  index_dir: ${paths.artifacts_dir}/index
+  # Optional file with secrets; variables already set in the environment win.
+  env_file: .env
+
+parsing:
+  # Parser for PDF files, one of: pypdf, pymupdf, pdfplumber, pymupdf4llm, docling.
+  # Docling was chosen in notebooks/00_parsing.ipynb.
+  pdf_backend: docling
+  # Parser for every type without a dedicated reader (XLSX, PPTX, HTML, images, e-mail, ...).
+  generic_backend: docling
+  text_encoding: utf-8
+  # Candidate delimiters for CSV files; the one in use is detected per file.
+  csv_delimiters: ",;\t|"
+
+chunking:
+  # One of: fixed, recursive, structural.
+  strategy: structural
+  # Size limit of a chunk, in tokens of the embedding model.
+  max_tokens: 300
+  # Structural strategy only: a section below this size, typically a title with no body,
+  # is joined to the section that follows.
+  min_tokens: 20
+  # Tokens repeated between consecutive chunks; used by the fixed strategy only.
+  overlap_tokens: 40
+
+embedding:
+  model_name: BAAI/bge-m3
+  device: cpu
+  batch_size: 16
+  # Maximum number of tokens per input; longer texts are rejected, not truncated.
+  max_length: 8192
+  normalize: true
+
+reranking:
+  # One of: cosine, dot, euclidean.
+  similarity_metric: cosine
+  # Number of top results to return for each query.
+  top_k: 10
+
+vector_store:
+  # Qdrant server. Docker Compose sets QDRANT_URL to the address of the qdrant service.
+  url: ${oc.env:QDRANT_URL,http://localhost:6333}
+  collection: torrevalle_chunks
+  timeout_s: 30.0
+  # The whole collection as one file, kept in the repository. It is written after an ingestion
+  # and loaded when the collection is empty, so that a fresh clone skips parsing and embedding.
+  snapshot_file: vector-db/${vector_store.collection}.snapshot
+
+ingestion:
+  # Chunks embedded and sent to the vector store in one step.
+  batch_size: 128
+  # Parse, embed and rebuild the collection even when it already holds chunks or a snapshot exists.
+  force: false
+
+rag:
+  # Instructions given to the model before the passages; the current date is added at run time.
+  system_prompt: >-
+    You answer questions about the documents of the company Torrevalle Acque.
+    Use only the passages in the prompt and name the document each fact comes from.
+    When passages disagree, explain which one applies today and why.
+    If the passages do not contain the answer, say that you do not know.
+    Answer in the language of the question.
+
+api:
+  # Longest question accepted by the web interface, in characters.
+  max_question_chars: 1000
+
+llm:
+  provider: openrouter
+  base_url: https://openrouter.ai/api/v1
+  # Free models change often: check the OpenRouter models page before use.
+  # Tested on 2026-10-08. The free Gemma models answered HTTP 429 (shared quota exhausted upstream).
+  model: nvidia/nemotron-3-ultra-550b-a55b:free
+  # Used when the main model is unavailable; the switch is logged.
+  fallback_model: nvidia/nemotron-3-super-120b-a12b:free
+  # Name of the environment variable that holds the key, never the key itself.
+  api_key_env: OPENROUTER_API_KEY
+  temperature: 0.0
+  # The limit includes the reasoning these models write before the answer: with 1024
+  # the fallback model used every token on reasoning and returned no text.
+  max_tokens: 4096
+  timeout_s: 120.0
+
+hydra:
+  job:
+    chdir: false
+  job_logging:
+    loggers:
+      # One line per HTTP request is too much when a model is being downloaded.
+      httpx:
+        level: WARNING
+  run:
+    dir: outputs/${now:%Y-%m-%d_%H-%M-%S}

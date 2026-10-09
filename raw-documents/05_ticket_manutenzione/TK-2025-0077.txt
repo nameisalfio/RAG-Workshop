@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0077
+Stato: CHIUSO
+Aperto il: 06/03/2025 10:05
+Impianto: IMP-05 - Campo pozzi di Valdombra
+Apparecchiatura: VAL-P3-01 - matricola P3-23-00059
+Codice allarme: E-2010
+Priorità: MEDIA
+Segnalato da: Matteo Longo
+Assegnato a: Alfa Fluidodinamica S.r.l.
+Contratto: CTR-2024-011
+------------------------------------------------------------
+DESCRIZIONE
+pozzo 4: portata scesa a circa 60 m3/h, allarme E-2010 fisso da ieri. assorbimento che balla
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 07/03/2025 06:05 (Fabio Marchi)
+campione d'acqua con sabbia evidente. eseguito spurgo del pozzo con air-lift, portata risalita a 88 m3/h. consigliato controllo delle giranti alla prossima estrazione
+Ricambi utilizzati: nessuno
+Ore di lavoro: 6
+Funzionalità ripristinata: 09/03/2025 08:05
+Chiuso il: 10/03/2025 09:00

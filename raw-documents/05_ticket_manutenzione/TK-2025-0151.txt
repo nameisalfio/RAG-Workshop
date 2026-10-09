@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0151
+Stato: CHIUSO
+Aperto il: 08/05/2025 11:10
+Impianto: IMP-08 - Stazione di rilancio acquedotto di Rivasecca
+Apparecchiatura: RIV-P5-01 - matricola P5-18-00190
+Codice allarme: E-4012
+Priorità: MEDIA
+Segnalato da: Sara Neri
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+E-4012 su P5 n.1, vibrazioni 5,1 mm/s lato pompa. attenzione: su queste pompe il 4012 e' vibrazione, non la tenuta come sulle sommergibili
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 08/05/2025 21:10 (Paolo Venturi)
+giunto disallineato di 0,18 mm (tolleranza 0,05). rifatto l'allineamento con comparatore, serrati i bulloni di fondazione. vibrazione 2,1 mm/s
+Ricambi utilizzati: nessuno
+Ore di lavoro: 3
+Funzionalità ripristinata: 09/05/2025 21:10
+Chiuso il: 10/05/2025 09:00

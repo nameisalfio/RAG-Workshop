@@ -1,0 +1,27 @@
+Da: Dario Ferrante <dario.ferrante@torrevalleacque.example>
+A: Luca Bassi <luca.bassi@torrevalleacque.example>
+Cc: Federica Pagani <federica.pagani@torrevalleacque.example>
+Inviato: 02/04/2026 08:31
+Oggetto: R: Fontechiara - chi chiamo per le P5 del rilancio?
+
+Luca,
+
+per le P5 di Fontechiara devi chiamare Gamma Elettromeccanica. L'impianto è entrato nel contratto CTR-2024-019 con l'addendum n. 1, in vigore dal 1° gennaio 2025: la copia della scheda che hai in impianto è evidentemente quella vecchia.
+
+Tempi di contratto: arrivo entro 12 ore e ripristino entro 72 ore. Beta resta il riferimento solo per le due P7 del controlavaggio.
+
+Apri il ticket prima di telefonare.
+
+Dario
+
+-----Messaggio originale-----
+Da: Luca Bassi <luca.bassi@torrevalleacque.example>
+A: Dario Ferrante <dario.ferrante@torrevalleacque.example>
+Inviato: 02/04/2026 08:05
+Oggetto: Fontechiara - chi chiamo per le P5 del rilancio?
+
+Dario,
+
+ho la P5 della linea 2 in allarme E-4012. Sulla scheda dell'impianto appesa in sala quadri per le P5 c'è scritto nessun contratto di manutenzione. Chiamo Beta come per le P7?
+
+Luca

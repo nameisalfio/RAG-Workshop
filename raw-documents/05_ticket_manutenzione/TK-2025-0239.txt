@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0239
+Stato: CHIUSO
+Aperto il: 15/07/2025 07:30
+Impianto: IMP-03 - Serbatoio e stazione di rilancio di Collesereno
+Apparecchiatura: COL-P6-01 - matricola P6-18-00077
+Codice allarme: E-4021
+Priorità: MEDIA
+Segnalato da: Sara Neri
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+perdita dalla tenuta su P6 rilancio n.1, E-4021. gocciola continuo
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 15/07/2025 15:30 (Paolo Venturi)
+misurati circa 40 ml/h (soglia 15). sostituito il kit tenuta meccanica. causa probabile: funzionamento a secco durante lo svuotamento del serbatoio di giugno
+Ricambi utilizzati: RIC-P6-0021 (1)
+Ore di lavoro: 4
+Funzionalità ripristinata: 17/07/2025 19:30
+Chiuso il: 18/07/2025 09:00

@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0270
+Stato: CHIUSO
+Aperto il: 19/08/2025 03:10
+Impianto: IMP-07 - Depuratore di Pratolungo
+Apparecchiatura: PRA-P9-02 - matricola P9-22-00045
+Codice allarme: E-4102
+Priorità: ALTA
+Segnalato da: Ivan Costa
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+BLOCCO immediato P9 n.2 sollevamento iniziale, E-4102 infiltrazione nel vano motore. non riavviata. impianto su una sola pompa
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 19/08/2025 08:10 (Riccardo Gallo)
+isolamento 2 MOhm, acqua nel vano motore. pressacavo danneggiato. sostituite entrambe le tenute e il pressacavo, asciugatura in forno in officina. rimessa in servizio dopo 51 ore dalla chiamata
+Ricambi utilizzati: RIC-P9-0031 (1), RIC-P9-0032 (1)
+Ore di lavoro: 6
+Funzionalità ripristinata: 21/08/2025 06:10
+Chiuso il: 22/08/2025 09:00

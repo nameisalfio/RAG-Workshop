@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0318
+Stato: CHIUSO
+Aperto il: 02/10/2025 12:00
+Impianto: IMP-02 - Stazione di sollevamento fognario di Pontenero
+Apparecchiatura: PON-P8-01 - matricola P8-20-00102
+Codice allarme: E-4120
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+pompa 1 non parte, E-4120 rotore bloccato dopo 3 tentativi
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 02/10/2025 18:30 (Enrico Sala)
+matassa di salviette e un pezzo di legno tra girante e voluta. rimosso tutto, girante integra, rotazione libera a mano
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 02/10/2025 21:00
+Chiuso il: 03/10/2025 09:00

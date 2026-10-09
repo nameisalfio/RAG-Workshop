@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0340
+Stato: CHIUSO
+Aperto il: 28/10/2025 14:10
+Impianto: IMP-04 - Depuratore di Castelrovo
+Apparecchiatura: CAS-DC-01 - matricola DC25-22-0140
+Codice allarme: D-03
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Rho Chimica Acque S.r.l.
+Contratto: CTR-2025-022
+------------------------------------------------------------
+DESCRIZIONE
+dosatrice disinfezione finale ferma, D-03 rottura membrana. dosaggio in manuale con la pompa di scorta
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 29/10/2025 10:10 (Dario Mele)
+membrana in PTFE lacerata, sostituita insieme alle valvole. taratura della portata eseguita: 18,2 l/h al 75 per cento
+Ricambi utilizzati: nessuno
+Ore di lavoro: 1,5
+Funzionalità ripristinata: 29/10/2025 13:10
+Chiuso il: 30/10/2025 09:00

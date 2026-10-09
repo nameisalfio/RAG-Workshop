@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0163
+Stato: CHIUSO
+Aperto il: 27/05/2025 15:40
+Impianto: IMP-10 - Centrale idrica di Torrevalle Centro
+Apparecchiatura: TOR-P6-01 - matricola P6-16-00041
+Codice allarme: E-4210
+Priorità: BASSA
+Segnalato da: Luca Bassi
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+avviso E-4210 su P6 n.1 da qualche giorno, rendimento calato. nessuna urgenza
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 28/05/2025 02:40 (Marco Lodi)
+gioco degli anelli di tenuta 0,9 mm (max 0,5). sostituita la coppia di anelli. portata tornata ai valori di collaudo
+Ricambi utilizzati: RIC-P6-0035 (1)
+Ore di lavoro: 5
+Funzionalità ripristinata: 30/05/2025 13:40
+Chiuso il: 31/05/2025 09:00

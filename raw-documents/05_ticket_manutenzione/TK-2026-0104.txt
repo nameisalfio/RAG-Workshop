@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0104
+Stato: CHIUSO
+Aperto il: 05/05/2026 08:25
+Impianto: IMP-05 - Campo pozzi di Valdombra
+Apparecchiatura: VAL-P2-01 - matricola P2-20-00310
+Codice allarme: E-1104
+Priorità: ALTA
+Segnalato da: Matteo Longo
+Assegnato a: Alfa Fluidodinamica S.r.l.
+Contratto: CTR-2024-011
+------------------------------------------------------------
+DESCRIZIONE
+pozzo 1 non parte, E-1104 dopo i lavori del distributore sulla linea
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 06/05/2026 00:25 (Fabio Marchi)
+sequenza delle fasi invertita a monte. scambiate due fasi nel quadro e verificato il senso di rotazione
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 06/05/2026 03:25
+Chiuso il: 07/05/2026 09:00

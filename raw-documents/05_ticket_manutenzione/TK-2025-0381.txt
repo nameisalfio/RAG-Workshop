@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0381
+Stato: CHIUSO
+Aperto il: 12/12/2025 20:40
+Impianto: IMP-04 - Depuratore di Castelrovo
+Apparecchiatura: CAS-P9-02 - matricola P9-21-00032
+Codice allarme: E-1040
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+P9 n.2 in blocco sovracorrente E-1040, 101 A su una fase
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 13/12/2025 03:40 (Enrico Sala)
+girante parzialmente ostruita da stracci. pulita. assorbimento dopo l'intervento 84 A
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2,5
+Funzionalità ripristinata: 13/12/2025 06:40
+Chiuso il: 14/12/2025 09:00

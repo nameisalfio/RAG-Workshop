@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0055
+Stato: CHIUSO
+Aperto il: 03/03/2026 16:20
+Impianto: IMP-03 - Serbatoio e stazione di rilancio di Collesereno
+Apparecchiatura: COL-P4-01 - matricola P4-22-00140
+Codice allarme: E-5003
+Priorità: BASSA
+Segnalato da: Sara Neri
+Assegnato a: Gamma Elettromeccanica S.r.l.
+Contratto: CTR-2024-019
+------------------------------------------------------------
+DESCRIZIONE
+E-5003 su P4 ricircolo, pompa passata a velocita fissa
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 04/03/2026 03:20 (Marco Lodi)
+trasduttore di pressione guasto (uscita fissa a 3,2 mA). sostituito
+Ricambi utilizzati: RIC-P4-0061 (1)
+Ore di lavoro: 1
+Funzionalità ripristinata: 04/03/2026 06:20
+Chiuso il: 05/03/2026 09:00

@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0034
+Stato: CHIUSO
+Aperto il: 09/02/2026 13:00
+Impianto: IMP-04 - Depuratore di Castelrovo
+Apparecchiatura: CAS-P7-01 - matricola P7-22-00417
+Codice allarme: E-4021
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+vibrazioni 9,6 mm/s su ricircolo fanghi 1, E-4021
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 09/02/2026 20:00 (Riccardo Gallo)
+girante danneggiata su una pala, sostituita. vibrazione residua 2,8 mm/s. arrivo del tecnico dopo 7 ore
+Ricambi utilizzati: RIC-P7-0040 (1)
+Ore di lavoro: 3
+Funzionalità ripristinata: 10/02/2026 18:00
+Chiuso il: 11/02/2026 09:00

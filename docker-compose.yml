@@ -1,0 +1,68 @@
+# The whole demo: `docker compose up --build`, then open http://localhost:8080
+#
+#   qdrant    vector database
+#   ingest    one-off job that fills the vector database, then exits
+#   backend   API that retrieves the passages and asks the language model
+#   frontend  web interface
+#
+# The first start downloads the embedding model (about 2.3 GB) into the model_cache volume.
+# To reuse models that are already on this machine, set MODEL_CACHE in .env to the absolute path of
+# the Hugging Face cache, for example MODEL_CACHE=/Users/me/.cache/huggingface
+
+name: rag-workshop
+
+x-python-service: &python-service
+  build: .
+  image: rag-workshop-python
+  environment:
+    QDRANT_URL: http://qdrant:6333
+    # Models are downloaded once and kept in a volume shared by the ingestion job and the backend.
+    HF_HOME: /models
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.19.2
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    ports:
+      # Dashboard of the vector database, reachable from this machine only.
+      - "127.0.0.1:${QDRANT_PORT:-6333}:6333"
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  ingest:
+    <<: *python-service
+    command: ["python", "-m", "src.ingest"]
+    volumes:
+      - ./raw-documents:/app/raw-documents:ro
+      - ./data:/app/data
+      - ./vector-db:/app/vector-db
+      - ${MODEL_CACHE:-model_cache}:/models
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    restart: "no"
+
+  backend:
+    <<: *python-service
+    env_file: .env
+    volumes:
+      - ${MODEL_CACHE:-model_cache}:/models
+    depends_on:
+      ingest:
+        condition: service_completed_successfully
+
+  frontend:
+    build: ./frontend
+    image: rag-workshop-frontend
+    ports:
+      - "127.0.0.1:${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+
+volumes:
+  qdrant_storage:
+  model_cache:

@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2026-0069
+Stato: CHIUSO
+Aperto il: 14/03/2026 07:42
+Impianto: IMP-04 - Depuratore di Castelrovo
+Apparecchiatura: CAS-P7-02 - matricola P7-22-00418
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+di nuovo E-4012 sulla ricircolo fanghi n.2, stessa pompa di gennaio 2025
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 14/03/2026 12:42 (Riccardo Gallo)
+tenuta inferiore di nuovo usurata dopo 14 mesi. sostituiti tenuta e sensore di infiltrazione. albero rigato nella zona della tenuta: consigliata la revisione in officina o la sostituzione della pompa
+Ricambi utilizzati: RIC-P7-0031 (1), RIC-P7-0071 (1)
+Ore di lavoro: 4
+Funzionalità ripristinata: 15/03/2026 10:42
+Chiuso il: 16/03/2026 09:00

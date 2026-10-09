@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0058
+Stato: CHIUSO
+Aperto il: 18/02/2025 22:15
+Impianto: IMP-02 - Stazione di sollevamento fognario di Pontenero
+Apparecchiatura: PON-P8-03 - matricola P8-24-00188
+Codice allarme: E-2011
+Priorità: MEDIA
+Segnalato da: Giorgio Moretti
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+E-2011 marcia a secco su p8 di riserva durante la notte, vasca quasi vuota. pompa ripartita da sola al ritorno del livello ma l'allarme si ripete ogni 20 min
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 19/02/2025 07:15 (Enrico Sala)
+sonda di livello sporca, leggeva 30 cm in piu del reale. pulita la sonda e riportata la soglia di arresto a 75 cm. nessun danno alla pompa. tecnico arrivato dopo 9 ore, segnalato al resp. manutenzione
+Ricambi utilizzati: nessuno
+Ore di lavoro: 1,5
+Funzionalità ripristinata: 19/02/2025 09:15
+Chiuso il: 20/02/2025 09:00

@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0333
+Stato: CHIUSO
+Aperto il: 21/10/2025 09:35
+Impianto: IMP-01 - Impianto di potabilizzazione di Fontechiara
+Apparecchiatura: FON-P7-01 - matricola P7-21-00377
+Codice allarme: E-5003
+Priorità: BASSA
+Segnalato da: Luca Bassi
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+avviso E-5003 fisso su pompa controlavaggio 1, la pompa lavora regolare
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 21/10/2025 16:35 (Enrico Sala)
+verificati modulo pompa e cavo di segnale: ok. guasto sull'interfaccia RS-485 del quadro QE-80 (allarme Q-45 lato quadro). passato a Delta, che ha sostituito la scheda di interfaccia il 23/10
+Ricambi utilizzati: nessuno
+Ore di lavoro: 1,5
+Funzionalità ripristinata: 23/10/2025 07:35
+Chiuso il: 24/10/2025 09:00

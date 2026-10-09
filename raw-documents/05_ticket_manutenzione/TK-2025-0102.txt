@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0102
+Stato: CHIUSO
+Aperto il: 27/03/2025 14:30
+Impianto: IMP-01 - Impianto di potabilizzazione di Fontechiara
+Apparecchiatura: FON-P7-02 - matricola P7-23-00455
+Codice allarme: E-4021
+Priorità: MEDIA
+Segnalato da: Luca Bassi
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+vibrazioni alte su pompa controlavaggio 2, E-4021 a display, valore letto 8,4 mm/s. rumore metallico in avvio
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 27/03/2025 20:30 (Enrico Sala)
+piede di accoppiamento non in battuta, guida allentata. riposizionata la pompa e serrati i tasselli. vibrazione dopo l'intervento 3,2 mm/s
+Ricambi utilizzati: nessuno
+Ore di lavoro: 2
+Funzionalità ripristinata: 28/03/2025 16:30
+Chiuso il: 29/03/2025 09:00

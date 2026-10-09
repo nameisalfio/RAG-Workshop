@@ -1,0 +1,21 @@
+TICKET DI MANUTENZIONE TK-2025-0188
+Stato: CHIUSO
+Aperto il: 03/06/2025 08:15
+Impianto: IMP-01 - Impianto di potabilizzazione di Fontechiara
+Apparecchiatura: FON-P7-01 - matricola P7-21-00377
+Codice allarme: E-4012
+Priorità: ALTA
+Segnalato da: Luca Bassi
+Assegnato a: Beta Idroservizi S.r.l.
+Contratto: CTR-2024-017
+------------------------------------------------------------
+DESCRIZIONE
+controlavaggio pompa 1 in allarme E-4012 dal turno di notte. fermata alle 6 per sicurezza
+------------------------------------------------------------
+INTERVENTO
+Arrivo del tecnico: 03/06/2025 12:45 (Riccardo Gallo)
+tenuta meccanica inferiore usurata, sostituita. cambio olio. pompa con 9.800 ore di marcia, in linea con l'intervallo di sostituzione delle tenute
+Ricambi utilizzati: RIC-P7-0031 (1)
+Ore di lavoro: 3,5
+Funzionalità ripristinata: 04/06/2025 12:15
+Chiuso il: 05/06/2025 09:00
