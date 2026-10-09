@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from collections.abc import Sequence
 from dataclasses import dataclass
 
 import httpx
@@ -43,13 +44,18 @@ class ChatClient:
             transport=transport,
         )
 
-    def ask(self, prompt: str, system: str = "") -> Reply:
-        """Ask a question, optionally preceded by a system instruction.
+    def ask(self, prompt: str, system: str = "", history: Sequence[tuple[str, str]] = ()) -> Reply:
+        """Ask a question, optionally preceded by a system instruction and by earlier exchanges.
+
+        ``history`` holds the earlier questions with their answers, oldest first.
 
         When the main model is unavailable the fallback model is tried; the switch
         is logged as a warning and the reply names the model that answered.
         """
         messages = [{"role": "system", "content": system}] if system else []
+        for question, answer in history:
+            messages.append({"role": "user", "content": question})
+            messages.append({"role": "assistant", "content": answer})
         messages.append({"role": "user", "content": prompt})
         try:
             return self._complete(self._config.model, messages)

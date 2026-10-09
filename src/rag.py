@@ -7,12 +7,20 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-from src.config import RootConfig, project_path
+from src.config import RagConfig, RootConfig, project_path
 from src.embedding import BgeM3Embedder, Embedder
 from src.env import load_env_file, require_env
 from src.llm import ChatClient
 from src.retrieval import Hit
 from src.vector_store import QdrantStore
+
+
+@dataclass(frozen=True)
+class Turn:
+    """One earlier exchange of a conversation."""
+
+    question: str
+    answer: str
 
 
 @dataclass(frozen=True)
@@ -37,28 +45,52 @@ class RagPipeline:
     """Answers questions from the chunks held in the vector store."""
 
     def __init__(
-        self, embedder: Embedder, store: QdrantStore, llm: ChatClient, system_prompt: str, top_k: int
+        self, embedder: Embedder, store: QdrantStore, llm: ChatClient, config: RagConfig, top_k: int
     ) -> None:
+        if config.retrieval_history_turns < 0 or config.prompt_history_turns < 0:
+            raise ValueError("The numbers of history turns cannot be negative")
         self._embedder = embedder
         self._store = store
         self._llm = llm
-        self._system_prompt = system_prompt
+        self._config = config
         self._top_k = top_k
+
+    @property
+    def llm(self) -> ChatClient:
+        """The client of the language model, for callers that need a call of their own."""
+        return self._llm
 
     def indexed_chunks(self) -> int:
         """Number of chunks available for retrieval."""
         return self._store.count()
 
-    def answer(self, question: str) -> RagAnswer:
-        """Retrieve the closest chunks, put them in the prompt and let the model answer."""
+    def retrieve(self, question: str, history: Sequence[Turn] = ()) -> list[Hit]:
+        """The chunks closest to a question, searched together with the last questions before it."""
         if not question.strip():
             raise ValueError("The question is empty")
-        query = self._embedder.embed([question]).dense[0]
-        hits = self._store.search(query, self._top_k)
+        searched = _last(history, self._config.retrieval_history_turns)
+        search_text = "\n".join([*(turn.question for turn in searched), question])
+        return self._store.search(self._embedder.embed([search_text]).dense[0], self._top_k)
+
+    def answer(self, question: str, history: Sequence[Turn] = ()) -> RagAnswer:
+        """Retrieve the closest chunks, put them in the prompt and let the model answer.
+
+        ``history`` holds the earlier exchanges of the conversation, oldest first. The last
+        questions are searched together with the new one, so that a follow-up such as
+        "and for the supplier?" still finds the passages of the topic under discussion.
+        """
+        hits = self.retrieve(question, history)
         # The model needs the date to tell which of two versions of a rule is in force.
-        system = f"{self._system_prompt} Today is {date.today():%d %B %Y}."
-        reply = self._llm.ask(build_prompt(question, hits), system=system)
+        system = f"{self._config.system_prompt} Today is {date.today():%d %B %Y}."
+        recalled = _last(history, self._config.prompt_history_turns)
+        earlier = [(turn.question, turn.answer) for turn in recalled]
+        reply = self._llm.ask(build_prompt(question, hits), system=system, history=earlier)
         return RagAnswer(reply.text, reply.model, tuple(hits))
+
+
+def _last(history: Sequence[Turn], count: int) -> Sequence[Turn]:
+    """The most recent turns of a conversation, oldest first; none when count is zero."""
+    return history[max(len(history) - count, 0) :] if count > 0 else ()
 
 
 def build_pipeline(config: RootConfig) -> RagPipeline:
@@ -68,6 +100,6 @@ def build_pipeline(config: RootConfig) -> RagPipeline:
         embedder=BgeM3Embedder(config.embedding),
         store=QdrantStore.connect(config.vector_store, config.reranking.similarity_metric),
         llm=ChatClient(config.llm, require_env(config.llm.api_key_env)),
-        system_prompt=config.rag.system_prompt,
+        config=config.rag,
         top_k=config.reranking.top_k,
     )

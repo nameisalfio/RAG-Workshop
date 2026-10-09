@@ -26,6 +26,7 @@ class PathsConfig:
     artifacts_dir: str = MISSING
     parsed_dir: str = MISSING
     index_dir: str = MISSING
+    golden_set: str = MISSING
     env_file: str = MISSING
 
 
@@ -102,9 +103,18 @@ class IngestionConfig:
 
 @dataclass
 class RagConfig:
-    """Instructions that frame every answer."""
+    """Instructions that frame every answer and how much of the conversation is used."""
 
     system_prompt: str = MISSING
+    retrieval_history_turns: int = MISSING
+    prompt_history_turns: int = MISSING
+
+
+@dataclass
+class EvaluationConfig:
+    """How answers are compared with the golden set."""
+
+    abstention_markers: list[str] = MISSING
 
 
 @dataclass
@@ -128,6 +138,7 @@ class RootConfig:
     vector_store: VectorStoreConfig = MISSING
     ingestion: IngestionConfig = MISSING
     rag: RagConfig = MISSING
+    evaluation: EvaluationConfig = MISSING
     api: ApiConfig = MISSING
 
 

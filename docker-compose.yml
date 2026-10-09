@@ -51,6 +51,8 @@ services:
     env_file: .env
     volumes:
       - ${MODEL_CACHE:-model_cache}:/models
+      # The golden set is data, not code: it can be edited without building the image again.
+      - ./evaluation:/app/evaluation:ro
     depends_on:
       ingest:
         condition: service_completed_successfully

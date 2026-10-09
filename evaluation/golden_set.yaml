@@ -1,0 +1,294 @@
+# Golden set: questions with the passages that hold the answer and the correct answer.
+#
+# Each entry:
+#   id        short unique name
+#   type      what makes the question hard (see the list below)
+#   question  the question, as a user would ask it
+#   answer    the correct answer, in a sentence
+#   facts     what a correct answer must say. Each fact is a list of alternative wordings:
+#             one of them is enough. An unanswerable question has no facts.
+#   context   the passages that hold the answer: a document (start of its file name) and,
+#             optionally, a section (start of its heading). Empty for unanswerable questions.
+#
+# Types:
+#   direct          one document states the answer
+#   superseded      an older text says something else: an addendum, a new version or a bulletin wins
+#   lookalike       other documents hold the same sentence with another value
+#   table           the answer is a cell of a table
+#   scan            the document is a scanned page read with OCR
+#   cross-language  the question is in Italian, the document in English
+#   unanswerable    the documents do not hold the answer: the system must say so
+#
+# Answers describe what is in force on 9 October 2026.
+
+- id: withdrawal-017
+  type: superseded
+  question: Con quanto preavviso può recedere il Committente dal contratto CTR-2024-017?
+  answer: Con 45 giorni di preavviso, dal 1° marzo 2025 per effetto dell'addendum n. 1; in origine erano 60.
+  facts:
+    - ["45 giorni", "45 (quarantacinque) giorni", "quarantacinque giorni"]
+  context:
+    - {document: CTR-2024-017_addendum-01, section: "Art. 1"}
+    - {document: EML-2025-04}
+    - {document: VRB-2025-02}
+
+- id: price-017
+  type: superseded
+  question: Qual è il corrispettivo annuo del contratto CTR-2024-017?
+  answer: 192.000 euro oltre IVA, dal 1° gennaio 2026 per effetto dell'addendum n. 2; in origine erano 186.000 euro.
+  facts:
+    - ["192.000"]
+  context:
+    - {document: CTR-2024-017_addendum-02, section: "Art. 1"}
+
+- id: arrival-017
+  type: superseded
+  question: Entro quante ore deve arrivare il tecnico del Fornitore secondo il contratto CTR-2024-017?
+  answer: Entro 6 ore dalla chiamata, dal 1° gennaio 2026 per effetto dell'addendum n. 2; in origine erano 8 ore.
+  facts:
+    - ["6 ore", "6 (sei) ore", "sei ore"]
+  context:
+    - {document: CTR-2024-017_addendum-02, section: "Art. 2"}
+
+- id: withdrawal-015
+  type: superseded
+  question: Con quanto preavviso può recedere il Committente dal contratto CTR-2023-015?
+  answer: Con 120 giorni di preavviso, dal 1° febbraio 2026 per effetto dell'addendum n. 2; in origine erano 90.
+  facts:
+    - ["120 giorni", "120 (centoventi) giorni", "centoventi giorni"]
+  context:
+    - {document: CTR-2023-015_addendum-02, section: "Art. 1"}
+
+- id: price-019
+  type: superseded
+  question: Qual è il corrispettivo annuo del contratto CTR-2024-019?
+  answer: 139.000 euro oltre IVA, dal 1° gennaio 2025 per effetto dell'addendum n. 1; in origine erano 128.000 euro.
+  facts:
+    - ["139.000"]
+  context:
+    - {document: CTR-2024-019_addendum-01, section: "Art. 1"}
+
+- id: expiry-022
+  type: superseded
+  question: Quando scade il contratto CTR-2024-022?
+  answer: Il 30 giugno 2029, dopo che l'addendum n. 1 ha portato la durata a 60 mesi.
+  facts:
+    - ["30 giugno 2029"]
+  context:
+    - {document: CTR-2024-022_addendum-01, section: "Art. 1"}
+
+- id: remote-work-days
+  type: superseded
+  question: Quante giornate di lavoro agile alla settimana sono consentite?
+  answer: Al massimo 3 giornate alla settimana, secondo la versione 2.0 della policy in vigore dal 1° gennaio 2026; prima erano 2.
+  facts:
+    - ["3 giornate", "tre giornate"]
+  context:
+    - {document: POL-HR-002_v2.0, section: "3."}
+
+- id: mileage-refund
+  type: superseded
+  question: Quanto viene rimborsato al chilometro per l'uso dell'auto propria in trasferta?
+  answer: 0,45 euro al chilometro, secondo la versione 2.0 della policy in vigore dal 1° gennaio 2025; prima erano 0,42.
+  facts:
+    - ["0,45"]
+  context:
+    - {document: POL-HR-003_v2.0}
+
+- id: on-call-answer-time
+  type: superseded
+  question: Entro quanti minuti il reperibile deve rispondere alla chiamata del telecontrollo?
+  answer: Entro 20 minuti, secondo la versione 2.0 della policy in vigore dal 1° marzo 2026; prima erano 30.
+  facts:
+    - ["20 minuti"]
+  context:
+    - {document: POL-SIC-002_v2.0}
+
+- id: on-call-holiday-allowance
+  type: superseded
+  question: Qual è l'indennità di reperibilità nei giorni festivi?
+  answer: 50 euro al giorno, secondo la versione 2.0 della policy in vigore dal 1° marzo 2026; prima erano 40.
+  facts:
+    - ["50 euro"]
+  context:
+    - {document: POL-SIC-002_v2.0}
+
+- id: vibration-threshold-p7
+  type: superseded
+  question: Qual è la soglia di allarme vibrazioni E-4021 per le pompe P7 con matricola anteriore al 2024?
+  answer: 6,3 mm/s, secondo il bollettino tecnico BT-12; il manuale indicava 7,1 mm/s.
+  facts:
+    - ["6,3"]
+  context:
+    - {document: BT-12, section: "Nuove soglie"}
+    - {document: EML-2026-02}
+
+- id: alarm-4012-p7
+  type: lookalike
+  question: Cosa significa l'allarme E-4012 sulla pompa P7?
+  answer: Infiltrazione d'acqua nella camera olio; la pompa può restare in servizio per non più di 24 ore.
+  facts:
+    - ["infiltrazione"]
+    - ["camera olio", "camera dell'olio"]
+  context:
+    - {document: MM-P7, section: "E-4012"}
+    - {document: MU-P7, section: "E-4012"}
+
+- id: alarm-4012-p4
+  type: lookalike
+  question: Cosa significa l'allarme E-4012 sulla pompa P4?
+  answer: Vibrazioni oltre soglia sul lato pompa.
+  facts:
+    - ["vibrazioni"]
+  context:
+    - {document: MM-P4, section: "E-4012"}
+    - {document: MU-P4, section: "E-4012"}
+
+- id: vibration-threshold-p8
+  type: lookalike
+  question: Qual è la soglia di allarme vibrazioni E-4021 per le pompe P8?
+  answer: 7,1 mm/s, come da manuale; il bollettino BT-12 non riguarda il modello P8.
+  facts:
+    - ["7,1"]
+  context:
+    - {document: MU-P8, section: "E-4021"}
+    - {document: MM-P8, section: "E-4021"}
+
+- id: withdrawal-030
+  type: lookalike
+  question: Con quanto preavviso può recedere il Committente dal contratto CTR-2025-030?
+  answer: Con 30 giorni di preavviso.
+  facts:
+    - ["30 giorni", "30 (trenta) giorni", "trenta giorni"]
+  context:
+    - {document: CTR-2025-030, section: "Art. 7"}
+    - {document: EML-2025-04}
+
+- id: supplier-withdrawal-017
+  type: lookalike
+  question: Con quanto preavviso può recedere il Fornitore dal contratto CTR-2024-017?
+  answer: Con 180 giorni di preavviso, e solo per giusta causa.
+  facts:
+    - ["180 giorni", "180 (centottanta) giorni", "centottanta giorni"]
+  context:
+    - {document: CTR-2024-017_Beta, section: "Art. 7"}
+    - {document: EML-2025-01}
+
+- id: non-renewal-017
+  type: lookalike
+  question: Con quanto preavviso va comunicata la disdetta alla scadenza del contratto CTR-2024-017?
+  answer: Con almeno 90 giorni di preavviso rispetto alla scadenza.
+  facts:
+    - ["90 giorni", "90 (novanta) giorni", "novanta giorni"]
+  context:
+    - {document: CTR-2024-017_Beta, section: "Art. 3"}
+    - {document: EML-2025-01}
+    - {document: VRB-2025-02}
+
+- id: rejected-30-days
+  type: lookalike
+  question: Il comitato manutenzione ha approvato un preavviso di 30 giorni per il recesso dal contratto CTR-2024-017?
+  answer: No. L'ipotesi dei 30 giorni è stata scartata perché il fornitore non l'ha accettata; il comitato ha approvato 45 giorni.
+  facts:
+    - ["45 giorni"]
+    - ["scartat", "non ha accettato", "non l'ha accettat", "rifiutat", "respint", "non è stata approvata"]
+  context:
+    - {document: VRB-2025-02}
+
+- id: legal-representative-beta
+  type: direct
+  question: Chi è il legale rappresentante di Beta Idroservizi?
+  answer: Guido Santoro.
+  facts:
+    - ["Guido Santoro"]
+  context:
+    - {document: CTR-2024-017_Beta, section: "e"}
+    - {document: CTR-2023-009, section: "e"}
+    - {document: CTR-2025-030, section: "e"}
+
+- id: ticket-0031
+  type: direct
+  question: Quale allarme è stato segnalato nel ticket TK-2025-0031, e su quale apparecchiatura?
+  answer: L'allarme E-4012 sull'apparecchiatura CAS-P7-02, la pompa di ricircolo fanghi n. 2 del depuratore di Castelrovo.
+  facts:
+    - ["E-4012"]
+    - ["CAS-P7-02"]
+  context:
+    - {document: TK-2025-0031}
+
+- id: procedure-owner
+  type: direct
+  question: Chi è il responsabile della procedura PRO-ACQ-001 sulla qualifica dei fornitori?
+  answer: Marta Colombini, Responsabile Acquisti e Contratti.
+  facts:
+    - ["Colombini"]
+  context:
+    - {document: PRO-ACQ-001}
+
+- id: plant-sheet-p5
+  type: table
+  question: Quale fornitore fa la manutenzione delle pompe P5 dell'impianto di Fontechiara, e con quale contratto?
+  answer: Gamma Elettromeccanica S.r.l., con il contratto CTR-2024-019.
+  facts:
+    - ["Gamma"]
+    - ["CTR-2024-019"]
+  context:
+    - {document: SCH-IMP-01, section: "Contratti di manutenzione"}
+
+- id: plant-sheet-fm300
+  type: table
+  question: Quale fornitore segue il misuratore FM-300 dell'impianto di Fontechiara, e con quale contratto?
+  answer: Iota Strumentazione S.r.l., con il contratto CTR-2025-011.
+  facts:
+    - ["Iota"]
+    - ["CTR-2025-011"]
+  context:
+    - {document: SCH-IMP-01, section: "Contratti di manutenzione"}
+
+- id: rental-fee
+  type: scan
+  question: Qual è il canone mensile del contratto di noleggio veicoli n. 47/2019?
+  answer: 6.800 euro al mese.
+  facts:
+    - ["6.800"]
+  context:
+    - {document: N-47-2019, section: "Art. 2"}
+
+- id: rental-mileage
+  type: scan
+  question: Quale percorrenza annua è prevista dal contratto di noleggio veicoli n. 47/2019?
+  answer: 25.000 chilometri all'anno per veicolo.
+  facts:
+    - ["25.000"]
+  context:
+    - {document: N-47-2019, section: "Art. 3"}
+
+- id: northgate-site-visit
+  type: cross-language
+  question: Entro quanti giorni lavorativi Northgate deve intervenire sul posto secondo l'accordo MSA-2025-01?
+  answer: Entro 5 giorni lavorativi, quando serve un intervento sul posto.
+  facts:
+    - ["5 giorni lavorativi", "cinque giorni lavorativi", "5 business days", "five business days"]
+  context:
+    - {document: MSA-2025-01, section: "2. Response times"}
+
+- id: no-phone-number
+  type: unanswerable
+  question: Qual è il numero di cellulare del Direttore Generale?
+  answer: I documenti non lo riportano.
+  facts: []
+  context: []
+
+- id: no-such-contract
+  type: unanswerable
+  question: Con quanto preavviso può recedere il Committente dal contratto CTR-2027-001?
+  answer: Nei documenti non esiste un contratto CTR-2027-001.
+  facts: []
+  context: []
+
+- id: no-headcount
+  type: unanswerable
+  question: Quanti dipendenti ha Torrevalle Acque?
+  answer: I documenti non lo riportano.
+  facts: []
+  context: []

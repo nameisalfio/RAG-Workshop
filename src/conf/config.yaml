@@ -14,6 +14,8 @@ paths:
   parsed_dir: ${paths.artifacts_dir}/parsed
   # Vector indexes, one sub-folder each (vectors and chunks).
   index_dir: ${paths.artifacts_dir}/index
+  # Questions with their correct answers, used to measure the system.
+  golden_set: evaluation/golden_set.yaml
   # Optional file with secrets; variables already set in the environment win.
   env_file: .env
 
@@ -74,7 +76,36 @@ rag:
     Use only the passages in the prompt and name the document each fact comes from.
     When passages disagree, explain which one applies today and why.
     If the passages do not contain the answer, say that you do not know.
+    Earlier turns of the conversation are context for the last question, which is the one to answer.
     Answer in the language of the question.
+  # Previous questions of the conversation that are added to the new one when searching, so that
+  # a follow-up finds the right passages. With more than one, a change of topic is followed worse.
+  retrieval_history_turns: 1
+  # Previous exchanges (question and answer) that the model receives before the new question.
+  prompt_history_turns: 4
+
+evaluation:
+  # Wordings that, in the answer to a question the documents cannot answer, count as saying so.
+  abstention_markers:
+    - non lo so
+    - non so
+    - non contengono
+    - non contiene
+    - non riportano
+    - non riporta
+    - non è presente
+    - non sono presenti
+    - non risulta
+    - non è indicat
+    - non è menzionat
+    - non è disponibile
+    - non compare
+    - non esiste
+    - non figura
+    - nessuna informazione
+    - non ho informazioni
+    - do not know
+    - don't know
 
 api:
   # Longest question accepted by the web interface, in characters.
