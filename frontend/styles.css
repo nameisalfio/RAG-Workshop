@@ -1,28 +1,75 @@
 /*
- * Design tokens. The palette and the font stacks are the ones of the workshop deck
- * (docs/RAG-workshop.html). Every rule below uses these tokens, never a literal value.
+ * Design tokens.
+ *
+ * The palette is the Paradigma one used by the workshop slides (docs/RAG-workshop.html), and the
+ * colours keep the meaning they have there:
+ *   navy  structure and titles
+ *   blue  system components
+ *   sky   data in motion (the retrieved passages)
+ *   pink  limits and failures (errors, deleting)
+ *   lime  the takeaway (the answer)
+ * Every rule below uses the role tokens, never a literal value.
  */
 :root {
-  --color-surface: #ffffff;
-  --color-surface-tint: #f5f7fa;
-  --color-ink: #14202e;
-  --color-ink-soft: #5b6675;
-  --color-border: #dde3ea;
-  --color-accent: #246399;
-  --color-accent-strong: #0a2843;
-  --color-on-accent: #ffffff;
-  --color-error: #b3261e;
+  /* Brand palette and the tints the slides derive from it. */
+  --navy: #0a2843;
+  --navy-deep: #071e33;
+  --navy-tint: #123a5c;
+  --navy-line: #2c5378;
+  --blue: #246399;
+  --sky: #63a4d8;
+  --sky-soft: #a9bccd;
+  --pink: #ee4266;
+  --pink-ink: #c4264b;
+  --pink-soft: #ffc0d5;
+  --pink-tint: #fde9ef;
+  --lime: #c3f73a;
+  --lime-tint: #f2fdd6;
+  --smoke: #f0f0f0;
+  --white: #ffffff;
+  --ink: #14202e;
+  --gray: #5b6675;
+  --line: #dde3ea;
+  --paper-tint: #f5f7fa;
+
+  /* Roles, light theme: the look of the slides. */
+  --color-surface: var(--white);
+  --color-surface-tint: var(--paper-tint);
+  --color-panel: var(--paper-tint);
+  --color-panel-active: var(--white);
+  --color-text: var(--ink);
+  --color-text-soft: var(--gray);
+  --color-heading: var(--navy);
+  --color-border: var(--line);
+  --color-field-border: var(--gray);
+  --color-component: var(--blue);
+  --color-data: var(--sky);
+  --color-action: var(--navy);
+  --color-action-hover: var(--blue);
+  --color-on-action: var(--white);
+  --color-takeaway: var(--lime);
+  --color-takeaway-surface: var(--lime-tint);
+  --color-takeaway-edge: var(--navy);
+  --color-failure: var(--pink);
+  --color-failure-surface: var(--pink-tint);
+  --color-failure-text: var(--pink-ink);
+  --color-decor-main: var(--lime);
+  --color-decor-second: var(--sky);
+  --color-backdrop: color-mix(in srgb, var(--navy) 55%, transparent);
+  --color-good-surface: var(--lime);
+  --color-good-text: var(--navy);
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
+  --text-caption: 0.78rem;
   --text-small: 0.875rem;
   --text-body: 1rem;
   --text-lede: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  --text-heading: 1.125rem;
   --text-title: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
   --leading-tight: 1.15;
   --leading-body: 1.6;
+  --tracking-eyebrow: 0.16em;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -34,25 +81,59 @@
   --gutter: clamp(1rem, 0.5rem + 2.5vw, 2rem);
 
   --measure: 46rem;
+  --measure-wide: 60rem;
+  --metric-width: 10.5rem;
+  --bar-height: 6px;
+  --sidebar-width: 17rem;
+  --sidebar-narrow-width: min(var(--sidebar-width), 86vw);
+  --topbar-height: 3.75rem;
+  --logo-height: 1.5rem;
+  --bubble-width: 85%;
+  --field-max-height: 10rem;
+  --control-height: 2.75rem;
+  --control-small: 2.25rem;
+  --icon-size: 1.25rem;
+  --rule-width: 6rem;
+  --rule-height: 6px;
+  --dot-size: 0.4rem;
+  --edge: 4px;
   --radius: 10px;
+  --radius-bubble: 18px;
   --border: 1px solid var(--color-border);
-  --focus-ring: 3px solid var(--color-accent);
+  --focus-ring: 3px solid var(--color-component);
+  --layer-backdrop: 10;
+  --layer-sidebar: 20;
   --motion-fast: 120ms;
+  --motion-enter: 180ms;
+  --motion-pulse: 1.2s;
+  --decor-mini: 2.25rem;
 
-  /* Breakpoint used by the single media query at the end of this file: 48rem (tablet and wider). */
+  /* Widths at which the layout changes, used by the queries near the end of this file:
+     30rem (room for the product name), 48rem (the list of chats sits next to the conversation),
+     64rem of conversation area (its side margins can hold the decorations). */
 }
 
+/* Roles, dark theme: the navy of the brand becomes the background and lime carries the action. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-surface: #101820;
-    --color-surface-tint: #18232f;
-    --color-ink: #e8edf2;
-    --color-ink-soft: #a3aebb;
-    --color-border: #2b3a4a;
-    --color-accent: #63a4d8;
-    --color-accent-strong: #8fbfe6;
-    --color-on-accent: #0a1622;
-    --color-error: #f2a199;
+    --color-surface: var(--navy);
+    --color-surface-tint: var(--navy-tint);
+    --color-panel: var(--navy-deep);
+    --color-panel-active: var(--navy-tint);
+    --color-text: var(--smoke);
+    --color-text-soft: var(--sky-soft);
+    --color-heading: var(--white);
+    --color-border: var(--navy-line);
+    --color-field-border: var(--sky-soft);
+    --color-component: var(--sky);
+    --color-action: var(--lime);
+    --color-action-hover: var(--smoke);
+    --color-on-action: var(--navy);
+    --color-takeaway-surface: var(--navy-tint);
+    --color-takeaway-edge: var(--lime);
+    --color-failure-surface: var(--navy-tint);
+    --color-failure-text: var(--pink-soft);
+    --color-backdrop: color-mix(in srgb, var(--navy-deep) 70%, transparent);
   }
 }
 
@@ -64,116 +145,28 @@
 
 body {
   margin: 0;
-  min-height: 100dvh;
   background: var(--color-surface);
-  color: var(--color-ink);
+  color: var(--color-text);
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: var(--leading-body);
   overflow-wrap: break-word;
 }
 
-.page {
-  max-width: var(--measure);
-  margin-inline: auto;
-  padding: var(--space-8) var(--gutter) var(--space-12);
-}
-
 h1,
-h2 {
+h2,
+h3 {
   margin: 0;
+  color: var(--color-heading);
   line-height: var(--leading-tight);
-}
-
-h1 {
-  font-size: var(--text-title);
-  letter-spacing: -0.02em;
-}
-
-h2 {
-  font-size: var(--text-heading);
-  margin-block: var(--space-8) var(--space-2);
 }
 
 p {
   margin-block: 0 var(--space-3);
 }
 
-.masthead {
-  margin-bottom: var(--space-8);
-}
-
-.lede {
-  margin-top: var(--space-3);
-  font-size: var(--text-lede);
-  color: var(--color-ink-soft);
-}
-
-.status,
-.meta,
-.progress {
-  font-size: var(--text-small);
-  color: var(--color-ink-soft);
-}
-
-.status[data-state="error"],
-.form-error {
-  color: var(--color-error);
-}
-
-/* Question form */
-
-.ask label {
-  display: block;
-  margin-bottom: var(--space-2);
-  font-weight: 600;
-}
-
-.ask textarea {
-  display: block;
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  border: var(--border);
-  border-radius: var(--radius);
-  background: var(--color-surface);
-  color: inherit;
-  font: inherit;
-  resize: vertical;
-}
-
-.form-error {
-  margin-block: var(--space-2) 0;
-  font-size: var(--text-small);
-}
-
-.ask-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-3) var(--space-4);
-  margin-top: var(--space-3);
-}
-
-.button {
-  min-height: 2.75rem;
-  padding: var(--space-2) var(--space-6);
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--color-accent);
-  color: var(--color-on-accent);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color var(--motion-fast) ease-out;
-}
-
-.button:hover:not(:disabled) {
-  background: var(--color-accent-strong);
-}
-
-.button:disabled {
-  opacity: 0.6;
-  cursor: progress;
+strong {
+  color: var(--color-heading);
 }
 
 :focus-visible {
@@ -181,23 +174,410 @@ p {
   outline-offset: 2px;
 }
 
-/* Example questions */
+/* An element marked as hidden stays hidden, whatever display its class gives it. */
+[hidden] {
+  display: none !important;
+}
 
-.examples ul,
-.sources {
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.icon {
+  display: block;
+  flex: none;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Controls */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--control-height);
+  padding: var(--space-2) var(--space-6);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--color-action);
+  color: var(--color-on-action);
+  font: inherit;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) ease-out;
+}
+
+.button:hover:not(:disabled) {
+  background: var(--color-action-hover);
+}
+
+.button-small {
+  min-height: var(--control-small);
+  padding-inline: var(--space-3);
+  font-size: var(--text-small);
+}
+
+.icon-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-small);
+  height: var(--control-small);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--color-text-soft);
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background: var(--color-surface-tint);
+  color: var(--color-heading);
+}
+
+.text-button {
+  min-height: var(--control-small);
+  padding-inline: var(--space-3);
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--color-component);
+  font: inherit;
+  font-size: var(--text-small);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.text-button:hover {
+  background: var(--color-surface-tint);
+}
+
+.text-button-danger {
+  color: var(--color-failure-text);
+  font-weight: 600;
+}
+
+.button:disabled,
+.suggestion:disabled,
+.composer textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Frame: the list of chats on one side, the conversation on the other. */
+
+.shell {
+  display: flex;
+  height: 100dvh;
+}
+
+.main {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  container-type: inline-size;
+}
+
+/* List of chats. On a narrow screen it covers the conversation, over a backdrop. */
+
+.sidebar {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: var(--layer-sidebar);
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-narrow-width);
+  border-inline-end: var(--border);
+  background: var(--color-panel);
+}
+
+.shell[data-sidebar="closed"] .sidebar {
+  display: none;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--layer-backdrop);
+  background: var(--color-backdrop);
+}
+
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: var(--topbar-height);
+  padding-inline: var(--space-4) var(--space-3);
+  border-bottom: var(--border);
+}
+
+.sidebar-title {
+  font-size: var(--text-body);
+}
+
+.chat-nav {
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-3) var(--space-2);
+  overflow-y: auto;
+}
+
+.chat-list,
+.suggestions,
+.passages {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.examples ul {
+/* A column, not a grid: a grid track would grow to the longest title and push the actions out of view. */
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.chat-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--control-height);
+  padding-inline: var(--space-1);
+  border-inline-start: var(--edge) solid transparent;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.chat-row:hover,
+.chat-row:focus-within {
+  background: var(--color-panel-active);
+}
+
+.chat-row-active {
+  border-inline-start-color: var(--color-takeaway-edge);
+  background: var(--color-panel-active);
+}
+
+.chat-open {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--control-small);
+  padding: 0 var(--space-2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: var(--text-small);
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.chat-row-active .chat-open {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.chat-edit {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.chat-name {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--control-small);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--color-field-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: inherit;
+  font: inherit;
+  font-size: var(--text-small);
+}
+
+.chat-confirm {
+  flex: 1;
+  padding-inline: var(--space-2);
+  font-size: var(--text-small);
+}
+
+.chat-empty,
+.sidebar-foot {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-text-soft);
+  font-size: var(--text-small);
+}
+
+.sidebar-foot {
+  border-top: var(--border);
+  font-size: var(--text-caption);
+}
+
+/* Top bar of the conversation */
+
+.topbar {
+  border-bottom: var(--border);
+  background: var(--color-surface);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--topbar-height);
+  padding-inline: var(--space-3) var(--gutter);
+}
+
+/* The name of the product needs room: on a narrow screen the logo alone identifies the page. */
+.product {
+  display: none;
+  color: var(--color-heading);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.logo {
+  display: block;
+  flex: none;
+  height: var(--logo-height);
+  width: auto;
+  margin-inline-start: auto;
+  color: var(--color-heading);
+}
+
+/* Switch between the conversation and the evaluation panel. */
+
+.views {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.view-tab {
+  min-height: var(--control-small);
+  padding-inline: var(--space-3);
+  border: 0;
+  border-bottom: var(--edge) solid transparent;
+  background: none;
+  color: var(--color-text-soft);
+  font: inherit;
+  font-size: var(--text-small);
+  cursor: pointer;
+}
+
+.view-tab:hover {
+  color: var(--color-heading);
+}
+
+.view-tab[aria-pressed="true"] {
+  border-bottom-color: var(--color-takeaway-edge);
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+/* Notice: shown only while something is wrong. */
+
+.notice,
+.composer-inner,
+.thread > *,
+.form-error {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+.notice {
+  margin-block: var(--space-4) 0;
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: var(--edge) solid var(--color-failure);
+  background: var(--color-failure-surface);
+  font-size: var(--text-small);
+}
+
+/* Conversation */
+
+.thread {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-height: 0;
+  padding: var(--space-8) var(--gutter);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.welcome {
+  margin-block: auto;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-3);
+  color: var(--color-component);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: var(--text-title);
+  letter-spacing: -0.02em;
+}
+
+.rule {
+  width: var(--rule-width);
+  height: var(--rule-height);
+  margin-block: var(--space-4);
+  background: var(--color-takeaway);
+}
+
+.lede {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lede);
+  color: var(--color-text-soft);
+}
+
+.suggestions {
   display: grid;
   gap: var(--space-2);
 }
 
-.example {
+.suggestion {
   width: 100%;
-  min-height: 2.75rem;
+  min-height: var(--control-height);
   padding: var(--space-3) var(--space-4);
   border: var(--border);
   border-radius: var(--radius);
@@ -209,21 +589,42 @@ p {
   transition: border-color var(--motion-fast) ease-out;
 }
 
-.example:hover {
-  border-color: var(--color-accent);
+.suggestion:hover:not(:disabled) {
+  border-color: var(--color-component);
 }
 
-/* Answer */
+/* Messages. The question sits on the right in the action colour, the answer on the left. */
 
-.asked {
-  font-weight: 600;
+.message {
+  display: flex;
+  flex-direction: column;
 }
+
+.message-new {
+  animation: rise var(--motion-enter) ease-out;
+}
+
+.message-user {
+  align-items: flex-end;
+}
+
+.bubble {
+  max-width: var(--bubble-width);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-bubble) var(--radius-bubble) var(--space-1) var(--radius-bubble);
+  background: var(--color-action);
+  color: var(--color-on-action);
+  white-space: pre-wrap;
+}
+
+/* The answer is the takeaway: it keeps the lime tint the slides use for it. */
 
 .answer {
   padding: var(--space-4) var(--space-6);
-  border-inline-start: var(--space-1) solid var(--color-accent);
-  background: var(--color-surface-tint);
+  border-inline-start: var(--edge) solid var(--color-takeaway-edge);
   border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--color-takeaway-surface);
 }
 
 .answer > :last-child {
@@ -242,63 +643,491 @@ p {
 }
 
 .answer code,
-.source-document {
+.passage-document {
   font-family: var(--font-mono);
   font-size: var(--text-small);
 }
 
-.meta {
-  margin-top: var(--space-2);
+/* While the answer is being written. */
+
+.typing {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+  color: var(--color-text-soft);
+  font-size: var(--text-small);
 }
 
-/* Passages */
+.dots {
+  display: inline-flex;
+  gap: var(--space-1);
+}
+
+.dots span {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: var(--color-component);
+  animation: pulse var(--motion-pulse) ease-in-out infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: calc(var(--motion-pulse) / 6);
+}
+
+.dots span:nth-child(3) {
+  animation-delay: calc(var(--motion-pulse) / 3);
+}
+
+/* A failed answer, and the error under the composer. */
+
+.failure,
+.form-error {
+  padding: var(--space-3) var(--space-4);
+  border-inline-start: var(--edge) solid var(--color-failure);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--color-failure-surface);
+  font-size: var(--text-small);
+}
+
+.failure p {
+  margin-bottom: var(--space-2);
+}
+
+.form-error {
+  margin-block: var(--space-2) 0;
+}
+
+/* Sources of an answer: closed until asked for. Passages are data in motion, hence the sky bar. */
 
 .sources {
-  display: grid;
-  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-size: var(--text-small);
 }
 
-.sources details {
-  border: var(--border);
+.sources > summary {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
   border-radius: var(--radius);
-}
-
-.sources summary {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-1) var(--space-3);
-  padding: var(--space-3) var(--space-4);
+  color: var(--color-component);
   cursor: pointer;
 }
 
-.source-position {
+.sources > summary:hover {
+  background: var(--color-surface-tint);
+}
+
+.passages {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.passages details {
+  border-inline-start: var(--edge) solid var(--color-data);
+}
+
+.passages summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 var(--space-3);
+  padding: var(--space-1) var(--space-4);
+  cursor: pointer;
+}
+
+.passage-position {
   grid-row: span 2;
-  color: var(--color-ink-soft);
+  color: var(--color-text-soft);
   font-variant-numeric: tabular-nums;
 }
 
-.source-detail {
-  font-size: var(--text-small);
-  color: var(--color-ink-soft);
+.passage-document {
+  color: var(--color-heading);
+  font-weight: 600;
 }
 
-.source-text {
-  margin: 0;
-  padding: var(--space-3) var(--space-4) var(--space-4);
-  border-top: var(--border);
+.passage-detail {
+  color: var(--color-text-soft);
+}
+
+.passage-text {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-tint);
   font-family: var(--font-sans);
   font-size: var(--text-small);
   white-space: pre-wrap;
 }
 
+/* Evaluation panel */
+
+.panel {
+  flex: 1;
+  min-height: 0;
+  padding: var(--space-8) var(--gutter) var(--space-12);
+  overflow-y: auto;
+}
+
+.panel-inner {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+}
+
+.panel .notice {
+  max-width: none;
+  margin-block: 0 var(--space-4);
+}
+
+.block {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border);
+}
+
+.block-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.block h2 {
+  font-size: var(--text-lede);
+}
+
+.meta {
+  color: var(--color-text-soft);
+  font-size: var(--text-small);
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-small);
+}
+
+.check input {
+  margin-top: var(--space-1);
+  accent-color: var(--color-action);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--metric-width), 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+
+.metric {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--color-surface-tint);
+}
+
+.metric dd {
+  margin: 0;
+}
+
+.metric-name {
+  color: var(--color-text-soft);
+  font-size: var(--text-small);
+}
+
+.metric-value {
+  color: var(--color-heading);
+  font-size: var(--text-title);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: var(--leading-tight);
+}
+
+.metric-meaning {
+  color: var(--color-text-soft);
+  font-size: var(--text-caption);
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: var(--bar-height);
+  margin-block: var(--space-2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--bar-height);
+  background: var(--color-border);
+  appearance: none;
+}
+
+.bar::-webkit-progress-bar {
+  background: var(--color-border);
+}
+
+.bar::-webkit-progress-value {
+  background: var(--color-action);
+}
+
+.bar::-moz-progress-bar {
+  background: var(--color-action);
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.types {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.types th,
+.types td {
+  padding: var(--space-2) var(--space-3);
+  text-align: start;
+}
+
+.types th {
+  border-bottom: var(--border);
+  color: var(--color-text-soft);
+  font-weight: 600;
+}
+
+.types .number {
+  font-variant-numeric: tabular-nums;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius);
+  font-size: var(--text-caption);
+  white-space: nowrap;
+}
+
+.chip-good {
+  background: var(--color-good-surface);
+  color: var(--color-good-text);
+  font-weight: 600;
+}
+
+.chip-bad {
+  background: var(--color-failure-surface);
+  color: var(--color-failure-text);
+  box-shadow: inset 0 0 0 1px var(--color-failure);
+  font-weight: 600;
+}
+
+.chip-idle {
+  background: var(--color-surface-tint);
+  color: var(--color-text-soft);
+}
+
+.chip-type {
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  color: var(--color-component);
+}
+
+.question-list,
+.plain-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.question-list {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.question {
+  border-inline-start: var(--edge) solid var(--color-data);
+}
+
+.question-summary {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+}
+
+.question-text {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-2);
+}
+
+.question-details {
+  padding: var(--space-2) var(--space-4) var(--space-4);
+  font-size: var(--text-small);
+}
+
+.question-details h3 {
+  margin-block: var(--space-4) var(--space-1);
+  color: var(--color-text-soft);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.plain-list {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.question-details .answer {
+  margin-bottom: var(--space-3);
+}
+
+/* Composer */
+
+.composer {
+  padding: var(--space-3) var(--gutter) var(--space-4);
+  border-top: var(--border);
+  background: var(--color-surface);
+}
+
+.composer-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.composer textarea {
+  flex: 1;
+  min-height: var(--control-height);
+  max-height: var(--field-max-height);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-field-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: inherit;
+  font: inherit;
+  resize: none;
+}
+
+.composer textarea::placeholder {
+  color: var(--color-text-soft);
+}
+
+/* Brand asterisks: lime and sky, the pair that opens the slides. They are decoration only. */
+
+.ast-main {
+  fill: var(--color-decor-main);
+}
+
+.ast-second {
+  fill: var(--color-decor-second);
+}
+
+.pair {
+  display: block;
+  flex: none;
+  pointer-events: none;
+}
+
+.pair-mini {
+  width: var(--decor-mini);
+  height: var(--decor-mini);
+}
+
+.decor {
+  display: none;
+}
+
+@media (min-width: 30rem) {
+  .product {
+    display: inline;
+  }
+}
+
+/* From 48rem the list of chats sits next to the conversation instead of covering it. */
 @media (min-width: 48rem) {
-  .page {
-    padding-top: var(--space-12);
+  .sidebar {
+    position: static;
+    flex: none;
+    width: var(--sidebar-width);
+  }
+
+  .backdrop {
+    display: none;
+  }
+}
+
+/*
+ * When the conversation area is at least 64rem wide its side margins can hold the decorations.
+ * They are sized to fit the margin and centred in it; cqw is the width of the conversation area.
+ */
+@container (min-width: 64rem) {
+  .decor {
+    --side: calc((100cqw - var(--measure)) / 2);
+    --decor-large: clamp(6rem, calc(var(--side) - 3rem), 16rem);
+    --decor-medium: clamp(4rem, calc(var(--side) - 5rem), 10rem);
+
+    display: block;
+  }
+
+  .pair-mini {
+    display: none;
+  }
+
+  .pair-top,
+  .pair-bottom {
+    position: absolute;
+  }
+
+  .pair-top {
+    top: calc(var(--topbar-height) + var(--space-8));
+    right: calc((var(--side) - var(--decor-large)) / 2);
+    width: var(--decor-large);
+    height: var(--decor-large);
+  }
+
+  .pair-bottom {
+    bottom: calc(var(--control-height) + var(--space-12));
+    left: calc((var(--side) - var(--decor-medium)) / 2);
+    width: var(--decor-medium);
+    height: var(--decor-medium);
+    transform: rotate(160deg);
+  }
+}
+
+/* The evaluation panel is dense and wide: the decorations would sit on top of it. */
+.main[data-view="evaluation"] .decor {
+  display: none;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-2));
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+
+  50% {
+    opacity: 1;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
+    animation: none !important;
     transition: none !important;
   }
 }

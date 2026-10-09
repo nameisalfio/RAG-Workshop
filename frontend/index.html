@@ -4,61 +4,138 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Torrevalle Acque documents</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Documents assistant</title>
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
-    <div class="page">
-      <header class="masthead">
-        <h1>Ask the documents</h1>
-        <p class="lede">
-          Contracts, manuals, policies and minutes of Torrevalle Acque. Every answer lists the passages it
-          was written from.
-        </p>
-        <p id="status" class="status" role="status">Connecting to the backend.</p>
-      </header>
+    <!--
+      Shapes drawn once and reused: the asterisk of the Paradigma brand and the interface icons.
+      Icons: Tabler Icons (https://tabler.io/icons), MIT licence, copyright Pawel Kuna.
+    -->
+    <svg class="sprite" aria-hidden="true">
+      <defs><path id="asterisk" d="M1.50273 8.03996C2.7418 5.92826 4.96884 5.11458 7.11546 6.3351C10.0876 8.03996 9.83976 11.532 14.9569 14.7819C14.5449 8.85364 11.325 7.22789 11.325 3.98123C11.325 1.46269 13.2238 0 15.6182 0C18.011 0 19.9098 1.46269 19.9098 3.98123C19.9098 7.22789 16.6916 8.85364 16.278 14.7819C21.3967 11.532 21.1489 8.03996 24.0373 6.3351C26.266 5.11619 28.4963 6.01059 29.7321 7.95924C30.8891 10.0709 30.5593 12.3457 28.3289 13.6453C25.4405 15.2695 22.5505 13.3208 17.0198 15.9992C22.5505 18.6792 25.4405 16.7305 28.3289 18.3531C30.5593 19.6543 30.8891 21.9275 29.7321 24.0392C28.4947 25.9878 26.266 26.8822 24.0373 25.6633C21.1473 23.9584 21.3951 20.4664 16.278 17.2197C16.6916 23.1464 19.9098 24.7721 19.9098 28.0188C19.9098 30.5373 18.011 32 15.6182 32C13.2255 32 11.325 30.5373 11.325 28.0188C11.325 24.7721 14.5449 23.1464 14.9569 17.2197C9.83812 20.4664 10.0859 23.9584 7.11546 25.6633C4.96884 26.8822 2.74016 26.0701 1.50273 23.9584C0.345724 22.0098 0.677236 19.6559 2.82222 18.3547C5.79433 16.7305 8.68439 18.6792 14.2151 16.0008C8.68275 13.3208 5.79433 15.2695 2.82222 13.6469C0.677236 12.3457 0.345724 9.9886 1.50273 8.03996Z"></path></defs>
+      <symbol id="icon-sidebar" viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2l0 -12" /><path d="M9 4l0 16" /></symbol><symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5l0 14" /><path d="M5 12l14 0" /></symbol><symbol id="icon-pencil" viewBox="0 0 24 24"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></symbol><symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></symbol><symbol id="icon-check" viewBox="0 0 24 24"><path d="M5 12l5 5l10 -10" /></symbol><symbol id="icon-close" viewBox="0 0 24 24"><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></symbol>
+    </svg>
 
-      <main>
-        <form id="ask-form" class="ask" novalidate>
-          <label for="question">Your question</label>
-          <textarea id="question" name="question" rows="3" required></textarea>
-          <p id="form-error" class="form-error" role="alert" hidden></p>
-          <div class="ask-actions">
-            <button id="submit" type="submit" class="button">Ask</button>
-            <span id="progress" class="progress" role="status" aria-live="polite"></span>
+    <div id="shell" class="shell" data-sidebar="open">
+      <aside id="sidebar" class="sidebar" aria-label="Chats">
+        <div class="sidebar-head">
+          <h2 class="sidebar-title">Chats</h2>
+          <button id="new-chat" type="button" class="button button-small"><svg class="icon" aria-hidden="true"><use href="#icon-plus"></use></svg>New chat</button>
+        </div>
+        <nav class="chat-nav" aria-label="Saved chats">
+          <ul id="chat-list" class="chat-list"></ul>
+          <p id="chat-empty" class="chat-empty">No chats yet. Ask a question and it will be kept here.</p>
+        </nav>
+      </aside>
+      <div id="backdrop" class="backdrop" hidden></div>
+
+      <div id="main" class="main" data-view="chat">
+        <!-- Decorations in the side margins of a wide conversation, as on the cover of the slides. -->
+        <div class="decor" aria-hidden="true">
+          <svg class="pair pair-top" viewBox="0 0 64 64"><use href="#asterisk" class="ast-main" transform="translate(4 8) scale(1.5)"></use><use href="#asterisk" class="ast-second" transform="translate(41 2) scale(0.55)"></use></svg>
+          <svg class="pair pair-bottom" viewBox="0 0 64 64"><use href="#asterisk" class="ast-main" transform="translate(4 8) scale(1.5)"></use><use href="#asterisk" class="ast-second" transform="translate(41 2) scale(0.55)"></use></svg>
+        </div>
+
+        <header class="topbar">
+          <div class="topbar-inner">
+            <button id="toggle-sidebar" type="button" class="icon-button" aria-controls="sidebar" aria-expanded="true" aria-label="Hide the list of chats"><svg class="icon" aria-hidden="true"><use href="#icon-sidebar"></use></svg></button>
+            <svg class="pair pair-mini" viewBox="0 0 64 64" aria-hidden="true"><use href="#asterisk" class="ast-main" transform="translate(4 8) scale(1.5)"></use><use href="#asterisk" class="ast-second" transform="translate(41 2) scale(0.55)"></use></svg>
+            <span class="product">Documents assistant</span>
+            <nav class="views" aria-label="Views">
+              <button id="view-chat" type="button" class="view-tab" aria-pressed="true">Chat</button>
+              <button id="view-evaluation" type="button" class="view-tab" aria-pressed="false">Evaluation</button>
+            </nav>
+            <svg class="logo" viewBox="0 0 181 32" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paradigma"><g><path d="M0 10.3712L5.97883 0H17.9455L23.9244 10.3712L18.1116 20.4459L15.401 15.6582L18.4382 10.3694L15.1645 4.79313H8.76703L5.48616 10.3694L14.6737 26.3134L11.9631 31.1029L0 10.3712Z" fill="currentColor"></path><g><path d="M44.9166 2.91782H35.166V26.2215H39.3546V17.0621H44.9184C49.8343 17.0621 52.6532 14.4901 52.6532 10.0044C52.6532 5.51877 49.8343 2.91602 44.9184 2.91602L44.9166 2.91782ZM39.3528 6.64199H44.7578C47.232 6.64199 48.3364 7.6802 48.3364 10.0062C48.3364 12.3322 47.1995 13.3397 44.7578 13.3397H39.3528V6.64199Z" fill="currentColor"></path><path d="M67.6047 23.6024C67.4657 23.6024 67.2094 23.6024 67.2094 22.1952V14.8047C67.2094 10.9322 65.0258 8.88477 60.8931 8.88477C56.349 8.88477 53.633 11.0245 53.4435 14.7541L53.4237 15.1339H57.2892L57.3145 14.7993C57.448 12.9725 58.0003 12.1025 60.7668 12.1025C63.5333 12.1025 63.463 13.4464 63.463 13.8877C63.463 15.1375 62.2394 15.4215 59.6912 15.9008C56.1469 16.5719 52.6855 17.5721 52.6855 21.6887C52.6855 24.6623 54.945 26.6609 58.3089 26.6609C60.6062 26.6609 62.4307 25.8904 63.6362 24.4217C63.9881 25.7674 64.8688 26.377 66.4082 26.377C66.9478 26.377 67.5054 26.31 68.0667 26.178L68.3446 26.1129V23.5047L67.9241 23.5752C67.7653 23.6024 67.6913 23.6024 67.6047 23.6024ZM63.463 17.9194V19.5743C63.463 21.998 61.7955 23.445 59.0037 23.445C56.894 23.445 56.6233 22.3887 56.6233 21.4699C56.6233 20.0464 57.6032 19.3464 60.3698 18.7912C61.7377 18.5018 62.7844 18.2377 63.463 17.9194Z" fill="currentColor"></path><path d="M79.9055 9.15197L79.5915 9.11037C79.0772 9.04163 78.6206 9.0127 78.063 9.0127C76.3612 9.0127 75.0366 9.80673 74.044 11.431V9.39253H70.2344V26.2227H74.044V17.5228C74.044 14.6867 75.8775 12.7043 78.5033 12.7043C78.8733 12.7043 79.1422 12.7369 79.4832 12.7947L79.9037 12.8653V9.15378L79.9055 9.15197Z" fill="currentColor"></path><path d="M94.7355 23.6024C94.5966 23.6024 94.3403 23.6024 94.3403 22.1952V14.8047C94.3403 10.9322 92.1567 8.88477 88.024 8.88477C83.4799 8.88477 80.7639 11.0245 80.5744 14.7541L80.5545 15.1339H84.4201L84.4454 14.7993C84.5789 12.9725 85.1293 12.1025 87.8977 12.1025C90.666 12.1025 90.5938 13.4464 90.5938 13.8877C90.5938 15.1375 89.3703 15.4215 86.8221 15.9008C83.2777 16.5719 79.8164 17.5721 79.8164 21.6887C79.8164 24.6623 82.0758 26.6609 85.4397 26.6609C87.7371 26.6609 89.5616 25.8904 90.7671 24.4217C91.119 25.7674 91.9997 26.377 93.539 26.377C94.0786 26.377 94.6363 26.31 95.1975 26.178L95.4754 26.1129V23.5047L95.0549 23.5752C94.8961 23.6024 94.8221 23.6024 94.7355 23.6024ZM90.5938 17.9194V19.5743C90.5938 21.998 88.9263 23.445 86.1345 23.445C84.0249 23.445 83.7542 22.3887 83.7542 21.4699C83.7542 20.0482 84.7341 19.3464 87.5006 18.7912C88.8686 18.5018 89.9153 18.2377 90.5938 17.9194Z" fill="currentColor"></path><path d="M108.613 10.7769C107.697 9.81465 106.233 8.91752 103.965 8.91752C101.832 8.91752 99.9096 9.76943 98.5507 11.3141C97.1358 12.922 96.3887 15.1667 96.3887 17.8056C96.3887 23.1034 99.4331 26.6629 103.966 26.6629C106.183 26.6629 107.666 25.7803 108.615 24.8434V26.2216H112.425V2.91797H108.615V10.7769H108.613ZM104.468 23.3819C102.555 23.3819 100.323 21.9223 100.323 17.8056C100.323 13.6889 102.555 12.2293 104.468 12.2293C107.043 12.2293 108.581 14.313 108.581 17.8056C108.581 21.2983 107.005 23.3819 104.468 23.3819Z" fill="currentColor"></path><path d="M118.978 9.39062H115.168V26.2208H118.978V9.39062Z" fill="currentColor"></path><path d="M119.198 3.16895H114.979V7.24039H119.198V3.16895Z" fill="currentColor"></path><path d="M133.065 10.7629C131.843 9.53836 130.284 8.91797 128.416 8.91797C123.89 8.91797 120.965 12.1592 120.965 17.1748C120.965 22.1904 123.89 25.4009 128.416 25.4009C130.364 25.4009 131.923 24.7823 133.065 23.5596V24.7877C133.065 27.5298 131.805 28.7525 128.983 28.7525C126.864 28.7525 125.67 27.9982 125.334 26.4482L125.273 26.1624H121.365L121.409 26.5639C121.779 29.9697 124.61 32.0028 128.983 32.0028C134.072 32.0028 136.875 29.3729 136.875 24.5978V9.39186H133.065V10.7629ZM128.983 22.1199C127.756 22.1199 124.901 21.6387 124.901 17.1766C124.901 12.7145 127.756 12.2334 128.983 12.2334C132.331 12.2334 133.034 14.9211 133.034 17.1766C133.034 20.4106 131.634 22.1199 128.983 22.1199Z" fill="currentColor"></path><path d="M157.438 8.91797C155.372 8.91797 153.664 9.74275 152.235 11.4375C151.452 9.78616 149.95 8.91797 147.859 8.91797C145.767 8.91797 144.309 9.83861 143.399 10.8244V9.39186H139.59V26.2221H143.399V15.9756C143.399 13.7057 144.699 12.2949 146.789 12.2949C148.878 12.2949 149.232 13.4326 149.232 15.5325V26.2221H153.042V15.9756C153.042 13.7057 154.341 12.2949 156.431 12.2949C158.521 12.2949 158.874 13.4326 158.874 15.5325V26.2221H162.684V14.6806C162.684 10.9654 160.822 8.91797 157.44 8.91797H157.438Z" fill="currentColor"></path><path d="M179.748 23.5772C179.589 23.6043 179.515 23.6043 179.429 23.6043C179.29 23.6043 179.034 23.6043 179.034 22.1971V14.8067C179.034 10.9342 176.85 8.88672 172.717 8.88672C168.173 8.88672 165.457 11.0264 165.268 14.756L165.248 15.1359H169.113L169.139 14.8013C169.272 12.9744 169.824 12.1044 172.591 12.1044C175.358 12.1044 175.287 13.4483 175.287 13.8897C175.287 15.1395 174.064 15.4235 171.515 15.9028C167.971 16.5738 164.51 17.574 164.51 21.6907C164.51 24.6642 166.769 26.6629 170.133 26.6629C172.43 26.6629 174.255 25.8924 175.46 24.4237C175.812 25.7694 176.693 26.3789 178.232 26.3789C178.772 26.3789 179.33 26.312 179.891 26.18L180.169 26.1148V23.5067L179.748 23.5772ZM175.287 17.9213V19.5763C175.287 22 173.62 23.447 170.828 23.447C168.718 23.447 168.448 22.3907 168.448 21.4718C168.448 20.0502 169.427 19.3484 172.194 18.7931C173.562 18.5037 174.609 18.2396 175.287 17.9213Z" fill="currentColor"></path></g></g></svg>
           </div>
+        </header>
+
+        <p id="notice" class="notice" role="status" hidden></p>
+
+        <main id="thread" class="thread" role="log" aria-live="polite" aria-label="Conversation">
+          <section id="welcome" class="welcome">
+            <p class="eyebrow">Internal workshop · RAG demo</p>
+            <h1>Ask the documents</h1>
+            <div class="rule" aria-hidden="true"></div>
+            <p class="lede">
+              Contracts, manuals, policies and minutes of Torrevalle Acque. Every answer comes with the
+              passages it was written from, and a follow-up question keeps the thread of the chat.
+            </p>
+            <ul class="suggestions" aria-label="Questions to start from">
+              <li>
+                <button type="button" class="suggestion">
+                  Con quanto preavviso possiamo recedere dal contratto CTR-2024-017 con Beta Idroservizi?
+                </button>
+              </li>
+              <li>
+                <button type="button" class="suggestion">Cosa significa l'allarme E-4012 sulla pompa P7?</button>
+              </li>
+              <li>
+                <button type="button" class="suggestion">Chi è il legale rappresentante di Beta Idroservizi?</button>
+              </li>
+            </ul>
+          </section>
+        </main>
+
+        <section id="evaluation" class="panel" aria-labelledby="evaluation-title" hidden>
+          <div class="panel-inner">
+            <p class="eyebrow">Evaluation</p>
+            <h1 id="evaluation-title">How good are the answers?</h1>
+            <div class="rule" aria-hidden="true"></div>
+            <p id="evaluation-lede" class="lede">Loading the golden set.</p>
+            <p id="evaluation-problem" class="notice" role="alert" hidden></p>
+
+            <section class="block" aria-labelledby="retrieval-title">
+              <div class="block-head">
+                <h2 id="retrieval-title">Retrieval</h2>
+                <button id="run-retrieval" type="button" class="button button-small" disabled>Measure</button>
+              </div>
+              <p class="meta">
+                Does the search bring back the passages that hold the answer, and near the top? This needs
+                no language model and takes a few seconds.
+              </p>
+              <dl id="retrieval-metrics" class="metrics"></dl>
+              <div id="retrieval-types" class="table-scroll"></div>
+            </section>
+
+            <section class="block" aria-labelledby="generation-title">
+              <div class="block-head">
+                <h2 id="generation-title">Generation</h2>
+                <button id="run-generation" type="button" class="button button-small" disabled>Ask all</button>
+                <button id="stop-generation" type="button" class="button button-small" hidden>Stop</button>
+              </div>
+              <p class="meta">
+                Does the answer say what the correct answer says? The model is asked one question at a
+                time; with a free model a full run takes several minutes.
+              </p>
+              <label class="check">
+                <input id="judge" type="checkbox" />
+                Also judge faithfulness: a second model call per question checks the answer against the passages
+              </label>
+              <p id="generation-progress" class="meta" role="status"></p>
+              <dl id="generation-metrics" class="metrics"></dl>
+            </section>
+
+            <section class="block" aria-labelledby="questions-title">
+              <h2 id="questions-title">Questions</h2>
+              <p class="meta">Open a question to see its golden passages, what was retrieved and the answer.</p>
+              <ol id="question-list" class="question-list"></ol>
+            </section>
+          </div>
+        </section>
+
+        <form id="composer" class="composer" novalidate>
+          <div class="composer-inner">
+            <label for="question" class="visually-hidden">Your question</label>
+            <textarea id="question" name="question" rows="1" placeholder="Write a question"></textarea>
+            <button id="send" type="submit" class="button">Send</button>
+          </div>
+          <p id="form-error" class="form-error" role="alert" hidden></p>
         </form>
-
-        <section id="examples" class="examples" aria-labelledby="examples-title">
-          <h2 id="examples-title">Questions to start from</h2>
-          <ul>
-            <li>
-              <button type="button" class="example">
-                Con quanto preavviso possiamo recedere dal contratto CTR-2024-017 con Beta Idroservizi?
-              </button>
-            </li>
-            <li>
-              <button type="button" class="example">Cosa significa l'allarme E-4012 sulla pompa P7?</button>
-            </li>
-            <li>
-              <button type="button" class="example">Chi è il legale rappresentante di Beta Idroservizi?</button>
-            </li>
-          </ul>
-        </section>
-
-        <section id="result" class="result" aria-labelledby="result-title" hidden>
-          <h2 id="result-title">Answer</h2>
-          <p id="asked" class="asked"></p>
-          <div id="answer" class="answer"></div>
-          <p id="answered-by" class="meta"></p>
-
-          <h2 id="sources-title">Passages given to the model</h2>
-          <p class="meta">Ordered by similarity with the question. Open one to read it.</p>
-          <ol id="sources" class="sources" aria-labelledby="sources-title"></ol>
-        </section>
-      </main>
+      </div>
     </div>
 
-    <script type="module" src="app.js"></script>
+    <!-- The version in the address makes a browser that kept the files of an older page fetch these. -->
+    <script type="module" src="app.js?v=3"></script>
   </body>
 </html>

@@ -1,4 +1,12 @@
+
 # RAG workshop
+
+<img align="right" src="docs/paradigma-asterisks.svg" alt="" height="96">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/paradigma-logo-dark.svg">
+  <img src="docs/paradigma-logo.svg" alt="Paradigma" height="32">
+</picture>
 
 A complete Retrieval-Augmented Generation system that answers questions about the documents of a
 fictional company, Torrevalle Acque: 195 contracts, addenda, manuals, plant sheets, tickets,
@@ -6,6 +14,35 @@ policies, minutes and e-mails. You type a question in a web page, the system fin
 that matter, gives them to a language model and shows the answer together with its sources.
 
 This guide takes you from an empty machine to your first answer.
+
+## What is in the repository
+
+```
+RAG-Workshop/
+├── docs/                  slides of the workshop: the theory
+├── notebooks/             the four notebooks: how each piece was chosen
+├── docker-compose.yml     the four services and how they depend on each other
+├── Dockerfile             image of the Python services (backend and ingestion)
+├── .env.example           template of the file that holds your key
+├── frontend/              web interface: static page served by nginx
+├── src/                   Python package
+│   ├── conf/config.yaml   every setting
+│   ├── parsing.py         files to text
+│   ├── chunking.py        text to chunks
+│   ├── embedding.py       chunks to vectors
+│   ├── vector_store.py    vector database (Qdrant)
+│   ├── retrieval.py       in-memory index used by the notebooks
+│   ├── llm.py             client of the language model
+│   ├── rag.py             retrieve, augment, generate
+│   ├── api.py             backend (HTTP API)
+│   ├── ingest.py          job that fills the vector database
+│   └── evaluation.py      metrics against the golden set
+├── raw-documents/         the 195 documents
+├── vector-db/             ready-made vector database (snapshot)
+├── evaluation/            golden set: questions with their correct answers
+├── tests/                 automated tests
+└── data/                  created at run time, ignored by git
+```
 
 ## Start with the theory
 
@@ -27,8 +64,9 @@ Each part of the theory has its counterpart here:
 | Embeddings | `02_embedding.ipynb` | `src/embedding.py` |
 | Retrieval: vector database and similarity | `03_rag.ipynb` | `src/vector_store.py`, `src/retrieval.py` |
 | Generation: the prompt | `03_rag.ipynb` | `src/rag.py`, `src/llm.py` |
+| Evaluation | the Evaluation panel of the web page | `src/evaluation.py`, `evaluation/golden_set.yaml` |
 
-Hybrid search, re-ranking and evaluation are explained in the slides and are not built here yet.
+Hybrid search and re-ranking are explained in the slides and are not built here yet.
 
 ## What you need, and where it goes
 
@@ -113,18 +151,24 @@ Later starts skip all of this and take a few seconds: use `docker compose up`.
 
 Open http://localhost:8080
 
-Under the title, a line tells you the state of the system:
+The page is a chat. Write a question in the box at the bottom and press **Send** (or Enter), or
+pick one of the three questions on the opening screen. An answer takes from a few seconds to about
+a minute; if the language model does not answer, the message offers **Try again**.
 
-- `1754 passages indexed. Model: ...` means that everything is ready;
-- `Waiting for the backend` means that the backend is still starting, usually because it is
-  downloading the model. The page checks again by itself every five seconds.
+Under every answer, **Sources** opens the ten passages that were retrieved, best first, each with
+its document, section, page and similarity score. Open a passage to read its text.
 
-Type a question, or press one of the three examples. An answer takes from a few seconds to about
-a minute. Below the answer you find:
+A chat keeps its thread: a follow-up such as *E il fornitore?* is searched together with the
+question before it, and the model receives the last exchanges. When you change subject, start a
+**New chat**, otherwise the previous question still weighs on the search.
 
-- the name of the model that wrote it;
-- **Passages given to the model**: the ten passages that were retrieved, best first, each with its
-  document, section, page and similarity score. Open one to read its text.
+The panel on the left lists your chats. Each one can be reopened, renamed (pencil) or deleted
+(bin), and the button at the top left of the conversation hides or shows the panel. Chats are
+saved in your browser only: another browser, or a private window, starts empty.
+
+While the system is not ready, a notice says so under the top bar and the box stays disabled.
+This is normal at the first start, when the backend is downloading the embedding model; the page
+checks again by itself every five seconds.
 
 Questions worth trying:
 
@@ -133,6 +177,30 @@ Questions worth trying:
 - *Cosa significa l'allarme E-4012 sulla pompa P7?*
 - *Qual è il numero di cellulare del Direttore Generale?*
   The documents do not say: the system should answer that it does not know.
+
+### 6. Measure the system
+
+The **Evaluation** tab, at the top of the page, measures the system against a golden set: 29
+questions, each with the passages that hold the answer and the correct answer. Three of them
+cannot be answered from the documents, to check that the system says so.
+
+- **Retrieval**: press **Measure**. In a few seconds, and without calling the language model, you
+  get Recall, Precision, MRR and NDCG over the ten retrieved passages, and Context recall (the
+  share of the facts of the correct answer that the retrieved text contains). A table breaks the
+  numbers down by type of question.
+- **Generation**: **Ask all** sends every question to the model, one at a time, and checks that the
+  answer states the expected facts. It costs one model call per question, so with a free model
+  it takes several minutes and uses part of the daily allowance; **Stop** ends it after the
+  question in progress. With the box ticked, a second call per question judges faithfulness: how
+  many claims of the answer the passages support.
+- **Questions**: open one to see its golden passages, what was retrieved and the answer; a single
+  question can be asked on its own.
+
+The golden set is the file `evaluation/golden_set.yaml`: add or change questions there, then
+restart the backend with `docker compose restart backend`. Results are kept in your browser.
+
+Use the numbers to compare two versions of the system: change the chunk size or the number of
+retrieved passages in `src/conf/config.yaml`, rebuild, measure again.
 
 ## Everyday commands
 
@@ -209,59 +277,3 @@ in any other Jupyter client, and choose the kernel **Python (rag-workshop)**.
 After running them, the embedding model is in your Hugging Face cache (`~/.cache/huggingface`):
 set `MODEL_CACHE` to that path and Docker will not download it a second time.
 
-## What is in the repository
-
-```
-RAG-Workshop/
-├── docs/                  slides of the workshop: the theory
-├── notebooks/             the four notebooks: how each piece was chosen
-├── docker-compose.yml     the four services and how they depend on each other
-├── Dockerfile             image of the Python services (backend and ingestion)
-├── .env.example           template of the file that holds your key
-├── frontend/              web interface: static page served by nginx
-├── src/                   Python package
-│   ├── conf/config.yaml   every setting
-│   ├── parsing.py         files to text
-│   ├── chunking.py        text to chunks
-│   ├── embedding.py       chunks to vectors
-│   ├── vector_store.py    vector database (Qdrant)
-│   ├── retrieval.py       in-memory index used by the notebooks
-│   ├── llm.py             client of the language model
-│   ├── rag.py             retrieve, augment, generate
-│   ├── api.py             backend (HTTP API)
-│   └── ingest.py          job that fills the vector database
-├── raw-documents/         the 195 documents
-├── vector-db/             ready-made vector database (snapshot)
-├── tests/                 automated tests
-└── data/                  created at run time, ignored by git
-```
-
-## When something goes wrong
-
-**`env file .env not found` when starting.**
-Step 3 was skipped: create `.env` from `.env.example`.
-
-**The page says `Waiting for the backend` for a long time.**
-The backend is downloading the 2.3 GB embedding model. Run `docker compose logs -f backend` and
-wait for `Application startup complete`. If you already have the model on your machine, set
-`MODEL_CACHE` (see Settings).
-
-**The page says `The vector store is empty`.**
-The ingestion job failed. Read its log with `docker compose logs ingest`.
-
-**`No answer: The language model did not answer` under the question.**
-Free models are shared by many people and are sometimes busy or rate-limited. The system already
-tries a second model by itself; when both fail, wait a little and ask again. If it keeps happening,
-pick another free model from https://openrouter.ai/models, write its name in `llm.model` and start
-with `docker compose up --build`.
-
-**`HTTP 401` in the error message.**
-The key in `.env` is wrong or was deleted. Create a new one (step 3), then run
-`docker compose up -d --force-recreate backend`.
-
-**`port is already allocated` when starting.**
-Another program uses port 8080 or 6333. Choose other ports with `FRONTEND_PORT` and `QDRANT_PORT`
-in `.env`.
-
-**A container is killed, or the machine becomes very slow.**
-Docker has too little memory. Assign 8 GB to it in Docker Desktop, Settings, Resources.

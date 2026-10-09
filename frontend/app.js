@@ -1,22 +1,49 @@
-// Web interface of the RAG workshop: sends a question to the backend and shows the answer with its sources.
+// Chat interface of the RAG workshop.
+//
+// The list of chats lives in the browser (see chats.js). Each question goes to the backend together
+// with the earlier exchanges of its chat, and comes back as an answer with the passages it was
+// written from. The backend itself keeps no memory.
 
-const form = document.querySelector("#ask-form");
+import { historyOf, loadState, newChat, saveState } from "./chats.js";
+import { openEvaluation, setEvaluationEnabled } from "./evaluation.js";
+import { answerBlock, element, iconButton, sourcesBlock } from "./render.js";
+
+const shell = document.querySelector("#shell");
+const sidebarToggle = document.querySelector("#toggle-sidebar");
+const backdrop = document.querySelector("#backdrop");
+const chatList = document.querySelector("#chat-list");
+const chatEmpty = document.querySelector("#chat-empty");
+const newChatButton = document.querySelector("#new-chat");
+const thread = document.querySelector("#thread");
+const welcome = document.querySelector("#welcome");
+const composer = document.querySelector("#composer");
 const input = document.querySelector("#question");
-const submit = document.querySelector("#submit");
-const progress = document.querySelector("#progress");
+const send = document.querySelector("#send");
 const formError = document.querySelector("#form-error");
-const statusLine = document.querySelector("#status");
-const examples = document.querySelector("#examples");
-const result = document.querySelector("#result");
-const asked = document.querySelector("#asked");
-const answer = document.querySelector("#answer");
-const answeredBy = document.querySelector("#answered-by");
-const sources = document.querySelector("#sources");
+const notice = document.querySelector("#notice");
+const suggestions = document.querySelectorAll(".suggestion");
+const main = document.querySelector("#main");
+const evaluation = document.querySelector("#evaluation");
+const viewTabs = { chat: document.querySelector("#view-chat"), evaluation: document.querySelector("#view-evaluation") };
 
 // Pause between two checks of the backend while it is not ready.
-const STATUS_RETRY_MS = 5000;
+const READY_RETRY_MS = 5000;
+// Longest name a chat can be given, in characters.
+const NAME_LENGTH = 80;
+// Below this width the list of chats covers the conversation instead of sitting next to it.
+// The style sheet switches layout at the same width.
+const narrow = window.matchMedia("(max-width: 47.99rem)");
 
+const [state, loadProblem] = loadState();
+let storageProblem = loadProblem;
+let readinessProblem = null;
+let ready = false;
+let busy = false;
 let maxQuestionChars = null;
+// While an answer is being written: { chatId, startedAt }.
+let pending = null;
+// While a chat is being renamed or deleted: { id, kind: "rename" | "delete" }.
+let rowAction = null;
 
 /** Read the body of a response; a failed request becomes an Error with the reason given by the backend. */
 async function readJson(response) {
@@ -31,176 +58,394 @@ async function readJson(response) {
   return body;
 }
 
-/** Create an element with a class and a text. */
-function element(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
+/** The chat on screen, or null on the opening screen. */
+function activeChat() {
+  return state.chats.find((chat) => chat.id === state.activeId) ?? null;
 }
 
-/** Add a line of model text to a node, turning **bold**, *italic* and `code` into elements. */
-function appendInline(node, text) {
-  const pattern = /(\*\*[^*]+\*\*|\*[^*\s][^*]*\*|`[^`]+`)/g;
-  for (const part of text.split(pattern)) {
-    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
-      node.append(element("strong", "", part.slice(2, -2)));
-    } else if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
-      node.append(element("em", "", part.slice(1, -1)));
-    } else if (part.startsWith("`") && part.endsWith("`") && part.length > 2) {
-      node.append(element("code", "", part.slice(1, -1)));
-    } else if (part) {
-      node.append(part);
-    }
+/** Show what is wrong, if anything: a backend that is not ready comes before a storage problem. */
+function renderNotice() {
+  const text = readinessProblem ?? storageProblem;
+  notice.textContent = text ?? "";
+  notice.hidden = !text;
+}
+
+/** Save the chats and report a storage that refuses them. */
+function persist() {
+  try {
+    saveState(state);
+    storageProblem = null;
+  } catch (error) {
+    storageProblem = error.message;
+  }
+  renderNotice();
+}
+
+/** Show or clear the error under the composer. */
+function showFormError(text) {
+  formError.textContent = text ?? "";
+  formError.hidden = !text;
+}
+
+/** Enable the controls only when the backend is ready and no answer is being written. */
+function updateControls() {
+  const blocked = !ready || busy;
+  input.disabled = !ready;
+  send.disabled = blocked;
+  for (const button of suggestions) button.disabled = blocked;
+}
+
+/** Let the question field grow with its text, up to the height allowed by the style sheet. */
+function fitInput() {
+  input.style.height = "auto";
+  input.style.height = `${input.scrollHeight}px`;
+}
+
+// ---------------------------------------------------------------- views
+
+/** Show the conversation or the evaluation panel. */
+function setView(view) {
+  main.dataset.view = view;
+  thread.hidden = view !== "chat";
+  composer.hidden = view !== "chat";
+  evaluation.hidden = view !== "evaluation";
+  for (const [name, tab] of Object.entries(viewTabs)) {
+    tab.setAttribute("aria-pressed", String(name === view));
+  }
+  if (view === "evaluation") openEvaluation();
+}
+
+// ---------------------------------------------------------------- list of chats
+
+/** Open or close the list of chats; on a wide screen the choice is remembered. */
+function setSidebar(open, remember) {
+  shell.dataset.sidebar = open ? "open" : "closed";
+  const label = open ? "Hide the list of chats" : "Show the list of chats";
+  sidebarToggle.setAttribute("aria-expanded", String(open));
+  sidebarToggle.setAttribute("aria-label", label);
+  sidebarToggle.title = label;
+  backdrop.hidden = !(open && narrow.matches);
+  if (remember && !narrow.matches) {
+    state.sidebarOpen = open;
+    persist();
   }
 }
 
-/** Add a list item to the answer; a new list is started when the kind of list changes. */
-function appendListItem(list, ordered, text) {
-  let target = list;
-  if (!target || target.dataset.ordered !== String(ordered)) {
-    target = element(ordered ? "ol" : "ul");
-    target.dataset.ordered = String(ordered);
-    answer.append(target);
-  }
-  const item = element("li");
-  appendInline(item, text);
-  target.append(item);
-  return target;
+/** On a narrow screen the list covers the conversation, so it closes once a choice is made. */
+function closeSidebarIfNarrow() {
+  if (narrow.matches) setSidebar(false, false);
 }
 
-/**
- * Show the answer of the model. Models write a small subset of Markdown (headings, lists, emphasis):
- * it is turned into elements one line at a time and never inserted as HTML.
- */
-function renderAnswer(text) {
-  answer.replaceChildren();
-  let list = null;
-  for (const raw of text.split("\n")) {
-    const line = raw.trim();
-    const bullet = line.match(/^([-*\u2022]|\d+[.)])\s+(.*)$/);
-    if (bullet) {
-      list = appendListItem(list, /^\d/.test(bullet[1]), bullet[2]);
-      continue;
-    }
-    list = null;
-    if (!line) continue;
-    const heading = line.match(/^#{1,6}\s+(.*)$/);
-    const block = element(heading ? "h3" : "p");
-    appendInline(block, heading ? heading[1] : line);
-    answer.append(block);
-  }
+/** Leave the rename or delete mode of a row. */
+function closeRowAction() {
+  rowAction = null;
+  renderSidebar();
 }
 
-/** Show the passages that were given to the model, closed, best first. */
-function renderSources(items) {
-  sources.replaceChildren();
-  for (const item of items) {
-    const summary = element("summary");
-    summary.append(
-      element("span", "source-position", `${item.position}.`),
-      element("span", "source-document", item.document),
-    );
-    const details = [item.section, item.page === null ? null : `page ${item.page}`, `score ${item.score.toFixed(3)}`];
-    summary.append(element("span", "source-detail", details.filter(Boolean).join(" · ")));
-    const entry = element("details");
-    entry.append(summary, element("pre", "source-text", item.text));
-    const row = element("li");
-    row.append(entry);
-    sources.append(row);
-  }
+/** Show a chat. */
+function openChat(id) {
+  state.activeId = id;
+  rowAction = null;
+  persist();
+  setView("chat");
+  render(false);
+  closeSidebarIfNarrow();
+  input.focus();
 }
 
-/** Show or clear the error under the question. */
-function showFormError(message) {
-  formError.textContent = message ?? "";
-  formError.hidden = !message;
-}
-
-/** Ask the backend and show what comes back; the button stays disabled while the model writes. */
-async function ask(question) {
+/** Go back to the opening screen; the new chat is created by its first question. */
+function startNewChat() {
+  state.activeId = null;
+  rowAction = null;
   showFormError(null);
-  submit.disabled = true;
-  const started = Date.now();
-  const describe = () => {
-    const seconds = Math.round((Date.now() - started) / 1000);
-    progress.textContent = `Searching the documents and writing the answer: ${seconds} s`;
-  };
-  describe();
-  const timer = setInterval(describe, 1000);
+  persist();
+  setView("chat");
+  render(false);
+  closeSidebarIfNarrow();
+  input.focus();
+}
+
+/** Delete a chat for good. An answer still being written for it is dropped when it arrives. */
+function deleteChat(id) {
+  state.chats = state.chats.filter((chat) => chat.id !== id);
+  if (state.activeId === id) state.activeId = null;
+  rowAction = null;
+  persist();
+  render(false);
+}
+
+/** The row of a chat while it is being renamed: a field with save and cancel. */
+function renameRow(row, chat) {
+  const field = element("input", "chat-name");
+  field.type = "text";
+  field.value = chat.title;
+  field.maxLength = NAME_LENGTH;
+  field.setAttribute("aria-label", "Name of the chat");
+  field.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeRowAction();
+  });
+  const save = iconButton("check", "Save the name", "chat-action");
+  save.type = "submit";
+  const cancel = iconButton("close", "Keep the old name", "chat-action");
+  cancel.addEventListener("click", closeRowAction);
+  const form = element("form", "chat-edit");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const name = field.value.trim();
+    if (!name) {
+      field.focus();
+      return;
+    }
+    chat.title = name;
+    rowAction = null;
+    persist();
+    renderSidebar();
+  });
+  form.append(field, save, cancel);
+  row.append(form);
+  return row;
+}
+
+/** The row of a chat while its deletion waits for a confirmation. */
+function deleteRow(row, chat) {
+  row.classList.add("chat-row-confirm");
+  const confirm = element("button", "text-button text-button-danger", "Delete");
+  confirm.type = "button";
+  confirm.addEventListener("click", () => deleteChat(chat.id));
+  const cancel = element("button", "text-button chat-keep", "Keep");
+  cancel.type = "button";
+  cancel.addEventListener("click", closeRowAction);
+  row.append(element("span", "chat-confirm", "Delete this chat?"), confirm, cancel);
+  return row;
+}
+
+/** The row of a chat in the list. */
+function chatRow(chat) {
+  const row = element("li", "chat-row");
+  const current = chat.id === state.activeId;
+  if (current) row.classList.add("chat-row-active");
+  if (rowAction && rowAction.id === chat.id) {
+    return rowAction.kind === "rename" ? renameRow(row, chat) : deleteRow(row, chat);
+  }
+  const open = element("button", "chat-open", chat.title);
+  open.type = "button";
+  open.title = chat.title;
+  if (current) open.setAttribute("aria-current", "true");
+  open.addEventListener("click", () => openChat(chat.id));
+  const rename = iconButton("pencil", `Rename the chat: ${chat.title}`, "chat-action");
+  rename.addEventListener("click", () => {
+    rowAction = { id: chat.id, kind: "rename" };
+    renderSidebar();
+    chatList.querySelector(".chat-name").select();
+  });
+  const remove = iconButton("trash", `Delete the chat: ${chat.title}`, "chat-action");
+  remove.addEventListener("click", () => {
+    rowAction = { id: chat.id, kind: "delete" };
+    renderSidebar();
+    chatList.querySelector(".chat-keep").focus();
+  });
+  row.append(open, rename, remove);
+  return row;
+}
+
+/** Draw the list of chats, most recent first. */
+function renderSidebar() {
+  const chats = [...state.chats].sort((first, second) => second.updatedAt - first.updatedAt);
+  chatEmpty.hidden = chats.length > 0;
+  chatList.replaceChildren(...chats.map(chatRow));
+}
+
+// ---------------------------------------------------------------- conversation
+
+/** A message of the conversation; the author is announced by screen readers only. */
+function messageNode(kind, author, ...content) {
+  const message = element("article", `message message-${kind}`);
+  message.append(element("h2", "visually-hidden", author), ...content);
+  return message;
+}
+
+/** The message shown while an answer is being written. */
+function typingNode() {
+  const dots = element("span", "dots");
+  dots.append(element("span"), element("span"), element("span"));
+  const typing = element("p", "typing");
+  typing.append(dots, "Reading the documents", element("span", "elapsed"));
+  return messageNode("assistant", "Assistant", typing);
+}
+
+/** A question that got no answer, with the way to ask it again. */
+function failureNode(chat, index) {
+  const retry = element("button", "text-button", "Try again");
+  retry.type = "button";
+  retry.addEventListener("click", () => {
+    if (busy || !ready) return;
+    const question = chat.messages[index - 1].text;
+    chat.messages.splice(index - 1, 2);
+    ask(question);
+  });
+  const failure = element("div", "failure");
+  failure.append(element("p", "", `No answer. ${chat.messages[index].text}`), retry);
+  return messageNode("assistant", "Assistant", failure);
+}
+
+/** Draw the chat on screen, or the opening screen when there is none. */
+function renderThread(animateLast) {
+  for (const node of thread.querySelectorAll(".message")) node.remove();
+  const chat = activeChat();
+  welcome.hidden = chat !== null;
+  if (chat === null) return;
+  chat.messages.forEach((message, index) => {
+    if (message.role === "user") {
+      thread.append(messageNode("user", "You", element("p", "bubble", message.text)));
+    } else if (message.role === "assistant") {
+      const answer = messageNode("assistant", "Assistant", answerBlock(message.text));
+      answer.append(sourcesBlock(message.sources));
+      thread.append(answer);
+    } else {
+      thread.append(failureNode(chat, index));
+    }
+  });
+  if (pending && pending.chatId === chat.id) thread.append(typingNode());
+  const last = thread.lastElementChild;
+  if (animateLast) last.classList.add("message-new");
+  last.scrollIntoView({ block: "end" });
+}
+
+/** Draw everything that depends on the chats. */
+function render(animateLast) {
+  renderSidebar();
+  renderThread(animateLast);
+  updateControls();
+}
+
+/** Send a question of the chat on screen and store the answer, or the reason of the failure. */
+async function ask(question) {
+  let chat = activeChat();
+  if (chat === null) {
+    chat = newChat(question);
+    state.chats.push(chat);
+    state.activeId = chat.id;
+  }
+  const history = historyOf(chat);
+  chat.messages.push({ role: "user", text: question });
+  chat.updatedAt = Date.now();
+  busy = true;
+  pending = { chatId: chat.id, startedAt: Date.now() };
+  showFormError(null);
+  persist();
+  render(true);
+  const timer = setInterval(() => {
+    const elapsed = thread.querySelector(".elapsed");
+    if (elapsed) elapsed.textContent = `${Math.round((Date.now() - pending.startedAt) / 1000)} s`;
+  }, 1000);
+
+  let message;
   try {
     const response = await fetch("api/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question }),
+      body: JSON.stringify({ question, history }),
     });
     const body = await readJson(response);
-    asked.textContent = question;
-    renderAnswer(body.answer);
-    answeredBy.textContent = `Written by ${body.model} from ${body.sources.length} passages.`;
-    renderSources(body.sources);
-    examples.hidden = true;
-    result.hidden = false;
-    result.scrollIntoView({ block: "start" });
+    message = { role: "assistant", text: body.answer, sources: body.sources };
   } catch (error) {
-    showFormError(`No answer: ${error.message}`);
-  } finally {
-    clearInterval(timer);
-    progress.textContent = "";
-    submit.disabled = false;
+    message = { role: "failure", text: error.message };
   }
+  clearInterval(timer);
+  busy = false;
+  pending = null;
+  // The chat may have been deleted while the answer was being written.
+  if (state.chats.includes(chat)) {
+    chat.messages.push(message);
+    chat.updatedAt = Date.now();
+    persist();
+  }
+  render(state.activeId === chat.id);
+  input.focus();
 }
 
-form.addEventListener("submit", (event) => {
+// ---------------------------------------------------------------- events
+
+composer.addEventListener("submit", (event) => {
   event.preventDefault();
+  if (busy || !ready) return;
   const question = input.value.trim();
   if (!question) {
     showFormError("Write a question first.");
-    input.focus();
     return;
   }
   if (maxQuestionChars !== null && question.length > maxQuestionChars) {
     showFormError(`The question is longer than ${maxQuestionChars} characters.`);
-    input.focus();
     return;
   }
+  input.value = "";
+  fitInput();
   ask(question);
 });
+
+input.addEventListener("input", fitInput);
 
 input.addEventListener("keydown", (event) => {
   // Enter sends the question, Shift+Enter starts a new line.
   if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
     event.preventDefault();
-    form.requestSubmit();
+    composer.requestSubmit();
   }
 });
 
-for (const button of document.querySelectorAll(".example")) {
+for (const button of suggestions) {
   button.addEventListener("click", () => {
-    input.value = button.textContent.trim();
-    form.requestSubmit();
+    if (busy || !ready) return;
+    ask(button.textContent.trim());
   });
 }
 
-/** Say whether the backend is ready and how much it knows; keep asking until it is ready. */
-async function loadStatus() {
+newChatButton.addEventListener("click", startNewChat);
+
+for (const [name, tab] of Object.entries(viewTabs)) {
+  tab.addEventListener("click", () => setView(name));
+}
+
+sidebarToggle.addEventListener("click", () => {
+  setSidebar(shell.dataset.sidebar !== "open", true);
+});
+
+backdrop.addEventListener("click", () => setSidebar(false, false));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && narrow.matches && shell.dataset.sidebar === "open") {
+    setSidebar(false, false);
+    sidebarToggle.focus();
+  }
+});
+
+narrow.addEventListener("change", () => setSidebar(!narrow.matches && state.sidebarOpen, false));
+
+/** Check whether the backend can answer; while it cannot, say why and keep checking. */
+async function checkReady() {
+  let problem = null;
   try {
     const health = await readJson(await fetch("api/health"));
     maxQuestionChars = health.max_question_chars;
-    if (health.chunks > 0) {
-      delete statusLine.dataset.state;
-      statusLine.textContent = `${health.chunks} passages indexed. Model: ${health.model}.`;
-      return;
+    if (health.chunks === 0) {
+      problem = "The documents are not loaded yet. See the log of the ingestion job.";
     }
-    statusLine.dataset.state = "error";
-    statusLine.textContent = "The vector store is empty: run the ingestion.";
-  } catch (error) {
-    statusLine.dataset.state = "error";
-    statusLine.textContent =
-      "Waiting for the backend. Its first start downloads the embedding model, about 2.3 GB. " +
-      `Last reply: ${error.message}`;
+  } catch {
+    problem =
+      "Getting ready. The backend is still starting: the first time it downloads the embedding " +
+      "model, which can take several minutes.";
   }
-  setTimeout(loadStatus, STATUS_RETRY_MS);
+  readinessProblem = problem;
+  ready = problem === null;
+  renderNotice();
+  updateControls();
+  setEvaluationEnabled(ready);
+  // A golden set that could not be loaded while the backend was starting is fetched now.
+  if (ready && main.dataset.view === "evaluation") openEvaluation();
+  if (!ready) setTimeout(checkReady, READY_RETRY_MS);
 }
 
-loadStatus();
+setSidebar(!narrow.matches && state.sidebarOpen, false);
+render(false);
+renderNotice();
+checkReady();
