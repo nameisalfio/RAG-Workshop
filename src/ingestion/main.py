@@ -2,12 +2,12 @@
 
 The cheapest path that works is taken, in this order:
 
-1. the collection already holds chunks: nothing is done;
+1. the collection already holds chunks, with the vectors the search needs: nothing is done;
 2. a snapshot file exists: it is loaded, which takes seconds;
 3. otherwise the raw documents are parsed, cut into chunks, embedded and stored,
    and a snapshot file is written for the next machine.
 
-Run it with ``python -m src.ingest``. ``python -m src.ingest ingestion.force=true``
+Run it with ``python -m src.ingestion.main``. ``python -m src.ingestion.main ingestion.force=true``
 goes straight to step 3 and replaces whatever the collection holds.
 """
 
@@ -20,11 +20,12 @@ from typing import cast
 import hydra
 from omegaconf import DictConfig, OmegaConf
 
-from src.chunking import Chunk, chunk_document, load_tokenizer
+from src.cache import DiskCache
 from src.config import CONFIG_NAME, RootConfig, project_path, register_schema
-from src.embedding import BgeM3Embedder, Embedder
-from src.parsing import DocumentRouter, ParsedDocument, list_documents, load_corpus, parse_corpus
-from src.vector_store import QdrantStore
+from src.ingestion.chunking import Chunk, chunk_document, load_tokenizer
+from src.ingestion.parsing import DocumentRouter, ParsedDocument, list_documents, load_corpus, parse_corpus
+from src.retrieval.embedding import BgeM3Embedder, Embedder
+from src.retrieval.vector_store import QdrantStore
 
 LOGGER = logging.getLogger(__name__)
 
@@ -52,25 +53,36 @@ def fill_store(chunks: Sequence[Chunk], embedder: Embedder, store: QdrantStore, 
     store.recreate(embedder.dimension)
     for start in range(0, len(chunks), batch_size):
         batch = chunks[start : start + batch_size]
-        store.add(batch, embedder.embed([chunk.text for chunk in batch]).dense, first_id=start)
+        store.add(batch, embedder.embed([chunk.text for chunk in batch]), first_id=start)
         LOGGER.info("Stored %d of %d chunks", start + len(batch), len(chunks))
 
 
-@hydra.main(version_base=None, config_path="conf", config_name=CONFIG_NAME)
+@hydra.main(version_base=None, config_path="../conf", config_name=CONFIG_NAME)
 def main(cfg: DictConfig) -> None:
     """Fill the vector store unless it is already filled."""
     config = cast(RootConfig, OmegaConf.to_object(cfg))
-    store = QdrantStore.connect(config.vector_store, config.reranking.similarity_metric)
+    store = QdrantStore.connect(config.vector_store, config.retrieval)
     snapshot = project_path(config.vector_store.snapshot_file)
     stored = store.count()
-    if stored and not config.ingestion.force:
+    problem = store.layout_problem() if stored else None
+    if stored and problem is None and not config.ingestion.force:
         LOGGER.info("The vector store already holds %d chunks: nothing to do", stored)
         return
+    if problem is not None:
+        LOGGER.warning("The collection in the vector store is replaced: %s", problem)
     if snapshot.is_file() and not config.ingestion.force:
         LOGGER.info("Loading the vector store from the snapshot %s", snapshot)
         store.import_snapshot(snapshot)
+        problem = store.layout_problem()
+        if problem is not None:
+            raise RuntimeError(
+                f"The snapshot {snapshot} cannot be used: {problem}. "
+                "Build the collection again with: python -m src.ingestion.main ingestion.force=true"
+            )
         LOGGER.info("The vector store now holds %d chunks", store.count())
         return
+    # New vectors can rank the same chunks in another order: what was saved for the old ones is dropped.
+    DiskCache(project_path(config.cache.dir)).clear()
     documents = parsed_documents(config)
     tokenizer = load_tokenizer(config.embedding.model_name)
     chunks: list[Chunk] = []

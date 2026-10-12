@@ -338,9 +338,9 @@ def load_corpus(parsed_dir: Path) -> list[ParsedDocument]:
 # ------------------------------------------------------------------ entry point
 
 
-@hydra.main(version_base=None, config_path="conf", config_name=CONFIG_NAME)
+@hydra.main(version_base=None, config_path="../conf", config_name=CONFIG_NAME)
 def main(cfg: DictConfig) -> None:
-    """Parse every raw document and save the text; run it with ``python -m src.parsing``."""
+    """Parse every raw document and save the text; run it with ``python -m src.ingestion.parsing``."""
     config = cast(RootConfig, OmegaConf.to_object(cfg))
     raw_dir = project_path(config.paths.raw_documents_dir)
     parsed_dir = project_path(config.paths.parsed_dir)

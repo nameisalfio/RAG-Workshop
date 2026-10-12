@@ -1,16 +1,18 @@
 // Evaluation panel: measures the system against the golden set kept by the backend.
 //
-// Retrieval is measured in one request and needs no language model. Generation asks the model one
-// question at a time, so that progress is visible and a failure costs one question only. Results are
-// kept in the browser, to be still there after a reload.
+// The panel opens on the results recorded by `python -m src.evaluation`, so that nothing has to be
+// waited for. Everything can also be run live: retrieval in one request, without the language model;
+// generation one question at a time, so that progress is visible and a failure costs one question
+// only. A live run replaces the recorded numbers on screen until the page is loaded again.
 
 import { answerBlock, element } from "./render.js";
 
-const STORAGE_KEY = "rag-workshop.evaluation.v1";
-
 const problem = document.querySelector("#evaluation-problem");
 const lede = document.querySelector("#evaluation-lede");
+const recorded = document.querySelector("#evaluation-recorded");
+const questionsCount = document.querySelector("#questions-count");
 const runRetrieval = document.querySelector("#run-retrieval");
+const retrievalSearch = document.querySelector("#retrieval-search");
 const retrievalMetrics = document.querySelector("#retrieval-metrics");
 const retrievalTypes = document.querySelector("#retrieval-types");
 const runGeneration = document.querySelector("#run-generation");
@@ -56,26 +58,26 @@ function showProblem(text) {
   problem.hidden = !text;
 }
 
-/** Keep the results in the browser; a storage that refuses them is reported. */
-function save() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ retrieval, generation }));
-  } catch (error) {
-    showProblem(`The results could not be saved in this browser (${error.name}).`);
+/** Say when the numbers on screen were recorded, or that they come from a run made just now. */
+function showOrigin(createdAt) {
+  if (createdAt === null) {
+    recorded.textContent = "Results of a run made now, in this page.";
+  } else {
+    const when = new Date(createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    recorded.textContent = `Results recorded on ${when}. Measure or ask again to run them live.`;
   }
+  recorded.hidden = false;
 }
 
-/** Read the results kept by an earlier visit. */
-function restore() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null");
-    if (saved) {
-      retrieval = saved.retrieval ?? null;
-      generation = saved.generation ?? {};
-    }
-  } catch (error) {
-    showProblem(`The saved results could not be read and were not loaded (${error.message}).`);
-  }
+/** Load the recorded results; having none is normal, anything else is reported. */
+async function loadRecorded() {
+  const response = await fetch("api/evaluation/results");
+  if (response.status === 404) return;
+  const results = await readJson(response);
+  retrieval = results.retrieval;
+  generation = { ...results.generation };
+  for (const [id, message] of Object.entries(results.errors)) generation[id] = { error: message };
+  showOrigin(results.created_at);
 }
 
 /** A score between 0 and 1, written with two decimals. */
@@ -108,10 +110,12 @@ function metricTile(name, value, meaning) {
 function renderRetrieval() {
   retrievalMetrics.replaceChildren();
   retrievalTypes.replaceChildren();
+  retrievalSearch.hidden = retrieval === null;
   if (retrieval === null) {
     retrievalMetrics.append(element("p", "meta", "Not measured yet."));
     return;
   }
+  retrievalSearch.textContent = `Measured with: ${retrieval.search}.`;
   const k = retrieval.top_k;
   const s = retrieval.summary;
   retrievalMetrics.append(
@@ -290,6 +294,7 @@ function render() {
   lede.textContent =
     `A golden set of ${golden.questions.length} questions, each with the passages that hold the answer and the ` +
     `correct answer; ${golden.questions.length - answerable} of them cannot be answered from the documents.`;
+  questionsCount.textContent = `${golden.questions.length} questions`;
   renderRetrieval();
   renderGeneration();
   renderQuestions();
@@ -303,7 +308,7 @@ async function measureRetrieval() {
   updateControls();
   try {
     retrieval = await readJson(await fetch("api/evaluation/retrieval", { method: "POST" }));
-    save();
+    showOrigin(null);
   } catch (error) {
     showProblem(`Retrieval could not be measured. ${error.message}`);
   }
@@ -332,7 +337,7 @@ async function askQuestions(ids) {
     } catch (error) {
       generation[id] = { error: error.message };
     }
-    save();
+    showOrigin(null);
     done += 1;
   }
   progress.textContent = stopRequested ? `Stopped after ${done} of ${ids.length} questions.` : "";
@@ -355,12 +360,16 @@ export async function openEvaluation() {
     render();
     return;
   }
-  restore();
   try {
     golden = await readJson(await fetch("api/evaluation/golden"));
   } catch (error) {
     showProblem(`The golden set could not be loaded. ${error.message}`);
     return;
+  }
+  try {
+    await loadRecorded();
+  } catch (error) {
+    showProblem(`The recorded results could not be loaded. ${error.message}`);
   }
   render();
 }

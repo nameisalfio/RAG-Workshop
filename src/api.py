@@ -2,28 +2,27 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 from collections.abc import AsyncIterator, Callable, Sequence
 from contextlib import asynccontextmanager
 from pathlib import Path
-from statistics import fmean
 
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
 
 from src.config import RootConfig, load_config, project_path
 from src.evaluation import (
+    EvaluationResults,
+    GenerationRow,
     GoldenQuestion,
-    RetrievalResult,
-    check_answer,
-    judge_faithfulness,
+    RetrievalReport,
+    generation_row,
     load_golden_set,
-    retrieval_result,
+    load_results,
+    retrieval_report,
 )
-from src.llm import LlmError
+from src.llm import AllowanceExhaustedError, LlmError
 from src.rag import RagAnswer, RagPipeline, Turn, build_pipeline
-from src.retrieval import Hit
-from src.vector_store import EmptyCollectionError
+from src.retrieval.vector_store import EmptyCollectionError, Hit
 
 
 class PastTurn(BaseModel):
@@ -57,6 +56,8 @@ class Answer(BaseModel):
     answer: str
     model: str
     sources: list[Source]
+    # True when the answer was saved by an earlier identical question and no model was called.
+    cached: bool
 
 
 class Health(BaseModel):
@@ -93,83 +94,11 @@ class GoldenSet(BaseModel):
     questions: list[GoldenEntry]
 
 
-class RetrievedPassage(BaseModel):
-    """A retrieved chunk and whether the golden set lists it for the question."""
-
-    position: int
-    document: str
-    section: str
-    relevant: bool
-
-
-class RetrievalScores(BaseModel):
-    """Retrieval metrics, each between 0 and 1."""
-
-    precision: float
-    recall: float
-    mrr: float
-    ndcg: float
-    context_recall: float
-
-
-class RetrievalRow(RetrievalScores):
-    """Retrieval metrics of one question, with what was retrieved."""
-
-    id: str
-    first_relevant: int | None
-    retrieved: list[RetrievedPassage]
-
-
-class RetrievalGroup(RetrievalScores):
-    """Average retrieval metrics of the questions of one type."""
-
-    type: str
-    questions: int
-
-
-class RetrievalReport(BaseModel):
-    """Body of a reply from /api/evaluation/retrieval."""
-
-    top_k: int
-    questions: int
-    summary: RetrievalScores
-    by_type: list[RetrievalGroup]
-    rows: list[RetrievalRow]
-
-
 class GenerationRequest(BaseModel):
     """Body of a request to /api/evaluation/generation: one question, and whether to judge faithfulness."""
 
     id: str
     judge: bool = False
-
-
-class FactCheck(BaseModel):
-    """A fact of the correct answer and whether the answer of the model states it."""
-
-    wordings: list[str]
-    found: bool
-
-
-class FaithfulnessVerdict(BaseModel):
-    """How many claims of the answer the retrieved passages support, according to the judge."""
-
-    claims: int
-    supported: int
-    score: float
-
-
-class GenerationRow(BaseModel):
-    """Body of a reply from /api/evaluation/generation."""
-
-    id: str
-    answer: str
-    model: str
-    facts: list[FactCheck]
-    abstained: bool
-    passed: bool
-    faithfulness: FaithfulnessVerdict | None
-    faithfulness_error: str | None
 
 
 def _sources(hits: Sequence[Hit]) -> list[Source]:
@@ -187,96 +116,16 @@ def _sources(hits: Sequence[Hit]) -> list[Source]:
     ]
 
 
-def _average(results: Sequence[RetrievalResult]) -> dict[str, float]:
-    """Average of each retrieval metric over a group of questions."""
-    return {
-        "precision": fmean(result.precision for result in results),
-        "recall": fmean(result.recall for result in results),
-        "mrr": fmean(result.reciprocal_rank for result in results),
-        "ndcg": fmean(result.ndcg for result in results),
-        "context_recall": fmean(result.context_recall for result in results),
-    }
-
-
-def _retrieval_report(
-    pipeline: RagPipeline, golden_set: Sequence[GoldenQuestion], top_k: int
-) -> RetrievalReport:
-    """Measure retrieval on every answerable question; the language model is not called."""
-    results: dict[str, list[RetrievalResult]] = defaultdict(list)
-    rows: list[RetrievalRow] = []
-    for question in golden_set:
-        if not question.answerable:
-            continue
-        hits = pipeline.retrieve(question.question)
-        result = retrieval_result(question, hits)
-        results[question.type].append(result)
-        passages = [
-            RetrievedPassage(
-                position=position,
-                document=Path(hit.chunk.source).name,
-                section=hit.chunk.section,
-                relevant=flag,
-            )
-            for position, (hit, flag) in enumerate(zip(hits, result.relevant, strict=True), start=1)
-        ]
-        rows.append(
-            RetrievalRow(
-                id=question.id,
-                precision=result.precision,
-                recall=result.recall,
-                mrr=result.reciprocal_rank,
-                ndcg=result.ndcg,
-                context_recall=result.context_recall,
-                first_relevant=next((passage.position for passage in passages if passage.relevant), None),
-                retrieved=passages,
-            )
-        )
-    if not rows:
-        raise ValueError("The golden set has no answerable question")
-    by_type = [
-        RetrievalGroup(type=kind, questions=len(group), **_average(group)) for kind, group in results.items()
-    ]
-    everything = [result for group in results.values() for result in group]
-    summary = RetrievalScores(**_average(everything))
-    return RetrievalReport(top_k=top_k, questions=len(rows), summary=summary, by_type=by_type, rows=rows)
-
-
-def _generation_row(
-    pipeline: RagPipeline, question: GoldenQuestion, result: RagAnswer, judge: bool, markers: Sequence[str]
-) -> GenerationRow:
-    """Compare an answer with the golden set and, when asked, have its faithfulness judged."""
-    check = check_answer(question, result.text, markers)
-    verdict: FaithfulnessVerdict | None = None
-    judge_error: str | None = None
-    if judge:
-        # A judge that fails does not hide the answer: the row reports why it has no verdict.
-        try:
-            judged = judge_faithfulness(pipeline.llm, result.text, result.hits)
-            verdict = FaithfulnessVerdict(
-                claims=judged.claims, supported=judged.supported, score=judged.score
-            )
-        except (LlmError, ValueError, KeyError) as error:
-            judge_error = str(error)
-    facts = [
-        FactCheck(wordings=list(fact), found=found)
-        for fact, found in zip(question.facts, check.facts_found, strict=True)
-    ]
-    return GenerationRow(
-        id=question.id,
-        answer=result.text,
-        model=result.model,
-        facts=facts,
-        abstained=check.abstained,
-        passed=check.passed,
-        faithfulness=verdict,
-        faithfulness_error=judge_error,
-    )
-
-
 def build_app(
-    config: RootConfig, pipeline_factory: Callable[[], RagPipeline], golden_set: Sequence[GoldenQuestion]
+    config: RootConfig,
+    pipeline_factory: Callable[[], RagPipeline],
+    golden_set: Sequence[GoldenQuestion],
+    results_path: Path,
 ) -> FastAPI:
-    """Create the application; the pipeline is built once, when the server starts."""
+    """Create the application; the pipeline is built once, when the server starts.
+
+    ``results_path`` is the file with the recorded evaluation results; it may not exist yet.
+    """
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -292,6 +141,8 @@ def build_app(
             return pipeline.answer(question, history)
         except EmptyCollectionError as error:
             raise HTTPException(status_code=503, detail=str(error)) from error
+        except AllowanceExhaustedError as error:
+            raise HTTPException(status_code=429, detail=str(error)) from error
         except LlmError as error:
             detail = f"The language model did not answer. {error}"
             raise HTTPException(status_code=502, detail=detail) from error
@@ -316,7 +167,9 @@ def build_app(
             raise HTTPException(status_code=422, detail=f"The question is longer than {limit} characters.")
         history = [Turn(turn.question, turn.answer) for turn in body.history]
         result = answer_with(request.app.state.pipeline, question, history)
-        return Answer(answer=result.text, model=result.model, sources=_sources(result.hits))
+        return Answer(
+            answer=result.text, model=result.model, sources=_sources(result.hits), cached=result.cached
+        )
 
     @app.get("/api/evaluation/golden")
     def golden_questions() -> GoldenSet:
@@ -335,10 +188,21 @@ def build_app(
         ]
         return GoldenSet(top_k=config.reranking.top_k, questions=entries)
 
+    @app.get("/api/evaluation/results")
+    def recorded_results(request: Request) -> EvaluationResults:
+        """The results recorded by ``python -m src.evaluation``, read again at every request."""
+        if not results_path.is_file():
+            raise HTTPException(status_code=404, detail="No results were recorded yet.")
+        pipeline: RagPipeline = request.app.state.pipeline
+        try:
+            return load_results(results_path, golden_set, pipeline.search)
+        except ValueError as error:
+            raise HTTPException(status_code=409, detail=str(error)) from error
+
     @app.post("/api/evaluation/retrieval")
     def evaluate_retrieval(request: Request) -> RetrievalReport:
         try:
-            return _retrieval_report(request.app.state.pipeline, golden_set, config.reranking.top_k)
+            return retrieval_report(request.app.state.pipeline, golden_set, config.reranking.top_k)
         except EmptyCollectionError as error:
             raise HTTPException(status_code=503, detail=str(error)) from error
 
@@ -349,7 +213,11 @@ def build_app(
             raise HTTPException(status_code=404, detail=f"The golden set has no question {body.id!r}.")
         pipeline: RagPipeline = request.app.state.pipeline
         result = answer_with(pipeline, question.question, ())
-        return _generation_row(pipeline, question, result, body.judge, config.evaluation.abstention_markers)
+        try:
+            markers = config.evaluation.abstention_markers
+            return generation_row(pipeline, question, result, body.judge, markers)
+        except AllowanceExhaustedError as error:
+            raise HTTPException(status_code=429, detail=str(error)) from error
 
     return app
 
@@ -358,4 +226,5 @@ def create_app() -> FastAPI:
     """Application factory for the server: ``uvicorn src.api:create_app --factory``."""
     config = load_config()
     golden_set = load_golden_set(project_path(config.paths.golden_set))
-    return build_app(config, lambda: build_pipeline(config), golden_set)
+    results_path = project_path(config.paths.evaluation_results)
+    return build_app(config, lambda: build_pipeline(config), golden_set, results_path)

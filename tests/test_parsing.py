@@ -9,7 +9,7 @@ import pytest
 from docx import Document
 
 from src.config import ParsingConfig
-from src.parsing import (
+from src.ingestion.parsing import (
     DocumentRouter,
     MissingTextLayerError,
     ParsedDocument,

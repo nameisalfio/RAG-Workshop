@@ -9,9 +9,9 @@ from tokenizers import Tokenizer
 from tokenizers.models import WordLevel
 from tokenizers.pre_tokenizers import Whitespace
 
-from src.chunking import chunk_document, count_tokens
 from src.config import ChunkingConfig
-from src.parsing import ParsedDocument
+from src.ingestion.chunking import chunk_document, count_tokens
+from src.ingestion.parsing import ParsedDocument
 
 CONTRACT = (
     "## Art. 6 - Penalties\n\nA penalty of 150 euro applies for every hour of delay.\n\n"

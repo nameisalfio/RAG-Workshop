@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
+import json
 import math
 from pathlib import Path
 
 import httpx
 import pytest
 
-from src.chunking import Chunk
 from src.config import load_config, project_path
 from src.evaluation import (
     ContextItem,
@@ -18,8 +18,9 @@ from src.evaluation import (
     load_golden_set,
     retrieval_result,
 )
+from src.ingestion.chunking import Chunk
 from src.llm import ChatClient
-from src.retrieval import Hit
+from src.retrieval.vector_store import Hit
 
 CONFIG = load_config()
 QUESTION = GoldenQuestion(
@@ -40,7 +41,8 @@ def hit(document: str, section: str, text: str = "") -> Hit:
 
 def test_shipped_golden_set_is_valid() -> None:
     questions = load_golden_set(project_path(CONFIG.paths.golden_set))
-    assert len(questions) >= 25
+    assert len(questions) == 20
+    assert sum(not question.answerable for question in questions) == 5
     assert {question.type for question in questions} >= {"direct", "superseded", "lookalike", "unanswerable"}
     assert all(question.facts and question.context for question in questions if question.answerable)
     assert all(not question.facts for question in questions if not question.answerable)
@@ -103,14 +105,19 @@ def test_answers_are_checked_against_the_facts_or_for_an_abstention() -> None:
 
 
 def test_judge_verdict_is_read_from_the_reply_and_checked() -> None:
+    prompts: list[str] = []
+
     def judge(text: str) -> ChatClient:
-        body = {"model": "judge", "choices": [{"message": {"content": text}}]}
-        transport = httpx.MockTransport(lambda _: httpx.Response(200, json=body))
-        return ChatClient(CONFIG.llm, "key", transport=transport)
+        def handler(request: httpx.Request) -> httpx.Response:
+            prompts.append(json.loads(request.content)["messages"][-1]["content"])
+            return httpx.Response(200, json={"model": "judge", "choices": [{"message": {"content": text}}]})
+
+        return ChatClient(CONFIG.llm, "key", transport=httpx.MockTransport(handler))
 
     hits = [hit("EML-04_chiarimento.txt", "", "sono 45 giorni")]
     verdict = judge_faithfulness(judge('Here it is: {"claims": 4, "supported": 3}'), "answer", hits)
     assert (verdict.claims, verdict.supported, verdict.score) == (4, 3, 0.75)
+    assert "[1] EML-04_chiarimento.txt | \nsono 45 giorni" in prompts[0]
     assert judge_faithfulness(judge('{"claims": 0, "supported": 0}'), "answer", hits).score == 1.0
     with pytest.raises(ValueError, match="did not reply with JSON"):
         judge_faithfulness(judge("All claims look fine."), "answer", hits)

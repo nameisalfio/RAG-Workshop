@@ -9,8 +9,10 @@ from typing import Protocol
 import numpy as np
 import torch
 from huggingface_hub import hf_hub_download
+from huggingface_hub.utils.tqdm import disable_progress_bars
 from numpy.typing import NDArray
 from transformers import AutoModel, AutoTokenizer
+from transformers.utils import logging as transformers_logging
 
 from src.config import EmbeddingConfig
 
@@ -63,6 +65,9 @@ class BgeM3Embedder:
     """
 
     def __init__(self, config: EmbeddingConfig) -> None:
+        # Loading prints progress bars that only clutter the output of a command or of a server.
+        disable_progress_bars()
+        transformers_logging.disable_progress_bar()  # type: ignore[no-untyped-call]
         self._config = config
         self._device = torch.device(config.device)
         self._tokenizer = AutoTokenizer.from_pretrained(config.model_name)

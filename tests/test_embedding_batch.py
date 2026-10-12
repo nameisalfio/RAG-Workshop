@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from src.embedding import EmbeddingBatch
+from src.retrieval.embedding import EmbeddingBatch
 
 
 def test_valid_batch() -> None:

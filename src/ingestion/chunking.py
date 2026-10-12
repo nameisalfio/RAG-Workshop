@@ -14,7 +14,7 @@ from itertools import pairwise
 from tokenizers import Tokenizer
 
 from src.config import ChunkingConfig
-from src.parsing import ParsedDocument
+from src.ingestion.parsing import ParsedDocument
 
 STRATEGIES = ("fixed", "recursive", "structural")
 _SEPARATORS = ("\n\n", "\n", ". ", " ")

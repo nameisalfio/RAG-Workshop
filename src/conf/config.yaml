@@ -8,14 +8,14 @@ seed: 42
 paths:
   # Folder with the documents to ingest; it must exist and must not be empty.
   raw_documents_dir: raw-documents
-  # Folder for every artifact produced by the pipeline (parsed text, chunks, index).
+  # Folder for every artifact produced by the pipeline.
   artifacts_dir: data/artifacts
   # Parsed documents, one JSON file per raw document.
   parsed_dir: ${paths.artifacts_dir}/parsed
-  # Vector indexes, one sub-folder each (vectors and chunks).
-  index_dir: ${paths.artifacts_dir}/index
   # Questions with their correct answers, used to measure the system.
   golden_set: evaluation/golden_set.yaml
+  # Results recorded by `python -m src.evaluation`, shown when the evaluation panel opens.
+  evaluation_results: evaluation/results.json
   # Optional file with secrets; variables already set in the environment win.
   env_file: .env
 
@@ -48,10 +48,30 @@ embedding:
   max_length: 8192
   normalize: true
 
-reranking:
-  # One of: cosine, dot, euclidean.
+retrieval:
+  # One of: dense (similarity of meaning), sparse (exact terms), hybrid (both, fused).
+  # The collection holds both kinds of vector, so the mode can change without a new ingestion.
+  mode: hybrid
+  # Metric of the dense vectors, one of: cosine, dot, euclidean. A change needs a new ingestion.
   similarity_metric: cosine
-  # Number of top results to return for each query.
+  # Chunks taken from each search before the fusion; the fused list of the same length goes
+  # to the re-ranker. Without a re-ranker only reranking.top_k chunks are searched.
+  # Measured in notebooks/03_reranking.ipynb: this corpus is full of contracts with the same
+  # clauses, and the passage that answers is often beyond position 30. The re-ranker takes
+  # about 0.2 s per candidate on a laptop CPU, so a larger number is paid on every question.
+  candidates: 50
+  # Constant k of Reciprocal Rank Fusion, which adds 1 / (k + position) over the two rankings.
+  rrf_k: 60
+
+reranking:
+  # Whether a cross-encoder reads the question together with each candidate and orders them again.
+  enabled: true
+  model_name: BAAI/bge-reranker-v2-m3
+  device: cpu
+  batch_size: 8
+  # Maximum number of tokens of a question with one chunk; a longer pair is rejected, not truncated.
+  max_length: 1024
+  # Chunks that reach the prompt, with or without the re-ranker.
   top_k: 10
 
 vector_store:
@@ -85,6 +105,15 @@ rag:
   prompt_history_turns: 4
 
 evaluation:
+  # Settings of `python -m src.evaluation`, which asks every question and records the results.
+  # Whether a second model call per question judges the faithfulness of the answer.
+  judge: true
+  # Free models are often busy: how many times a question is tried, and the pause between tries.
+  attempts: 4
+  retry_pause_s: 20.0
+  # A run that stops early keeps its answers and the next run continues from them.
+  # Set to true to ask every question again: saved answers (see cache) are replaced too.
+  fresh: false
   # Wordings that, in the answer to a question the documents cannot answer, count as saying so.
   abstention_markers:
     - non lo so
@@ -107,6 +136,19 @@ evaluation:
     - do not know
     - don't know
 
+cache:
+  # A question asked before is not paid twice. Entries are JSON files in this folder; delete the
+  # folder to start again. An entry is reused only for the collection it was found in, and the
+  # ingestion empties the folder when it builds the collection again from the documents.
+  dir: data/cache
+  # The passages found for a question (search and re-ranker): the same question, with the same
+  # search settings, always gets the same passages, so nothing is lost by saving them.
+  retrieval: true
+  # The answer of the language model to a prompt it has already answered. It saves the wait and
+  # one of the daily requests, and a saved answer names the date of the day it was written.
+  # Set to false to have every answer written again.
+  answers: true
+
 api:
   # Longest question accepted by the web interface, in characters.
   max_question_chars: 1000
@@ -116,14 +158,21 @@ llm:
   base_url: https://openrouter.ai/api/v1
   # Free models change often: check the OpenRouter models page before use.
   # Tested on 2026-10-08. The free Gemma models answered HTTP 429 (shared quota exhausted upstream).
+  # In the name, 550b is the size of the model (550 billion parameters) and a55b the part of it
+  # that works on each token (55 billion): it is the largest of the free models, not a small one.
+  # The same name without ":free" is the paid version, which is not shared with other free users.
   model: nvidia/nemotron-3-ultra-550b-a55b:free
-  # Used when the main model is unavailable; the switch is logged.
-  fallback_model: nvidia/nemotron-3-super-120b-a12b:free
+  # A free model is often busy for a few seconds: how many times it is tried, and the pause between tries.
+  attempts: 4
+  retry_pause_s: 6.0
+  # A second model that answers when the main one stays unavailable after every try; the switch is
+  # logged. Empty means none: the question fails instead of being answered by a weaker model.
+  fallback_model: ""
   # Name of the environment variable that holds the key, never the key itself.
   api_key_env: OPENROUTER_API_KEY
   temperature: 0.0
   # The limit includes the reasoning these models write before the answer: with 1024
-  # the fallback model used every token on reasoning and returned no text.
+  # a model spent every token on reasoning and returned no text.
   max_tokens: 4096
   timeout_s: 120.0
 
@@ -135,5 +184,8 @@ hydra:
       # One line per HTTP request is too much when a model is being downloaded.
       httpx:
         level: WARNING
+      # The notice about anonymous downloads of the embedding model is not a problem to report.
+      huggingface_hub:
+        level: ERROR
   run:
     dir: outputs/${now:%Y-%m-%d_%H-%M-%S}

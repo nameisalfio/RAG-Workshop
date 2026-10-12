@@ -4,18 +4,22 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 from collections.abc import Callable
+from dataclasses import replace
 
 import httpx
 import pytest
 
 from src.config import LlmConfig
-from src.llm import ChatClient, LlmError
+from src.llm import AllowanceExhaustedError, ChatClient, LlmError
 
 CONFIG = LlmConfig(
     provider="openrouter",
     base_url="https://example.test/api/v1",
     model="main-model",
+    attempts=2,
+    retry_pause_s=7.0,
     fallback_model="spare-model",
     api_key_env="OPENROUTER_API_KEY",
     temperature=0.0,
@@ -24,9 +28,13 @@ CONFIG = LlmConfig(
 )
 
 
-def client(handler: Callable[[httpx.Request], httpx.Response]) -> ChatClient:
-    """A client whose requests are answered by a function instead of the network."""
-    return ChatClient(CONFIG, "secret-key", transport=httpx.MockTransport(handler))
+PAUSES: list[float] = []
+
+
+def client(handler: Callable[[httpx.Request], httpx.Response], config: LlmConfig = CONFIG) -> ChatClient:
+    """A client answered by a function instead of the network; its pauses are recorded, not waited."""
+    PAUSES.clear()
+    return ChatClient(config, "secret-key", transport=httpx.MockTransport(handler), sleep=PAUSES.append)
 
 
 def answer(text: str, model: str) -> httpx.Response:
@@ -106,3 +114,60 @@ def test_empty_answer_and_double_failure_are_errors() -> None:
         client(lambda request: answer("  ", "main-model")).ask("Capital of Italy?")
     with pytest.raises(LlmError, match="spare-model answered HTTP 503"):
         client(lambda request: httpx.Response(503, text="down")).ask("Capital of Italy?")
+
+
+def test_busy_model_is_tried_again_before_anything_else() -> None:
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(json.loads(request.content)["model"])
+        return httpx.Response(503, text="overloaded") if len(calls) == 1 else answer("Rome.", calls[-1])
+
+    reply = client(handler).ask("Capital of Italy?")
+    assert (reply.model, calls, PAUSES) == ("main-model", ["main-model", "main-model"], [7.0])
+
+
+def test_without_a_fallback_model_the_last_failure_is_raised() -> None:
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(json.loads(request.content)["model"])
+        return httpx.Response(503, text="overloaded")
+
+    with pytest.raises(LlmError, match="main-model answered HTTP 503"):
+        client(handler, replace(CONFIG, fallback_model="")).ask("Capital of Italy?")
+    assert calls == ["main-model", "main-model"]
+    with pytest.raises(ValueError, match="attempts must be positive"):
+        client(handler, replace(CONFIG, attempts=0))
+
+
+def rate_limited(resets_in_s: float) -> httpx.Response:
+    """A refusal for too many requests, with the reset time the provider sends."""
+    headers = {
+        "X-RateLimit-Limit": "50",
+        "X-RateLimit-Remaining": "0",
+        "X-RateLimit-Reset": str(int((time.time() + resets_in_s) * 1000)),
+    }
+    return httpx.Response(429, headers=headers, json={"error": {"message": "Rate limit exceeded"}})
+
+
+def test_used_up_allowance_is_reported_at_once_without_retries_or_fallback() -> None:
+    calls: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls.append(json.loads(request.content)["model"])
+        return rate_limited(resets_in_s=6 * 3600)
+
+    with pytest.raises(AllowanceExhaustedError, match="allowance of 50 model requests is used up") as raised:
+        client(handler).ask("Capital of Italy?")
+    assert raised.value.status == 429
+    assert calls == ["main-model"]
+    assert PAUSES == []
+
+
+def test_limit_that_resets_within_the_retries_is_retried() -> None:
+    replies = [rate_limited(resets_in_s=5), answer("Rome.", "main-model")]
+
+    reply = client(lambda _: replies.pop(0)).ask("Capital of Italy?")
+    assert reply.text == "Rome."
+    assert PAUSES == [7.0]

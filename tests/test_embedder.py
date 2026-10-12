@@ -11,9 +11,9 @@ from dataclasses import replace
 import numpy as np
 import pytest
 
-from src.chunking import load_tokenizer
 from src.config import load_config
-from src.embedding import BgeM3Embedder
+from src.ingestion.chunking import load_tokenizer
+from src.retrieval.embedding import BgeM3Embedder
 
 pytestmark = pytest.mark.model
 

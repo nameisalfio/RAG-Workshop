@@ -1,12 +1,14 @@
-"""Structured Hydra configuration: every tunable value of the pipeline lives here or in conf/config.yaml."""
+"""Settings of the pipeline: the Hydra schema of conf/config.yaml and the secrets of the environment."""
 
 from __future__ import annotations
 
+import os
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import cast
 
+from dotenv import load_dotenv
 from hydra import compose, initialize_config_module
 from hydra.core.config_store import ConfigStore
 from hydra.core.global_hydra import GlobalHydra
@@ -25,8 +27,8 @@ class PathsConfig:
     raw_documents_dir: str = MISSING
     artifacts_dir: str = MISSING
     parsed_dir: str = MISSING
-    index_dir: str = MISSING
     golden_set: str = MISSING
+    evaluation_results: str = MISSING
     env_file: str = MISSING
 
 
@@ -57,6 +59,8 @@ class LlmConfig:
     provider: str = MISSING
     base_url: str = MISSING
     model: str = MISSING
+    attempts: int = MISSING
+    retry_pause_s: float = MISSING
     fallback_model: str = MISSING
     api_key_env: str = MISSING
     temperature: float = MISSING
@@ -76,10 +80,24 @@ class EmbeddingConfig:
 
 
 @dataclass
-class RerankingConfig:
-    """How results are scored against a query and how many are returned."""
+class RetrievalConfig:
+    """How the vector store is searched: which vectors, how many candidates, how they are fused."""
 
+    mode: str = MISSING
     similarity_metric: str = MISSING
+    candidates: int = MISSING
+    rrf_k: int = MISSING
+
+
+@dataclass
+class RerankingConfig:
+    """The cross-encoder that orders the candidates again, and how many chunks reach the prompt."""
+
+    enabled: bool = MISSING
+    model_name: str = MISSING
+    device: str = MISSING
+    batch_size: int = MISSING
+    max_length: int = MISSING
     top_k: int = MISSING
 
 
@@ -112,9 +130,22 @@ class RagConfig:
 
 @dataclass
 class EvaluationConfig:
-    """How answers are compared with the golden set."""
+    """How answers are compared with the golden set and how a recorded run behaves."""
 
+    judge: bool = MISSING
+    attempts: int = MISSING
+    retry_pause_s: float = MISSING
+    fresh: bool = MISSING
     abstention_markers: list[str] = MISSING
+
+
+@dataclass
+class CacheConfig:
+    """What is saved on disk so that a question asked before is answered at once."""
+
+    dir: str = MISSING
+    retrieval: bool = MISSING
+    answers: bool = MISSING
 
 
 @dataclass
@@ -134,11 +165,13 @@ class RootConfig:
     chunking: ChunkingConfig = MISSING
     llm: LlmConfig = MISSING
     embedding: EmbeddingConfig = MISSING
+    retrieval: RetrievalConfig = MISSING
     reranking: RerankingConfig = MISSING
     vector_store: VectorStoreConfig = MISSING
     ingestion: IngestionConfig = MISSING
     rag: RagConfig = MISSING
     evaluation: EvaluationConfig = MISSING
+    cache: CacheConfig = MISSING
     api: ApiConfig = MISSING
 
 
@@ -162,3 +195,23 @@ def load_config(overrides: Sequence[str] = ()) -> RootConfig:
     with initialize_config_module(config_module=CONFIG_MODULE, version_base=None):
         composed = compose(config_name=CONFIG_NAME, overrides=list(overrides))
     return cast(RootConfig, OmegaConf.to_object(composed))
+
+
+class MissingEnvironmentVariableError(RuntimeError):
+    """Raised when a required environment variable is unset or empty."""
+
+
+def load_env_file(env_file: Path) -> None:
+    """Load variables from an env file if it exists; variables already set in the environment win."""
+    if env_file.is_file():
+        load_dotenv(env_file, override=False)
+
+
+def require_env(name: str) -> str:
+    """Return the value of an environment variable; an unset or empty variable is an error."""
+    value = os.environ.get(name, "")
+    if not value.strip():
+        raise MissingEnvironmentVariableError(
+            f"Environment variable {name} is not set. Copy .env.example to .env and fill in {name}."
+        )
+    return value

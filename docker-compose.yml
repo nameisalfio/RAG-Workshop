@@ -5,7 +5,8 @@
 #   backend   API that retrieves the passages and asks the language model
 #   frontend  web interface
 #
-# The first start downloads the embedding model (about 2.3 GB) into the model_cache volume.
+# The first start downloads the embedding model and the re-ranker model (about 2.3 GB each) into
+# the model_cache volume.
 # To reuse models that are already on this machine, set MODEL_CACHE in .env to the absolute path of
 # the Hugging Face cache, for example MODEL_CACHE=/Users/me/.cache/huggingface
 
@@ -35,7 +36,7 @@ services:
 
   ingest:
     <<: *python-service
-    command: ["python", "-m", "src.ingest"]
+    command: ["python", "-m", "src.ingestion.main"]
     volumes:
       - ./raw-documents:/app/raw-documents:ro
       - ./data:/app/data
@@ -51,8 +52,11 @@ services:
     env_file: .env
     volumes:
       - ${MODEL_CACHE:-model_cache}:/models
-      # The golden set is data, not code: it can be edited without building the image again.
-      - ./evaluation:/app/evaluation:ro
+      # The golden set and the recorded results are data, not code: they change without a new image.
+      # `docker compose run --rm backend python -m src.evaluation` writes the results here.
+      - ./evaluation:/app/evaluation
+      # Passages and answers saved for the questions already asked: they outlive the container.
+      - ./data/cache:/app/data/cache
     depends_on:
       ingest:
         condition: service_completed_successfully

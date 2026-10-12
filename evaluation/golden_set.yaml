@@ -41,15 +41,6 @@
   context:
     - {document: CTR-2024-017_addendum-02, section: "Art. 1"}
 
-- id: arrival-017
-  type: superseded
-  question: Entro quante ore deve arrivare il tecnico del Fornitore secondo il contratto CTR-2024-017?
-  answer: Entro 6 ore dalla chiamata, dal 1° gennaio 2026 per effetto dell'addendum n. 2; in origine erano 8 ore.
-  facts:
-    - ["6 ore", "6 (sei) ore", "sei ore"]
-  context:
-    - {document: CTR-2024-017_addendum-02, section: "Art. 2"}
-
 - id: withdrawal-015
   type: superseded
   question: Con quanto preavviso può recedere il Committente dal contratto CTR-2023-015?
@@ -59,24 +50,6 @@
   context:
     - {document: CTR-2023-015_addendum-02, section: "Art. 1"}
 
-- id: price-019
-  type: superseded
-  question: Qual è il corrispettivo annuo del contratto CTR-2024-019?
-  answer: 139.000 euro oltre IVA, dal 1° gennaio 2025 per effetto dell'addendum n. 1; in origine erano 128.000 euro.
-  facts:
-    - ["139.000"]
-  context:
-    - {document: CTR-2024-019_addendum-01, section: "Art. 1"}
-
-- id: expiry-022
-  type: superseded
-  question: Quando scade il contratto CTR-2024-022?
-  answer: Il 30 giugno 2029, dopo che l'addendum n. 1 ha portato la durata a 60 mesi.
-  facts:
-    - ["30 giugno 2029"]
-  context:
-    - {document: CTR-2024-022_addendum-01, section: "Art. 1"}
-
 - id: remote-work-days
   type: superseded
   question: Quante giornate di lavoro agile alla settimana sono consentite?
@@ -85,33 +58,6 @@
     - ["3 giornate", "tre giornate"]
   context:
     - {document: POL-HR-002_v2.0, section: "3."}
-
-- id: mileage-refund
-  type: superseded
-  question: Quanto viene rimborsato al chilometro per l'uso dell'auto propria in trasferta?
-  answer: 0,45 euro al chilometro, secondo la versione 2.0 della policy in vigore dal 1° gennaio 2025; prima erano 0,42.
-  facts:
-    - ["0,45"]
-  context:
-    - {document: POL-HR-003_v2.0}
-
-- id: on-call-answer-time
-  type: superseded
-  question: Entro quanti minuti il reperibile deve rispondere alla chiamata del telecontrollo?
-  answer: Entro 20 minuti, secondo la versione 2.0 della policy in vigore dal 1° marzo 2026; prima erano 30.
-  facts:
-    - ["20 minuti"]
-  context:
-    - {document: POL-SIC-002_v2.0}
-
-- id: on-call-holiday-allowance
-  type: superseded
-  question: Qual è l'indennità di reperibilità nei giorni festivi?
-  answer: 50 euro al giorno, secondo la versione 2.0 della policy in vigore dal 1° marzo 2026; prima erano 40.
-  facts:
-    - ["50 euro"]
-  context:
-    - {document: POL-SIC-002_v2.0}
 
 - id: vibration-threshold-p7
   type: superseded
@@ -144,26 +90,6 @@
     - {document: MM-P4, section: "E-4012"}
     - {document: MU-P4, section: "E-4012"}
 
-- id: vibration-threshold-p8
-  type: lookalike
-  question: Qual è la soglia di allarme vibrazioni E-4021 per le pompe P8?
-  answer: 7,1 mm/s, come da manuale; il bollettino BT-12 non riguarda il modello P8.
-  facts:
-    - ["7,1"]
-  context:
-    - {document: MU-P8, section: "E-4021"}
-    - {document: MM-P8, section: "E-4021"}
-
-- id: withdrawal-030
-  type: lookalike
-  question: Con quanto preavviso può recedere il Committente dal contratto CTR-2025-030?
-  answer: Con 30 giorni di preavviso.
-  facts:
-    - ["30 giorni", "30 (trenta) giorni", "trenta giorni"]
-  context:
-    - {document: CTR-2025-030, section: "Art. 7"}
-    - {document: EML-2025-04}
-
 - id: supplier-withdrawal-017
   type: lookalike
   question: Con quanto preavviso può recedere il Fornitore dal contratto CTR-2024-017?
@@ -173,17 +99,6 @@
   context:
     - {document: CTR-2024-017_Beta, section: "Art. 7"}
     - {document: EML-2025-01}
-
-- id: non-renewal-017
-  type: lookalike
-  question: Con quanto preavviso va comunicata la disdetta alla scadenza del contratto CTR-2024-017?
-  answer: Con almeno 90 giorni di preavviso rispetto alla scadenza.
-  facts:
-    - ["90 giorni", "90 (novanta) giorni", "novanta giorni"]
-  context:
-    - {document: CTR-2024-017_Beta, section: "Art. 3"}
-    - {document: EML-2025-01}
-    - {document: VRB-2025-02}
 
 - id: rejected-30-days
   type: lookalike
@@ -216,15 +131,6 @@
   context:
     - {document: TK-2025-0031}
 
-- id: procedure-owner
-  type: direct
-  question: Chi è il responsabile della procedura PRO-ACQ-001 sulla qualifica dei fornitori?
-  answer: Marta Colombini, Responsabile Acquisti e Contratti.
-  facts:
-    - ["Colombini"]
-  context:
-    - {document: PRO-ACQ-001}
-
 - id: plant-sheet-p5
   type: table
   question: Quale fornitore fa la manutenzione delle pompe P5 dell'impianto di Fontechiara, e con quale contratto?
@@ -232,16 +138,6 @@
   facts:
     - ["Gamma"]
     - ["CTR-2024-019"]
-  context:
-    - {document: SCH-IMP-01, section: "Contratti di manutenzione"}
-
-- id: plant-sheet-fm300
-  type: table
-  question: Quale fornitore segue il misuratore FM-300 dell'impianto di Fontechiara, e con quale contratto?
-  answer: Iota Strumentazione S.r.l., con il contratto CTR-2025-011.
-  facts:
-    - ["Iota"]
-    - ["CTR-2025-011"]
   context:
     - {document: SCH-IMP-01, section: "Contratti di manutenzione"}
 
@@ -290,5 +186,19 @@
   type: unanswerable
   question: Quanti dipendenti ha Torrevalle Acque?
   answer: I documenti non lo riportano.
+  facts: []
+  context: []
+
+- id: no-such-pump
+  type: unanswerable
+  question: Qual è la soglia di allarme vibrazioni per la pompa P12?
+  answer: Nei documenti non esiste un modello P12.
+  facts: []
+  context: []
+
+- id: no-canteen
+  type: unanswerable
+  question: Quanto costa il pasto alla mensa aziendale?
+  answer: I documenti non parlano di una mensa aziendale.
   facts: []
   context: []

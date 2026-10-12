@@ -1,0 +1,1559 @@
+{
+  "created_at": "2026-10-12T12:27:31+02:00",
+  "judged": true,
+  "retrieval": {
+    "search": "hybrid search, 50 candidates re-ranked by BAAI/bge-reranker-v2-m3, top 10",
+    "top_k": 10,
+    "questions": 15,
+    "summary": {
+      "precision": 0.13333333333333333,
+      "recall": 0.8555555555555556,
+      "mrr": 0.8222222222222223,
+      "ndcg": 0.7914475657924268,
+      "context_recall": 0.8666666666666667
+    },
+    "by_type": [
+      {
+        "precision": 0.1,
+        "recall": 0.6666666666666667,
+        "mrr": 0.6,
+        "ndcg": 0.5854023329074646,
+        "context_recall": 0.8,
+        "type": "superseded",
+        "questions": 5
+      },
+      {
+        "precision": 0.17500000000000002,
+        "recall": 0.875,
+        "mrr": 1.0,
+        "ndcg": 0.8611754555872702,
+        "context_recall": 1.0,
+        "type": "lookalike",
+        "questions": 4
+      },
+      {
+        "precision": 0.2,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "type": "direct",
+        "questions": 2
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 0.3333333333333333,
+        "ndcg": 0.5,
+        "context_recall": 1.0,
+        "type": "table",
+        "questions": 1
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 0.5,
+        "type": "scan",
+        "questions": 2
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "type": "cross-language",
+        "questions": 1
+      }
+    ],
+    "rows": [
+      {
+        "precision": 0.1,
+        "recall": 0.3333333333333333,
+        "mrr": 0.5,
+        "ndcg": 0.2960819109658652,
+        "context_recall": 1.0,
+        "id": "withdrawal-017",
+        "first_relevant": 2,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "CTR-2024-017_Beta_manutenzione-pompe-sommergibili-p7-p9.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 2,
+            "document": "CTR-2024-017_addendum-01_Beta.pdf",
+            "section": "Art. 1 - Modifica dell'Art. 7 (Recesso)",
+            "relevant": true
+          },
+          {
+            "position": 3,
+            "document": "CTR-2024-028_Eta_accordo-quadro-ricambi-multimarca.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "CTR-2024-011_Alfa_manutenzione-pompe-campi-pozzi.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "CTR-2024-001_Lambda_somministrazione-energia-elettrica.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2024-030_Tau_vigilanza-e-teleallarme-impianti.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2024-005_Ypsilon_licenze-e-manutenzione-software-gestionale.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2024-006_Delta_fornitura-quadri-qe-80-e-inverter-inv-200.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2024-022_Epsilon_servizio-di-telecontrollo-impianti.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2024-013_Theta_fornitura-valvole-vr-150-e-carpenterie.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.0,
+        "recall": 0.0,
+        "mrr": 0.0,
+        "ndcg": 0.0,
+        "context_recall": 0.0,
+        "id": "price-017",
+        "first_relevant": null,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "CTR-2024-001_Lambda_somministrazione-energia-elettrica.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 2,
+            "document": "CTR-2024-011_Alfa_manutenzione-pompe-campi-pozzi.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "CTR-2024-030_Tau_vigilanza-e-teleallarme-impianti.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "CTR-2024-025_Omicron_trasporti-e-movimentazione.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "CTR-2024-019_Gamma_manutenzione-pompe-centrifughe-p4-p6.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2025-011_Iota_taratura-e-assistenza-strumentazione.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2026-001_Tau_formazione-sicurezza-sul-lavoro.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2025-005_Omicron_gestione-magazzino-ricambi.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2025-016_Kappa_analisi-di-laboratorio-acque.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2025-022_Rho_manutenzione-sistemi-di-dosaggio-dc-25.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309297535714575,
+        "context_recall": 1.0,
+        "id": "withdrawal-015",
+        "first_relevant": 2,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "CTR-2023-015_Zeta_manutenzione-elettromeccanica-borgolago.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 2,
+            "document": "CTR-2023-015_addendum-02_Zeta.pdf",
+            "section": "Art. 1 - Modifica dell'Art. 7 (Recesso)",
+            "relevant": true
+          },
+          {
+            "position": 3,
+            "document": "CTR-2023-009_Beta_fornitura-pompe-sommergibili-p7-p9.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "CTR-2023-018_Omega_manutenzione-opere-civili-impianti.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "CTR-2023-020_Kappa_smaltimento-fanghi-di-depurazione.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2023-012_Gamma_fornitura-pompe-centrifughe-p4-p6.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2023-004_Alfa_fornitura-pompe-sommerse-p1-p3.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2024-015_Rho_fornitura-ipoclorito-e-reagenti.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2024-025_Omicron_trasporti-e-movimentazione.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2024-028_Eta_accordo-quadro-ricambi-multimarca.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "remote-work-days",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "POL-HR-002_v2.0_lavoro-agile.pdf",
+            "section": "3. Giornate e pianificazione",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "POL-HR-002_v1.0_lavoro-agile.pdf",
+            "section": "3. Giornate e pianificazione",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "EML-2026-01_nuove-regole-accesso-e-lavoro-agile.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "POL-HR-002_v2.0_lavoro-agile.pdf",
+            "section": "Storico delle revisioni",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "VRB-2026-01_riesame-della-direzione_2026-01-22.md",
+            "section": "3. Aggiornamento delle policy interne",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "POL-HR-002_v2.0_lavoro-agile.pdf",
+            "section": "6. Rimborsi",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "POL-HR-002_v1.0_lavoro-agile.pdf",
+            "section": "4. Contattabilità e disconnessione",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "POL-HR-002_v2.0_lavoro-agile.pdf",
+            "section": "4. Contattabilità e disconnessione",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "POL-SIC-002_v1.0_reperibilita-e-pronto-intervento.pdf",
+            "section": "2. Turni",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "POL-SIC-002_v2.0_reperibilita-e-pronto-intervento.pdf",
+            "section": "2. Turni",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.2,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "vibration-threshold-p7",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "EML-2026-02_bollettino-tecnico-vibrazioni-p7.txt",
+            "section": "",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "BT-12_bollettino-tecnico-bt-12-vibrazioni-p7.pdf",
+            "section": "Nuove soglie",
+            "relevant": true
+          },
+          {
+            "position": 3,
+            "document": "BT-12_bollettino-tecnico-bt-12-vibrazioni-p7.pdf",
+            "section": "Apparecchiature interessate",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "MU-P7_manuale-uso-installazione-elettropompa-p7.pdf",
+            "section": "E-4021 - Vibrazioni oltre soglia",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "TK-2025-0102.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "MM-P7_manuale-manutenzione-elettropompa-p7.pdf",
+            "section": "E-4021 - Vibrazioni oltre soglia",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "TK-2026-0034.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "MU-P9_manuale-uso-installazione-elettropompa-p9.pdf",
+            "section": "E-4021 - Vibrazioni oltre soglia",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "MU-P8_manuale-uso-installazione-elettropompa-p8.pdf",
+            "section": "E-4021 - Vibrazioni oltre soglia",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "MM-P9_manuale-manutenzione-elettropompa-p9.pdf",
+            "section": "E-4021 - Vibrazioni oltre soglia",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.2,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 0.8315546295836225,
+        "context_recall": 1.0,
+        "id": "alarm-4012-p7",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "MM-P7_manuale-manutenzione-elettropompa-p7.pdf",
+            "section": "E-4012 - Infiltrazione d'acqua nella camera olio",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "VRB-2025-02_comitato-manutenzione_2025-01-30.md",
+            "section": "1. Guasto alla pompa di ricircolo fanghi di Castelrovo",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "TK-2025-0031.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "TK-2025-0305.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "TK-2025-0188.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "MU-P7_manuale-uso-installazione-elettropompa-p7.pdf",
+            "section": "E-4012 - Infiltrazione d'acqua nella camera olio",
+            "relevant": true
+          },
+          {
+            "position": 7,
+            "document": "MU-P7_manuale-uso-installazione-elettropompa-p7.pdf",
+            "section": "6. Allarmi",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "TK-2026-0069.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "TK-2026-0117.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "EML-2026-02_bollettino-tecnico-vibrazioni-p7.txt",
+            "section": "",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.2,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "alarm-4012-p4",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "MM-P4_manuale-manutenzione-elettropompa-p4.pdf",
+            "section": "E-4012 - Vibrazioni oltre soglia lato pompa",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "MU-P4_manuale-uso-installazione-elettropompa-p4.pdf",
+            "section": "E-4012 - Vibrazioni oltre soglia lato pompa",
+            "relevant": true
+          },
+          {
+            "position": 3,
+            "document": "MU-P4_manuale-uso-installazione-elettropompa-p4.pdf",
+            "section": "6. Allarmi",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "TK-2025-0031.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "TK-2025-0151.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "MM-P5_manuale-manutenzione-elettropompa-p5.pdf",
+            "section": "E-4012 - Vibrazioni oltre soglia lato pompa",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "MM-P6_manuale-manutenzione-elettropompa-p6.pdf",
+            "section": "E-4012 - Vibrazioni oltre soglia lato pompa",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "MU-P8_manuale-uso-installazione-elettropompa-p8.pdf",
+            "section": "6. Allarmi",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "MU-P7_manuale-uso-installazione-elettropompa-p7.pdf",
+            "section": "6. Allarmi",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "MU-P9_manuale-uso-installazione-elettropompa-p9.pdf",
+            "section": "6. Allarmi",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 0.5,
+        "mrr": 1.0,
+        "ndcg": 0.6131471927654584,
+        "context_recall": 1.0,
+        "id": "supplier-withdrawal-017",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "CTR-2024-017_Beta_manutenzione-pompe-sommergibili-p7-p9.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "CTR-2024-028_Eta_accordo-quadro-ricambi-multimarca.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "CTR-2024-001_Lambda_somministrazione-energia-elettrica.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "CTR-2024-030_Tau_vigilanza-e-teleallarme-impianti.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "CTR-2024-011_Alfa_manutenzione-pompe-campi-pozzi.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2024-006_Delta_fornitura-quadri-qe-80-e-inverter-inv-200.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2024-013_Theta_fornitura-valvole-vr-150-e-carpenterie.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2024-005_Ypsilon_licenze-e-manutenzione-software-gestionale.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2024-025_Omicron_trasporti-e-movimentazione.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2024-022_Epsilon_servizio-di-telecontrollo-impianti.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.2,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "rejected-30-days",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "VRB-2025-02_comitato-manutenzione_2025-01-30.md",
+            "section": "Decisioni",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "VRB-2025-02_comitato-manutenzione_2025-01-30.md",
+            "section": "2. Condizioni di recesso del contratto di manutenzione delle pompe sommergibili",
+            "relevant": true
+          },
+          {
+            "position": 3,
+            "document": "EML-2025-01_proposta-addendum-recesso-beta.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "EML-2025-04_chiarimento-preavviso-recesso-beta.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "EML-2025-01_proposta-addendum-recesso-beta.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2024-001_Lambda_somministrazione-energia-elettrica.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2024-025_Omicron_trasporti-e-movimentazione.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2024-017_addendum-01_Beta.pdf",
+            "section": "premesso che",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2025-027_Gamma_revisione-motori-elettrici.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2025-021_Alfa_fornitura-ricambi-p1-p3.pdf",
+            "section": "Art. 7 - Recesso",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.3,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "legal-representative-beta",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "CTR-2025-030_Beta_pronto-intervento-e-noleggio-pompe.pdf",
+            "section": "e",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "CTR-2024-017_Beta_manutenzione-pompe-sommergibili-p7-p9.pdf",
+            "section": "e",
+            "relevant": true
+          },
+          {
+            "position": 3,
+            "document": "CTR-2023-009_Beta_fornitura-pompe-sommergibili-p7-p9.pdf",
+            "section": "e",
+            "relevant": true
+          },
+          {
+            "position": 4,
+            "document": "CTR-2024-017_addendum-01_Beta.pdf",
+            "section": "ADDENDUM N. 1 AL CONTRATTO N. CTR-2024-017",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "CTR-2024-017_addendum-02_Beta.pdf",
+            "section": "ADDENDUM N. 2 AL CONTRATTO N. CTR-2024-017",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "EML-2025-01_proposta-addendum-recesso-beta.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2023-018_Omega_manutenzione-opere-civili-impianti.pdf",
+            "section": "e",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2023-018_addendum-01_Omega.pdf",
+            "section": "ADDENDUM N. 1 AL CONTRATTO N. CTR-2023-018",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2025-013_Omega_rifacimento-vasche-depuratore-castelrovo.pdf",
+            "section": "e",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2023-020_addendum-01_Kappa.pdf",
+            "section": "ADDENDUM N. 1 AL CONTRATTO N. CTR-2023-020",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "ticket-0031",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "TK-2025-0031.txt",
+            "section": "",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "VRB-2025-02_comitato-manutenzione_2025-01-30.md",
+            "section": "1. Guasto alla pompa di ricircolo fanghi di Castelrovo",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "TK-2025-0349.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "TK-2025-0188.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "TK-2026-0131.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "TK-2025-0119.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "TK-2025-0102.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "TK-2025-0333.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "TK-2025-0151.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "TK-2025-0270.txt",
+            "section": "",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 0.3333333333333333,
+        "ndcg": 0.5,
+        "context_recall": 1.0,
+        "id": "plant-sheet-p5",
+        "first_relevant": 3,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "EML-2026-03_manutenzione-pompe-p5-fontechiara.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 2,
+            "document": "CTR-2024-019_addendum-01_Gamma.pdf",
+            "section": "premesso che",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "SCH-IMP-01_scheda-impianto-fontechiara.pdf",
+            "section": "Contratti di manutenzione e assistenza",
+            "relevant": true
+          },
+          {
+            "position": 4,
+            "document": "TK-2026-0081.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "SCH-IMP-08_scheda-impianto-rivasecca.pdf",
+            "section": "Contratti di manutenzione e assistenza",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "SCH-IMP-10_scheda-impianto-torrevalle-centro.pdf",
+            "section": "Contratti di manutenzione e assistenza",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2024-019_Gamma_manutenzione-pompe-centrifughe-p4-p6.pdf",
+            "section": "Art. 1 - Oggetto",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "TK-2025-0188.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "EML-2026-03_manutenzione-pompe-p5-fontechiara.txt",
+            "section": "",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "TK-2025-0102.txt",
+            "section": "",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "rental-fee",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 2 - Canone",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 5 - Recesso",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 4- Durata e rinnovo",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 1 - Oggetto",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "CONTRATTO DI NOLEGGIO A LUNGO TERMINE N. 47/2019",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2024-025_Omicron_trasporti-e-movimentazione.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "CTR-2026-001_Tau_formazione-sicurezza-sul-lavoro.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2024-019_addendum-01_Gamma.pdf",
+            "section": "Art. 1 - Modifica dell'Art. 2 (Corrispettivo)",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2024-005_Ypsilon_licenze-e-manutenzione-software-gestionale.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2025-027_Gamma_revisione-motori-elettrici.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 0.0,
+        "id": "rental-mileage",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 3 - Percorrenza",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 4- Durata e rinnovo",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "Art. 1 - Oggetto",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "N-47-2019_contratto-noleggio-veicoli-47-2019.pdf",
+            "section": "CONTRATTO DI NOLEGGIO A LUNGO TERMINE N. 47/2019",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "CTR-2024-019_addendum-01_Gamma.pdf",
+            "section": "Art. 1 - Modifica dell'Art. 2 (Corrispettivo)",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "POL-AUT-001_v1.0_veicoli-aziendali.pdf",
+            "section": "1. Scopo",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "POL-AUT-001_v2.0_veicoli-aziendali.pdf",
+            "section": "1. Scopo",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "CTR-2024-017_addendum-02_Beta.pdf",
+            "section": "Art. 1 - Modifica dell'Art. 2 (Corrispettivo)",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "CTR-2023-018_Omega_manutenzione-opere-civili-impianti.pdf",
+            "section": "Art. 2 - Corrispettivo",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "CTR-2025-030_Beta_pronto-intervento-e-noleggio-pompe.pdf",
+            "section": "Art. 3 - Durata e rinnovo",
+            "relevant": false
+          }
+        ]
+      },
+      {
+        "precision": 0.1,
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "context_recall": 1.0,
+        "id": "northgate-site-visit",
+        "first_relevant": 1,
+        "retrieved": [
+          {
+            "position": 1,
+            "document": "MSA-2025-01_maintenance-service-agreement-northgate.pdf",
+            "section": "2. Response times",
+            "relevant": true
+          },
+          {
+            "position": 2,
+            "document": "SA-2024-02-A1_amendment-1-supply-agreement-northgate.pdf",
+            "section": "2. Termination",
+            "relevant": false
+          },
+          {
+            "position": 3,
+            "document": "MSA-2025-01_maintenance-service-agreement-northgate.pdf",
+            "section": "MAINTENANCE SERVICE AGREEMENT No. MSA-2025-01",
+            "relevant": false
+          },
+          {
+            "position": 4,
+            "document": "PRO-AMM-002_autorizzazione-della-spesa.pdf",
+            "section": "4. Ordini urgenti",
+            "relevant": false
+          },
+          {
+            "position": 5,
+            "document": "MSA-2025-01_maintenance-service-agreement-northgate.pdf",
+            "section": "Schedule 1 - Sites and equipment",
+            "relevant": false
+          },
+          {
+            "position": 6,
+            "document": "CTR-2024-011_addendum-01_Alfa.pdf",
+            "section": "Art. 1 - Modifica dell'Art. 4 (Livelli di servizio)",
+            "relevant": false
+          },
+          {
+            "position": 7,
+            "document": "SCH-IMP-03_scheda-impianto-collesereno.pdf",
+            "section": "Contratti di manutenzione e assistenza",
+            "relevant": false
+          },
+          {
+            "position": 8,
+            "document": "SCH-IMP-08_scheda-impianto-rivasecca.pdf",
+            "section": "Contratti di manutenzione e assistenza",
+            "relevant": false
+          },
+          {
+            "position": 9,
+            "document": "PRO-MAN-001_gestione-dei-ticket-di-manutenzione.pdf",
+            "section": "5. Chiusura e verifica",
+            "relevant": false
+          },
+          {
+            "position": 10,
+            "document": "SA-2024-02-A1_amendment-1-supply-agreement-northgate.pdf",
+            "section": "AMENDMENT No. 1 TO SUPPLY AGREEMENT No. SA-2024-02",
+            "relevant": false
+          }
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "withdrawal-017": {
+      "id": "withdrawal-017",
+      "answer": "Il Committente può recedere dal contratto **CTR-2024-017** con un preavviso di **45 (quarantacinque) giorni**.\n\n**Fonti e motivazione:**\n- Il contratto base (**CTR-2024-017_Beta_manutenzione-pompe-sommergibili-p7-p9.pdf**, Art. 7) prevedeva originariamente un preavviso di 60 giorni【1】.\n- L’**addendum n. 1 (CTR-2024-017_addendum-01_Beta.pdf**, Art. 1) ha modificato tale clausola **a decorrere dal 1° marzo 2025**, riducendo il preavviso a 45 giorni【2】.\n- Poiché oggi è il 12 ottobre 2026 (data successiva al 1° marzo 2025), si applica la versione aggiornata dall’addendum.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "45 giorni",
+            "45 (quarantacinque) giorni",
+            "quarantacinque giorni"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": null,
+      "faithfulness_error": "Expecting value: line 1 column 12 (char 11)"
+    },
+    "price-017": {
+      "id": "price-017",
+      "answer": "Non lo so. I passaggi forniti non contengono informazioni sul contratto CTR-2024-017. I contratti elencati sono: CTR-2024-001, CTR-2024-011, CTR-2024-030, CTR-2024-025, CTR-2024-019, CTR-2025-011, CTR-2026-001, CTR-2025-005, CTR-2025-016 e CTR-2025-022.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "192.000"
+          ],
+          "found": false
+        }
+      ],
+      "abstained": true,
+      "passed": false,
+      "faithfulness": {
+        "claims": 2,
+        "supported": 2,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "withdrawal-015": {
+      "id": "withdrawal-015",
+      "answer": "Il Committente può recedere dal contratto **CTR-2023-015** con un preavviso di **120 giorni**.\n\n**Motivazione:**  \n- L’addendum n. 2 (documento [2]) modifica l’Art. 7 del contratto originale a decorrere dal **1° febbraio 2026**, stabilendo che «Il Committente può recedere dal contratto in qualsiasi momento, con preavviso di 120 (centoventi) giorni».  \n- Poiché oggi è il **12 ottobre 2026**, la modifica è pienamente efficace e sostituisce la previsione originaria di 90 giorni contenuta nel contratto base (documento [1]).",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "120 giorni",
+            "120 (centoventi) giorni",
+            "centoventi giorni"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 4,
+        "supported": 2,
+        "score": 0.5
+      },
+      "faithfulness_error": null
+    },
+    "remote-work-days": {
+      "id": "remote-work-days",
+      "answer": "Secondo la policy attualmente in vigore (versione 2.0, efficace dal 1° gennaio 2026), sono consentite **fino a 3 giornate di lavoro agile alla settimana** [1].  \n\nIl passaggio dalla versione 1.0 (che prevedeva 2 giornate) alla 2.0 è confermato da:\n- l’email di Andrea Vitale dell’8 gennaio 2026 che annuncia l’aumento a 3 giornate [3];\n- lo storico delle revisioni della policy, che registra il cambio “Giornate di lavoro agile aumentate da 2 a 3 alla settimana” con decorrenza 1° gennaio 2026 [4];\n- il verbale del riesame della direzione del 22 gennaio 2026, che ricorda l’entrata in vigore della v2.0 con 3 giornate settimanali [5].\n\nPoiché oggi è il 12 ottobre 2026, si applica la versione 2.0.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "3 giornate",
+            "tre giornate"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": null,
+      "faithfulness_error": "The judge did not reply with JSON: 'The user wants me to check if the answer is supported by the passages. I need to split the answer into factual claims and count how many are supported by the passages.\\n\\nThe answer states:\\n\\n1. \"Secondo'"
+    },
+    "vibration-threshold-p7": {
+      "id": "vibration-threshold-p7",
+      "answer": "La soglia di allarme vibrazioni **E-4021** per le elettropompe **P7 con matricola anteriore al 2024** (prefissi da P7-20 a P7-23) è **6,3 mm/s**.\n\nQuesto valore deriva dal **bollettino tecnico BT-12 del 16 marzo 2026** ([1], [2], [3]), che ha abbassato la soglia di allarme dal valore originale del manuale (7,1 mm/s, vedi [4]) a 6,3 mm/s per le sole P7 costruite fino al 2023. La modifica è in vigore dalla data del bollettino (marzo 2026) e quindi si applica anche oggi (12 ottobre 2026).",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "6,3"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 3,
+        "supported": 2,
+        "score": 0.6666666666666666
+      },
+      "faithfulness_error": null
+    },
+    "alarm-4012-p7": {
+      "id": "alarm-4012-p7",
+      "answer": "L'allarme **E-4012** sulla pompa P7 indica un'**infiltrazione d'acqua nella camera olio** (camera tenute).\n\n**Dettagli principali** (da [1], [6], [7]):\n\n| Aspetto | Descrizione |\n|---------|-------------|\n| **Significato** | Il sensore conduttivo posto nella camera olio rileva la presenza di acqua. |\n| **Gravità** | **Allarme** (non blocco immediato). |\n| **Ripristino** | **Manuale**. |\n| **Cause probabili** | Usura della tenuta meccanica inferiore; cavi o filamenti avvolti sull'albero; urti sulla girante. |\n| **Tempo massimo di esercizio consentito** | **24 ore** dall'attivazione dell'allarme. |\n| **Intervento richiesto** | Entro 24 ore: sollevare la pompa, controllare l'olio (che appare lattiginoso se c'è acqua) e **sostituire la tenuta meccanica inferiore** (ricambio **RIC-P7-0031**). Si consiglia anche di verificare lo stato del sensore di infiltrazione (ricambio **RIC-P7-0071**). |\n\nIn pratica, l'allarme segnala che la tenuta inferiore sta lasciando passare acqua nella camera olio; la pompa può continuare a girare per al massimo un giorno, ma va fermata e riparata entro quel termine per evitare danni maggiori.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "infiltrazione"
+          ],
+          "found": true
+        },
+        {
+          "wordings": [
+            "camera olio",
+            "camera dell'olio"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 7,
+        "supported": 7,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "alarm-4012-p4": {
+      "id": "alarm-4012-p4",
+      "answer": "Sulla pompa **P4** l'allarme **E-4012** indica **“Vibrazioni oltre soglia lato pompa”** (vibrazioni superiori alla soglia ammessa sul corpo pompa).\n\n**Dettagli dai manuali P4:**\n\n| Aspetto | Descrizione | Fonte |\n|---------|-------------|-------|\n| **Significato** | Vibrazioni oltre soglia lato pompa | [3] (tabella allarmi) |\n| **Gravità** | Allarme | [1], [3] |\n| **Ripristino** | Manuale | [1], [3] |\n| **Rilevazione** | Il sensore sul corpo pompa misura vibrazioni > 4,5 mm/s RMS per più di 60 secondi | [2] |\n| **Cause probabili** | Disallineamento del giunto; cuscinetti usurati; girante sbilanciata; bulloni di fondazione allentati | [2] |\n| **Controlli** | Misurare l'allineamento con comparatore; eseguire l'analisi in frequenza delle vibrazioni | [1] |\n| **Rimedio** | Verificare l'allineamento del giunto (tolleranza **0,10 mm**) e il serraggio dei bulloni di fondazione; se la vibrazione supera il **doppio della soglia** fermare immediatamente la pompa | [1], [2] |\n\n> **Nota:** Su altri modelli (P7, P8, P9) lo stesso codice E-4012 corrisponde a “Infiltrazione d'acqua nella camera olio” ([8], [9], [10]), ma per la **P4** il significato è esclusivamente legato alle vibrazioni, come riportato nei manuali dedicati ([1], [2], [3]).",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "vibrazioni"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 8,
+        "supported": 8,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "supplier-withdrawal-017": {
+      "id": "supplier-withdrawal-017",
+      "answer": "Il Fornitore può recedere dal contratto **CTR‑2024‑017** solo per giusta causa e deve dare un preavviso di **180 giorni** (centottanta giorni)【1】.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "180 giorni",
+            "180 (centottanta) giorni",
+            "centottanta giorni"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 2,
+        "supported": 2,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "rejected-30-days": {
+      "id": "rejected-30-days",
+      "answer": "No. Il comitato manutenzione ha approvato la riduzione del preavviso di recesso a **45 giorni** per il contratto CTR-2024-017, respingendo esplicitamente l’ipotesi di un preavviso di 30 giorni.\n\n- Nel verbale della riunione del 30 gennaio 2025 si legge: «Approvata la riduzione a 45 giorni del preavviso di recesso del contratto CTR-2024-017… Scartata l'ipotesi di un preavviso di 30 giorni»【1】.  \n- Nella sezione dedicata alle condizioni di recesso dello stesso verbale si conferma: «Il comitato approva la riduzione a 45 giorni… Viene valutata anche l'ipotesi di un preavviso di 30 giorni, che il fornitore non ha accettato: l'ipotesi è scartata»【2】.  \n\nDi conseguenza, il preavviso approvato è di 45 giorni (formalizzato poi con l’addendum n. 1 con effetto dal 1° marzo 2025), non di 30 giorni.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "45 giorni"
+          ],
+          "found": true
+        },
+        {
+          "wordings": [
+            "scartat",
+            "non ha accettato",
+            "non l'ha accettat",
+            "rifiutat",
+            "respint",
+            "non è stata approvata"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 5,
+        "supported": 5,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "legal-representative-beta": {
+      "id": "legal-representative-beta",
+      "answer": "Secondo i documenti forniti, il legale rappresentante di **Beta Idroservizi S.r.l.** è **Guido Santoro**.\n\nQuesta informazione risulta in modo coerente in tutti i contratti e addendum che coinvolgono Beta Idroservizi:\n\n- **CTR-2025-030** (pronto intervento e noleggio pompe) [1]\n- **CTR-2024-017** (manutenzione pompe sommergibili P7-P9) [2]\n- **CTR-2023-009** (fornitura pompe sommergibili P7-P9) [3]\n- **Addendum n. 1 al CTR-2024-017** [4]\n- **Addendum n. 2 al CTR-2024-017** [5]\n\nTutti i documenti riportano: *\"Beta Idroservizi S.r.l., con sede legale in Viale delle Officine 21, Castelrovo, codice fiscale e partita IVA 00845170992, in persona del legale rappresentante Guido Santoro (di seguito, «Fornitore»)\".*",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "Guido Santoro"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 8,
+        "supported": 8,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "ticket-0031": {
+      "id": "ticket-0031",
+      "answer": "Nel ticket **TK-2025-0031** è stato segnalato l'allarme **E-4012** sull'apparecchiatura **CAS-P7-02** (matricola P7-22-00418) [1].",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "E-4012"
+          ],
+          "found": true
+        },
+        {
+          "wordings": [
+            "CAS-P7-02"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 4,
+        "supported": 4,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "plant-sheet-p5": {
+      "id": "plant-sheet-p5",
+      "answer": "**Fornitore:** Gamma Elettromeccanica S.r.l.  \n**Contratto:** CTR‑2024‑019 (con addendum n. 1 in vigore dal 1° gennaio 2025)\n\n**Fonti:**\n- L’e‑mail **EML-2026-03_manutenzione-pompe-p5-fontechiara.txt** ([1]) indica esplicitamente: «per le P5 di Fontechiara devi chiamare Gamma Elettromeccanica. L'impianto è entrato nel contratto CTR-2024-019 con l'addendum n. 1, in vigore dal 1° gennaio 2025».\n- La scheda d’impianto **SCH-IMP-01_scheda-impianto-fontechiara.pdf** ([3]) riporta nella tabella «Contratti di manutenzione e assistenza» che per le apparecchiature P5 (FON-P5-01, FON-P5-02) il fornitore è **Gamma Elettromeccanica S.r.l.** e il contratto è **CTR-2024-019**.\n- Il ticket di manutenzione **TK-2026-0081.txt** ([4]), relativo a una P5 di Fontechiara (FON-P5-02), mostra l’assegnazione a **Gamma Elettromeccanica S.r.l.** con contratto **CTR-2024-019**.\n- Il contratto base **CTR-2024-019_Gamma_manutenzione-pompe-centrifughe-p4-p6.pdf** ([7], Art. 1) definisce l’oggetto come manutenzione delle elettropompe centrifughe modelli P4, P5 e P6, confermando che le P5 rientrano in quel contratto.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "Gamma"
+          ],
+          "found": true
+        },
+        {
+          "wordings": [
+            "CTR-2024-019"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 6,
+        "supported": 6,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "rental-fee": {
+      "id": "rental-fee",
+      "answer": "Il canone mensile complessivo del contratto di noleggio veicoli n. 47/2019 è pari a **euro 6.800,00, oltre IVA**, fatturato mensilmente in via anticipata e pagabile a 30 giorni data fattura【1】.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "6.800"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 4,
+        "supported": 4,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "rental-mileage": {
+      "id": "rental-mileage",
+      "answer": "Dall'**Art. 3 - Percorrenza** del contratto n. 47/2019 (documento [1]) il testo risulta illeggibile a causa di errori di estrazione («I cn c,o c cocac c con cc cn veicolo»). L’unica informazione comprensibile è che **i chilometri eccedenti sono addebitati a 0,09 €/km con conguaglio annuale**, ma **la percorrenza annua base (il limite incluso nel canone) non è leggibile nel brano fornito**.  \n\nPertanto, **non è possibile determinare la percorrenza annua prevista** dai passaggi a disposizione.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "25.000"
+          ],
+          "found": false
+        }
+      ],
+      "abstained": false,
+      "passed": false,
+      "faithfulness": {
+        "claims": 4,
+        "supported": 4,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "northgate-site-visit": {
+      "id": "northgate-site-visit",
+      "answer": "Secondo l'accordo MSA-2025-01 (passaggio [1]), Northgate deve intervenire sul posto **entro 5 giorni lavorativi** dalla richiesta, quando è necessaria una visita on-site.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [
+        {
+          "wordings": [
+            "5 giorni lavorativi",
+            "cinque giorni lavorativi",
+            "5 business days",
+            "five business days"
+          ],
+          "found": true
+        }
+      ],
+      "abstained": false,
+      "passed": true,
+      "faithfulness": {
+        "claims": 1,
+        "supported": 1,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "no-phone-number": {
+      "id": "no-phone-number",
+      "answer": "Non lo so. I documenti forniti menzionano Elena Sartori come Direttore Generale di Torrevalle Acque S.p.A. in tutti i contratti e addendum (passaggi 1-10), ma nessuno di essi riporta il suo numero di cellulare o altri recapiti telefonici personali.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [],
+      "abstained": true,
+      "passed": true,
+      "faithfulness": {
+        "claims": 2,
+        "supported": 2,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "no-such-contract": {
+      "id": "no-such-contract",
+      "answer": "Non lo so. I documenti forniti non contengono informazioni sul contratto CTR-2027-001.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [],
+      "abstained": true,
+      "passed": true,
+      "faithfulness": {
+        "claims": 2,
+        "supported": 1,
+        "score": 0.5
+      },
+      "faithfulness_error": null
+    },
+    "no-headcount": {
+      "id": "no-headcount",
+      "answer": "Non lo so. I passaggi forniti non contengono informazioni sul numero di dipendenti di Torrevalle Acque. Essi menzionano solo che i dipendenti trattano dati personali nei limiti dell'autorizzazione ricevuta (documenti [1] e [2]), ma non indicano quanti siano.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [],
+      "abstained": true,
+      "passed": true,
+      "faithfulness": {
+        "claims": 2,
+        "supported": 2,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "no-such-pump": {
+      "id": "no-such-pump",
+      "answer": "Non è presente alcuna informazione sulla pompa P12 nei documenti forniti. I passaggi citano solo le pompe P4, P5, P6, P7, P8 e P9.",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [],
+      "abstained": true,
+      "passed": true,
+      "faithfulness": {
+        "claims": 2,
+        "supported": 2,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    },
+    "no-canteen": {
+      "id": "no-canteen",
+      "answer": "Non lo so. I documenti forniti non contengono informazioni sul costo dei pasti presso una mensa aziendale. Essi riportano solo i massimali di rimborso per i pasti sostenuti durante le trasferte di lavoro (35 euro a pasto secondo la versione 2.0 della POL-HR-003 in vigore dal 1° gennaio 2025).",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "facts": [],
+      "abstained": true,
+      "passed": true,
+      "faithfulness": {
+        "claims": 3,
+        "supported": 3,
+        "score": 1.0
+      },
+      "faithfulness_error": null
+    }
+  },
+  "errors": {}
+}

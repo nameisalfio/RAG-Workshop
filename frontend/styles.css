@@ -798,6 +798,22 @@ h1 {
   font-size: var(--text-lede);
 }
 
+/* The list of questions is long: it stays closed until asked for. */
+/* The summary keeps its default layout, so that the browser draws the marker that says it opens. */
+.block-summary {
+  color: var(--color-heading);
+  cursor: pointer;
+}
+
+.block-summary h2 {
+  display: inline;
+  margin-inline-end: var(--space-3);
+}
+
+.questions-block[open] .block-summary {
+  margin-bottom: var(--space-2);
+}
+
 .meta {
   color: var(--color-text-soft);
   font-size: var(--text-small);

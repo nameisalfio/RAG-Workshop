@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
     <title>Documents assistant</title>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <!--
@@ -25,7 +25,7 @@
         </div>
         <nav class="chat-nav" aria-label="Saved chats">
           <ul id="chat-list" class="chat-list"></ul>
-          <p id="chat-empty" class="chat-empty">No chats yet. Ask a question and it will be kept here.</p>
+          <p id="chat-empty" class="chat-empty">No chats yet. Let's start with the first question.</p>
         </nav>
       </aside>
       <div id="backdrop" class="backdrop" hidden></div>
@@ -83,6 +83,7 @@
             <h1 id="evaluation-title">How good are the answers?</h1>
             <div class="rule" aria-hidden="true"></div>
             <p id="evaluation-lede" class="lede">Loading the golden set.</p>
+            <p id="evaluation-recorded" class="meta" hidden></p>
             <p id="evaluation-problem" class="notice" role="alert" hidden></p>
 
             <section class="block" aria-labelledby="retrieval-title">
@@ -92,8 +93,10 @@
               </div>
               <p class="meta">
                 Does the search bring back the passages that hold the answer, and near the top? This needs
-                no language model and takes a few seconds.
+                no language model. The re-ranker reads every candidate of every question, so a new
+                measurement takes a few minutes.
               </p>
+              <p id="retrieval-search" class="meta" hidden></p>
               <dl id="retrieval-metrics" class="metrics"></dl>
               <div id="retrieval-types" class="table-scroll"></div>
             </section>
@@ -116,11 +119,14 @@
               <dl id="generation-metrics" class="metrics"></dl>
             </section>
 
-            <section class="block" aria-labelledby="questions-title">
-              <h2 id="questions-title">Questions</h2>
+            <details class="block questions-block">
+              <summary class="block-summary">
+                <h2 id="questions-title">Questions</h2>
+                <span id="questions-count" class="meta"></span>
+              </summary>
               <p class="meta">Open a question to see its golden passages, what was retrieved and the answer.</p>
-              <ol id="question-list" class="question-list"></ol>
-            </section>
+              <ol id="question-list" class="question-list" aria-labelledby="questions-title"></ol>
+            </details>
           </div>
         </section>
 
@@ -136,6 +142,6 @@
     </div>
 
     <!-- The version in the address makes a browser that kept the files of an older page fetch these. -->
-    <script type="module" src="app.js?v=3"></script>
+    <script type="module" src="app.js?v=5"></script>
   </body>
 </html>
